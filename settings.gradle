@@ -1,0 +1,2 @@
+rootProject.name='InteligentnaLodowka_MobileApp'
+include ':app'
