@@ -4,19 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/background_scan"
-    tools:context=".ScanPrroductsActivity">
+    tools:context=".ShowAllRecipesActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="378dp"
-
-        android:layout_height="275dp"
-        android:layout_marginBottom="180dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/imageView3"
+        android:layout_width="99dp"
+        android:layout_height="81dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/rectangle_white" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cooking" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
