@@ -20,6 +20,9 @@ class MainActivity : AppCompatActivity() {
         buttonRecipes.setOnClickListener{
             goToWindowShowAllRecipesActivity()
         }
+        buttonShoppingList.setOnClickListener{
+            goToShopListActivity()
+        }
 
 
     }
@@ -37,5 +40,10 @@ class MainActivity : AppCompatActivity() {
     private fun goToWindowShowAllRecipesActivity(){
         val activityGoToShowAllRecipesActivity = Intent(applicationContext, ShowAllRecipesActivity::class.java)
         startActivity(activityGoToShowAllRecipesActivity)
+    }
+
+    private fun goToShopListActivity(){
+        val activityGoToShopListAcyivity = Intent(applicationContext, ShoppingListActivity::class.java)
+        startActivity(activityGoToShopListAcyivity)
     }
 }
