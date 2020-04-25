@@ -12,13 +12,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         buttonFridge.setOnClickListener{
-            goToWindowFridge()
+            goToWindowFridgeActivity()
+        }
+        buttonScan.setOnClickListener{
+            goToWindowScanActivity()
         }
 
     }
 
-    private fun goToWindowFridge(){
-        val activityGoToFridge = Intent(applicationContext, Fridge::class.java)
+    private fun goToWindowFridgeActivity(){
+        val activityGoToFridge = Intent(applicationContext, FridgeActivity::class.java)
         startActivity(activityGoToFridge)
     }
+
+    private fun goToWindowScanActivity(){
+        val activityGoToScanActivity = Intent(applicationContext, ScanPrroductsActivity::class.java)
+        startActivity(activityGoToScanActivity)
+    }
+
 }
