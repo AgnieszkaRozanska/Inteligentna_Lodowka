@@ -1,7 +1,8 @@
-package com.example.inteligentnalodowka_mobileapp
+package com.example.inteligentnalodowka_mobileapp.Fridge
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.inteligentnalodowka_mobileapp.R
 
 class FridgeActivity : AppCompatActivity() {
 

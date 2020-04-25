@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ShoppingListActivity"></activity>
-        <activity android:name=".ShowAllRecipesActivity" />
+        <activity android:name=".Recipies.ShowAllRecipesActivity" />
         <activity android:name=".ScanPrroductsActivity" />
-        <activity android:name=".FridgeActivity" />
+        <activity android:name=".Fridge.FridgeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

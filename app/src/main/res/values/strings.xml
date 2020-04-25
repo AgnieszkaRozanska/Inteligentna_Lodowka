@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">InteligentnaLodowka_MobileApp</string>
     <string name="hintFridgeSearchProducts">Wpisz nazwę produktu</string>
+    <string name="numberOfPackages">Liczba opakowań</string>
+    <string name="ExpirationDateInfo">Data ważności</string>
 </resources>

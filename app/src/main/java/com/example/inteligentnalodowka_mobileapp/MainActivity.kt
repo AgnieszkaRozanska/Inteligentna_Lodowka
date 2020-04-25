@@ -3,6 +3,8 @@ package com.example.inteligentnalodowka_mobileapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.inteligentnalodowka_mobileapp.Fridge.FridgeActivity
+import com.example.inteligentnalodowka_mobileapp.Recipies.ShowAllRecipesActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
