@@ -17,6 +17,10 @@ class MainActivity : AppCompatActivity() {
         buttonScan.setOnClickListener{
             goToWindowScanActivity()
         }
+        buttonRecipes.setOnClickListener{
+            goToWindowShowAllRecipesActivity()
+        }
+
 
     }
 
@@ -30,4 +34,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(activityGoToScanActivity)
     }
 
+    private fun goToWindowShowAllRecipesActivity(){
+        val activityGoToShowAllRecipesActivity = Intent(applicationContext, ShowAllRecipesActivity::class.java)
+        startActivity(activityGoToShowAllRecipesActivity)
+    }
 }
