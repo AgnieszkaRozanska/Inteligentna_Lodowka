@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorGray"
     tools:context=".FridgeActivity">
 
     <Button
@@ -31,7 +32,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:padding="10dp"
-        android:hint="Wpisz nazwę produktu"
+        android:hint="@string/hintFridgeSearchProducts"
         android:textAlignment="center"
         android:inputType="text"
         android:background="@mipmap/search_panel"
