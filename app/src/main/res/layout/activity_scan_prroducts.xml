@@ -10,10 +10,9 @@
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="378dp"
-
         android:layout_height="275dp"
-        android:layout_marginBottom="176dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="150px"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddProduct"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +25,9 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="70dp"
         android:text="@string/numberOfPackages"
-        android:textSize="16dp"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
@@ -37,7 +38,9 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="50dp"
         android:text="@string/ExpirationDateInfo"
-        android:textSize="16dp"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/textViewNumberOfPackagesInfo" />
 
@@ -48,7 +51,9 @@
         android:layout_marginTop="70dp"
         android:layout_marginEnd="35dp"
         android:text="2"
-        android:textSize="16dp"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewNumberOfPackagesInfo"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
@@ -60,7 +65,9 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="35dp"
         android:text="04.05.2020"
-        android:textSize="16dp"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.635"
         app:layout_constraintStart_toEndOf="@+id/textViewExpirationDate"
@@ -70,10 +77,10 @@
         android:id="@+id/buttonAddProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50px"
+        android:background="@mipmap/plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@mipmap/plus"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
