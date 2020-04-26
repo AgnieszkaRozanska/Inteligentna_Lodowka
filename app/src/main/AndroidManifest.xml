@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShoppingList.ShoppingListActivity"></activity>
+        <activity android:name=".Fridge.ProductDetailsActivity"></activity>
+        <activity android:name=".ShoppingList.ShoppingListActivity" />
         <activity android:name=".Recipies.ShowAllRecipesActivity" />
         <activity android:name=".Scan.ScanPrroductsActivity" />
         <activity android:name=".Fridge.FridgeActivity" />
