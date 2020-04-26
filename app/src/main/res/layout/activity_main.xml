@@ -4,77 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background2"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/buttonFridge"
-        android:layout_width="144dp"
-        android:layout_height="185dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="400px"
+        android:layout_height="500px"
+        android:layout_marginStart="100px"
         android:background="@drawable/button_fridge"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonShoppingList"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonRecipes"
-        android:layout_width="144dp"
-        android:layout_height="185dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="45dp"
+        android:layout_width="400px"
+        android:layout_height="500px"
+        android:layout_marginEnd="100px"
         android:background="@drawable/button_recipes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonScan"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
     <Button
         android:id="@+id/buttonShoppingList"
-        android:layout_width="144dp"
-        android:layout_height="185dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="400px"
+        android:layout_height="500px"
+        android:layout_marginStart="100px"
+        android:layout_marginBottom="50px"
         android:background="@drawable/button_shopping_list"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonFridge" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonScan"
-        android:layout_width="144dp"
-        android:layout_height="185dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="400px"
+        android:layout_height="500px"
+        android:layout_marginEnd="100px"
+        android:layout_marginBottom="50px"
         android:background="@drawable/button_scan"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRecipes" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="415dp"
-        android:layout_height="257dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/rectangle_background" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="247dp"
         android:layout_height="225dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        android:layout_marginTop="80px"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/kitchen_icon" />
 
     <ImageView
         android:id="@+id/imageView9"
         android:layout_width="252dp"
         android:layout_height="101dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="150px"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/title_of_app" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
