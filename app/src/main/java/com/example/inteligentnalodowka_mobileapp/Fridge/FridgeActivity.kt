@@ -12,7 +12,7 @@ class FridgeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fridge)
         button.setOnClickListener {
-            val activityGoToFridge = Intent(applicationContext, ProductDetailsActivity::class.java)
+            val activityGoToFridge = Intent(applicationContext, ChangeNumberOfProductActivity::class.java)
             startActivity(activityGoToFridge)
         }
     }
