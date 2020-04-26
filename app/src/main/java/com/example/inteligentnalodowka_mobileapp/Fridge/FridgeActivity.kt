@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.inteligentnalodowka_mobileapp.R
+import com.example.inteligentnalodowka_mobileapp.Recipies.ConcreteRecipeActivity
 import kotlinx.android.synthetic.main.activity_fridge.*
 
 class FridgeActivity : AppCompatActivity() {
@@ -12,7 +13,7 @@ class FridgeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fridge)
         button.setOnClickListener {
-            val activityGoToFridge = Intent(applicationContext, ChangeNumberOfProductActivity::class.java)
+            val activityGoToFridge = Intent(applicationContext, ConcreteRecipeActivity::class.java)
             startActivity(activityGoToFridge)
         }
     }

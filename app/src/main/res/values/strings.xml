@@ -6,4 +6,6 @@
     <string name="nameOfProduct">Nazwa Produktu</string>
     <string name="amountOfProfuct">Liczba opakowań</string>
     <string name="expirationDate">Data ważności</string>
+    <string name="newNumberOfProduct">Nowa liczba opakowań</string>
+    <string name="nameOfRecipe">Nazwa przepisu</string>
 </resources>
