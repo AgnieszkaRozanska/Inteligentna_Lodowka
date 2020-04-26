@@ -12,9 +12,6 @@ class FridgeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fridge)
-        button.setOnClickListener {
-            val activityGoToFridge = Intent(applicationContext, ChangeExpirationDateActivity::class.java)
-            startActivity(activityGoToFridge)
-        }
+
     }
 }
