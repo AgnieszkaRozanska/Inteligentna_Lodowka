@@ -85,11 +85,17 @@ const val SQL_DELETE_TABLE_PRODUCTS_DATABASE = "DROP TABLE IF EXISTS $PRODUCTS_D
 class SQLConector(context: Context): SQLiteOpenHelper(context,
     DATABASE_NAME, null, 1) {
     override fun onCreate(db: SQLiteDatabase) {
-        // tutaj tworzysz tabele:
         db.execSQL(SQL_CREATE_TABLE_PRODUCTS)
         db.execSQL(SQL_CREATE_TABLE_RECIPES)
         db.execSQL(SQL_CREATE_TABLE_PRODUCTS_TO_RECIPES)
         db.execSQL(SQL_CREATE_TABLE_PRODUCTS_DATABASE)
+
+        var cv = ContentValues()
+        cv.put(ID_PRODUCT_DATABASE, 12)
+        cv.put(EAN_QR_CODE, "12345")
+        cv.put(NAME_PRODUCT_DATABASE, "mleko")
+        cv.put(TYPE_PRODUCT_DATABASE, "nabial")
+
 
     }
 
@@ -100,4 +106,6 @@ class SQLConector(context: Context): SQLiteOpenHelper(context,
         db.execSQL(SQL_DELETE_TABLE_PRODUCTS_DATABASE)
         onCreate(db)
     }
+
+
 }
