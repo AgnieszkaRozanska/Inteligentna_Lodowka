@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Fridge.ChangeExpirationDateActivity"></activity>
+        <activity android:name=".Recipies.ConcreteRecipeActivity" />
+        <activity android:name=".Fridge.ChangeNumberOfProductActivity" />
+        <activity android:name=".Fridge.ProductDetailsActivity" />
+        <activity android:name=".ShoppingList.ShoppingListActivity" />
+        <activity android:name=".Recipies.ShowAllRecipesActivity" />
+        <activity android:name=".Scan.ScanPrroductsActivity" />
+        <activity android:name=".Fridge.FridgeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
