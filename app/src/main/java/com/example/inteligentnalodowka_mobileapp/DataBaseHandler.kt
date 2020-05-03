@@ -126,7 +126,6 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         var cv = ContentValues()
         cv.put(ID_PRODUCT, data)
         cv.put(NAME_PRODUCT, data)
-
     }
 
 
