@@ -6,11 +6,11 @@ class Product {
 
     var id : String
     var nameProduct : String
-    var expirationDate : Date
+    var expirationDate : String
     var quantity : String
     var type : String
 
-    constructor(id : String, nameProduct : String, expirationDate: Date, quantity : String, type : String){
+    constructor(id : String, nameProduct : String, expirationDate: String, quantity : String, type : String){
         this.id = id
         this.nameProduct = nameProduct
         this.expirationDate = expirationDate

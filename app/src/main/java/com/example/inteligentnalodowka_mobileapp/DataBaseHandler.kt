@@ -49,7 +49,7 @@ const val TYPE_PRODUCT_DATABASE = "Type_Product_Database"
 const val SQL_CREATE_TABLE_PRODUCTS = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS_TABLE_NAME +" (" +
         ID_PRODUCT + " TEXT PRIMARY KEY," +
         NAME_PRODUCT + " TEXT NOT NULL," +
-        EXPIRATION_DATE + " DATETIME," +
+        EXPIRATION_DATE + " TEXT," +
         QUANTITY + " TEXT," +
         TYPE + " TEXT)")
 
@@ -126,6 +126,22 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         var cv = ContentValues()
         cv.put(ID_PRODUCT, data)
         cv.put(NAME_PRODUCT, data)
+    }
+
+    fun addProduct(product : Product):Boolean
+    {
+        val db=this.writableDatabase
+        val cv = ContentValues()
+        cv.put(ID_PRODUCT,  product.id)
+        cv.put(NAME_PRODUCT, product.nameProduct)
+        cv.put(EXPIRATION_DATE, product.expirationDate)
+        cv.put(QUANTITY, product.quantity)
+        cv.put(TYPE, product.type)
+
+        val result= db.insert(PRODUCTS_TABLE_NAME, null, cv)
+
+        db.close()
+        return !result.equals(-1)
     }
 
 
