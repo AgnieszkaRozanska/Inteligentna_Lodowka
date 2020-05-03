@@ -9,4 +9,7 @@
     <string name="newNumberOfProduct">Nowa liczba opakowań</string>
     <string name="nameOfRecipe">Nazwa przepisu</string>
     <string name="scanfailed">Skanowanie produktu nie powiodło się</string>
+    <string name="AlertDialogTitle">Brak produktu w bazie</string>
+    <string name="AlertDialogMessageNoProductInDatabase">Tego produktu nie ma w bazie. Musisz samodzielnie uzupełnić takie dane jak nazwa, typ produktu, ilość oraz datę ważności</string>
+    <string name="Back">Wróć</string>
 </resources>
