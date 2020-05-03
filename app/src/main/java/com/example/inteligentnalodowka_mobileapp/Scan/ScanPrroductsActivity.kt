@@ -15,6 +15,10 @@ import com.example.inteligentnalodowka_mobileapp.R
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
 import kotlinx.android.synthetic.main.activity_scan_prroducts.*
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.Period
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class ScanPrroductsActivity : AppCompatActivity() {
@@ -94,6 +98,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         editTextNumberOfPackages.setVisibility(View.VISIBLE)
         textViewInformed.setVisibility(View.INVISIBLE)
         buttonAddProduct.setVisibility(View.VISIBLE)
+        takeCurrentDate()
     }
 
 
@@ -139,6 +144,25 @@ class ScanPrroductsActivity : AppCompatActivity() {
         builder.setMessage(getString(R.string.AlertDialogMessageLackOfData))
         builder.setPositiveButton(getString(R.string.Back)) { dialog: DialogInterface, which: Int -> }
         builder.show()
+    }
+
+    private fun takeCurrentDate() : String{
+        val current = LocalDateTime.now()
+
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        val formatted = current.format(formatter)
+        setDate(formatted)
+        return  formatted
+    }
+
+    private fun setDate(currentDate : String){
+
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        var dateEndFormatDate = LocalDate.parse(currentDate, formatter)
+        var period = Period.of(0, 0, 7)
+        var modifiedDate = dateEndFormatDate.plus(period)
+
+        textViewDate.setText(modifiedDate.toString())
     }
 
 }
