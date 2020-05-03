@@ -12,4 +12,7 @@
     <string name="AlertDialogTitle">Brak produktu w bazie</string>
     <string name="AlertDialogMessageNoProductInDatabase">Tego produktu nie ma w bazie. Musisz samodzielnie uzupełnić takie dane jak nazwa, typ produktu, ilość oraz datę ważności</string>
     <string name="Back">Wróć</string>
+    <string name="addProduct">Dodano Produkt</string>
+    <string name="AlertDialogTitleLackOfData">Brak  danych</string>
+    <string name="AlertDialogMessageLackOfData">Proszę podać niezbędne dane: nazwę, typ oraz ilość</string>
 </resources>

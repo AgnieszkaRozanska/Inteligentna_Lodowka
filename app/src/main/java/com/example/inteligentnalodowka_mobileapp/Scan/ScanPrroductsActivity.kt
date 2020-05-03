@@ -9,16 +9,20 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
+import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
 import kotlinx.android.synthetic.main.activity_scan_prroducts.*
+import java.util.*
 
 class ScanPrroductsActivity : AppCompatActivity() {
 
     var eanCode = ""
     var flagScanned = false
     var list_of_types= arrayOf("Wybierz typ", "Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Inne")
+    var typeProduct = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +34,16 @@ class ScanPrroductsActivity : AppCompatActivity() {
             }
         }
 
-        val aa = ArrayAdapter(this, android.R.layout.simple_spinner_item, list_of_types)
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerTypeOfProduct!!.setAdapter(aa)
+        var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list_of_types)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerTypeOfProduct!!.setAdapter(adapter)
+
+        buttonAddProduct.setOnClickListener{
+            var result : Boolean = checkCorrectOfData()
+            if(result){
+                addProduct(this)
+            }
+        }
 
     }
 
@@ -57,7 +68,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
     private fun checkEanCode(eanCode : String){
 
         // tu bedzie kod sprawdzający, czy w api mamy produkt czy też nie
-        // jeżeli go nei będzie mamy alert dialog
+        // jeżeli go nie będzie mamy alert dialog
 
         alertDialogNoProductInDatabase()
 
@@ -65,6 +76,15 @@ class ScanPrroductsActivity : AppCompatActivity() {
 
 
     private fun alertDialogNoProductInDatabase() {
+        setVisibilityItems()
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.AlertDialogTitle))
+        builder.setMessage(getString(R.string.AlertDialogMessageNoProductInDatabase))
+        builder.setPositiveButton(getString(R.string.Back)) { dialog: DialogInterface, which: Int -> }
+        builder.show()
+    }
+
+    private fun setVisibilityItems(){
         textViewNameProduct.setVisibility(View.VISIBLE)
         textViewNumberOfPackagesInfo.setVisibility(View.VISIBLE)
         textViewTypeOfProductInfo.setVisibility(View.VISIBLE)
@@ -73,13 +93,52 @@ class ScanPrroductsActivity : AppCompatActivity() {
         spinnerTypeOfProduct.setVisibility(View.VISIBLE)
         editTextNumberOfPackages.setVisibility(View.VISIBLE)
         textViewInformed.setVisibility(View.INVISIBLE)
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.AlertDialogTitle))
-        builder.setMessage(getString(R.string.AlertDialogMessageNoProductInDatabase))
-        builder.setPositiveButton(getString(R.string.Back)) { dialog: DialogInterface, which: Int -> }
-        builder.show()
+        buttonAddProduct.setVisibility(View.VISIBLE)
     }
 
 
+    private fun addProduct(view : ScanPrroductsActivity){
+        val dbHelper = DataBaseHandler(this)
+        val idProduct = UUID.randomUUID().toString()
+        var name = textViewNameProduct.text.toString()
+        var quantity = editTextNumberOfPackages.text.toString()
+        var type = spinnerTypeOfProduct.getSelectedItem().toString();
+        var date = textViewDate.text.toString()
+
+        var product = Product(
+            idProduct,
+            name,
+            date,
+            quantity,
+            type
+        )
+
+        val success = dbHelper.addProduct(product)
+        if(success){
+            Toast.makeText(this, getString(R.string.addProduct), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    fun checkCorrectOfData() : Boolean{
+        var name = textViewNameProduct.text.toString()
+        var quantity = editTextNumberOfPackages.text.toString()
+        var type = spinnerTypeOfProduct.getSelectedItem().toString();
+        var result = true;
+
+        if(name.isEmpty() || quantity.isEmpty() || type.isEmpty())
+        {
+            result = false
+            alertDialogLackOfData()
+        }
+        return result
+    }
+
+    private fun alertDialogLackOfData() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.AlertDialogTitleLackOfData))
+        builder.setMessage(getString(R.string.AlertDialogMessageLackOfData))
+        builder.setPositiveButton(getString(R.string.Back)) { dialog: DialogInterface, which: Int -> }
+        builder.show()
+    }
 
 }
