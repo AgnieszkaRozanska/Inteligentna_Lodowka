@@ -57,8 +57,8 @@
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="252dp"
-        android:layout_height="101dp"
+        android:layout_width="215dp"
+        android:layout_height="91dp"
         android:layout_marginTop="150px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
