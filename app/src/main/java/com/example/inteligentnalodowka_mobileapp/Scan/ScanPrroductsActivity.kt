@@ -130,7 +130,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         var type = spinnerTypeOfProduct.getSelectedItem().toString();
         var result = true;
 
-        if(name.isEmpty() || quantity.isEmpty() || type.isEmpty())
+        if(name.isEmpty() || quantity.isEmpty() || type == "Wybierz typ")
         {
             result = false
             alertDialogLackOfData()
@@ -163,6 +163,14 @@ class ScanPrroductsActivity : AppCompatActivity() {
         var modifiedDate = dateEndFormatDate.plus(period)
 
         textViewDate.setText(modifiedDate.toString())
+    }
+
+    private fun checkifExistsProdukt(){
+        // w przyszłości trzeba będzie sprawdzać czy produkt istnieje i updatować ilość
+    }
+
+    private fun ifExistsProdukt(){
+        // update ilości produktów już w bazie
     }
 
 }

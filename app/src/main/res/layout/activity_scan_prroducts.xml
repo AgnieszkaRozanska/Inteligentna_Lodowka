@@ -105,6 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:hint="Nazwa Produktu"
+        android:textAlignment="center"
         android:visibility="invisible"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
