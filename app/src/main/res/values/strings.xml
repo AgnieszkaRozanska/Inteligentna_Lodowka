@@ -8,4 +8,5 @@
     <string name="expirationDate">Data ważności</string>
     <string name="newNumberOfProduct">Nowa liczba opakowań</string>
     <string name="nameOfRecipe">Nazwa przepisu</string>
+    <string name="scanfailed">Skanowanie produktu nie powiodło się</string>
 </resources>
