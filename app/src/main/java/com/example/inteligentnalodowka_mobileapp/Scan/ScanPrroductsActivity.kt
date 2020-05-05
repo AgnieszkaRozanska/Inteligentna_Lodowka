@@ -173,4 +173,33 @@ class ScanPrroductsActivity : AppCompatActivity() {
         // update ilości produktów już w bazie
     }
 
+    private fun LoadApi():
+            Array<Array<String>>{
+        val fileName = "Api.txt"
+        val inputString = application.assets.open(fileName).bufferedReader().use { it.readText() }
+        val lines: List<String> = inputString.split("\n")
+        var APIData = arrayOf<Array<String>>()
+        for (i in 0..lines.size-1) {
+            var array = arrayOf<String>()
+            for (j in 0..2) {
+                array += ""
+            }
+            APIData += array
+        }
+        for (i in 0..lines.size-2)
+        {
+            val temp = lines[i].split(",")
+            APIData[i][0] = temp[0]
+            APIData[i][1] = temp[1]
+            if (temp.size > 3) {
+                for (j in 2..temp.size-1) {
+                    APIData[i][2] += temp[j] + "/"
+                }
+            } else {
+                APIData[i][2] = temp[2]
+            }
+        }
+        return APIData
+    }
+
 }
