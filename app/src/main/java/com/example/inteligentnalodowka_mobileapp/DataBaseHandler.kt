@@ -144,5 +144,32 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         return !result.equals(-1)
     }
 
+    fun getAllProducts(): ArrayList<Product>
+    {
+        val allProductsList= ArrayList<Product>()
+        val db= readableDatabase
+
+        val cursor=db.rawQuery("SELECT * FROM $PRODUCTS_TABLE_NAME", null)
+        if(cursor!= null)
+        {
+            if(cursor.moveToNext())
+            {
+                do{
+                    val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT))
+                    val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT))
+                    val date = cursor.getString(cursor.getColumnIndex(EXPIRATION_DATE))
+                    val productType=cursor.getString(cursor.getColumnIndex(TYPE))
+                    val quantity =cursor.getString(cursor.getColumnIndex(QUANTITY))
+
+                    val product = Product(id, name, date, quantity, productType)
+                    allProductsList.add(product)
+                }while (cursor.moveToNext())
+            }
+        }
+        cursor.close()
+        db.close()
+        return allProductsList
+    }
 
 }
+

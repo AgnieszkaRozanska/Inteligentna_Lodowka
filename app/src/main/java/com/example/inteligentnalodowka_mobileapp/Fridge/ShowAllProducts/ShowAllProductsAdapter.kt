@@ -32,7 +32,7 @@ class ShowAllProductsAdapter(context: Context, var productsList: ArrayList<Produ
 
 
 
-        
+
     }
 
 

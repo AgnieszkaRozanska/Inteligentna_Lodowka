@@ -14,4 +14,6 @@ class FridgeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_fridge)
 
     }
+
+
 }
