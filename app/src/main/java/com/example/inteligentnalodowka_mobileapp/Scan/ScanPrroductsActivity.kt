@@ -49,6 +49,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
             }
         }
 
+        checkEanCode("5900783003050")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -73,9 +74,17 @@ class ScanPrroductsActivity : AppCompatActivity() {
 
         // tu bedzie kod sprawdzający, czy w api mamy produkt czy też nie
         // jeżeli go nie będzie mamy alert dialog
-
+        var api = loadApi()
+        for (i in 0 until api.size-1)
+        {
+            if(api[i][0].toString()==eanCode)
+            {
+                setVisibilityItems()
+                textViewNameProduct.setText(api[i][1].toString())
+                return
+            }
+        }
         alertDialogNoProductInDatabase()
-
     }
 
 
@@ -173,8 +182,9 @@ class ScanPrroductsActivity : AppCompatActivity() {
         // update ilości produktów już w bazie
     }
 
-    private fun LoadApi():
+    private fun loadApi():
             Array<Array<String>>{
+        //ładuje Api z pliku txt i zwraca w tablicy
         val fileName = "Api.txt"
         val inputString = application.assets.open(fileName).bufferedReader().use { it.readText() }
         val lines: List<String> = inputString.split("\n")
