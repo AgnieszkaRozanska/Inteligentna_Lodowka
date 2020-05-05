@@ -28,7 +28,7 @@ class ShowAllProductsAdapter(context: Context, var productsList: ArrayList<Produ
 
         holder.productName.text = productName_cardView
         holder.productType.text = typeProduct_cardView
-        holder.productCount.text = countProduct_cardView
+        holder.productCount.text = "Liczba opakowań: "+countProduct_cardView
 
 
 
