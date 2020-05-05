@@ -1,10 +1,9 @@
 package com.example.inteligentnalodowka_mobileapp
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.inteligentnalodowka_mobileapp.Fridge.FridgeActivity
+import com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts.FridgeActivity
 import com.example.inteligentnalodowka_mobileapp.Recipies.ShowAllRecipesActivity
 import com.example.inteligentnalodowka_mobileapp.Scan.ScanPrroductsActivity
 import com.example.inteligentnalodowka_mobileapp.ShoppingList.ShoppingListActivity

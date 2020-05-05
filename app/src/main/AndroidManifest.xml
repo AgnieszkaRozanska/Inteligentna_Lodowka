@@ -18,7 +18,7 @@
         <activity android:name=".ShoppingList.ShoppingListActivity" />
         <activity android:name=".Recipies.ShowAllRecipesActivity" />
         <activity android:name=".Scan.ScanPrroductsActivity" />
-        <activity android:name=".Fridge.FridgeActivity" />
+        <activity android:name=".Fridge.ShowAllProducts.FridgeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

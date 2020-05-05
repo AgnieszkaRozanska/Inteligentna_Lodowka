@@ -1,4 +1,4 @@
-package com.example.inteligentnalodowka_mobileapp.Fridge
+package com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
