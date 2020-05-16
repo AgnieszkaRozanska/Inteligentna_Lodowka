@@ -14,7 +14,9 @@ import kotlinx.android.synthetic.main.activity_change_number_of_product.*
 class ChangeNumberOfProductActivity : AppCompatActivity() {
 
     private var id = ""
-    private var quantityOld = ""
+    private var name = ""
+    private var quantity = ""
+    private var expirationDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,15 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
             alertDialogOnBackPress()
         }else{
             val intentOnBackPress = Intent(applicationContext, ProductDetailsActivity::class.java)
+            if (intent.hasExtra("id")) id = intent.getStringExtra("id")
+            if (intent.hasExtra("name")) name = intent.getStringExtra("name")
+            if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
+            if (intent.hasExtra("expirationDate"))   expirationDate = intent.getStringExtra("expirationDate")
+
+            intentOnBackPress.putExtra("id", id)
+            intentOnBackPress.putExtra("name", name)
+            intentOnBackPress.putExtra("quantity", quantity)
+            intentOnBackPress.putExtra("expirationDate", expirationDate)
             startActivity(intentOnBackPress)
         }
     }
@@ -107,6 +118,8 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
         val success = dbHelper.updateQuantityOfProducts(id, quantity)
 
         if (success) {
+            if (intent.hasExtra("expirationDate"))   expirationDate = intent.getStringExtra("expirationDate")
+            intentUpdate.putExtra("expirationDate", expirationDate)
             startActivity(intentUpdate)
             Toast.makeText(applicationContext,getString(R.string.succesOfUpdateProduct), Toast.LENGTH_SHORT).show()
         }
@@ -119,6 +132,17 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
         builder.setMessage("Cofnięcie się spowoduje, że zmiany nie zostaną zapisane. Czy na pewno chcesz wrócić?")
         builder.setPositiveButton(getString(R.string.AlertDialogYes)) { dialog: DialogInterface, which: Int ->
             val intentOnBackPress = Intent(applicationContext, ProductDetailsActivity::class.java)
+            if (intent.hasExtra("id")) id = intent.getStringExtra("id")
+            if (intent.hasExtra("name")) name = intent.getStringExtra("name")
+            if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
+            if (intent.hasExtra("expirationDate"))   expirationDate = intent.getStringExtra("expirationDate")
+
+            intentOnBackPress.putExtra("id", id)
+            intentOnBackPress.putExtra("name", name)
+            intentOnBackPress.putExtra("quantity", quantity)
+            intentOnBackPress.putExtra("expirationDate", expirationDate)
+            startActivity(intentOnBackPress)
+
             startActivity(intentOnBackPress)
         }
         builder.setNegativeButton(getString(R.string.AlertDialogNo)) { dialogInterface: DialogInterface, i: Int -> }

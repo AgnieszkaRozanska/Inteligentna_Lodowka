@@ -16,6 +16,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var id = ""
     private var name = ""
     private var quantity = ""
+    private var expirationDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,11 +95,14 @@ class ProductDetailsActivity : AppCompatActivity() {
         if (intent.hasExtra("id")) id = intent.getStringExtra("id")
         if (intent.hasExtra("name")) name = intent.getStringExtra("name")
         if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
+        if (intent.hasExtra("expirationDate")) expirationDate=
+            intent.getStringExtra("expirationDate")
+
 
         goToChangeNumberOfProductActivity.putExtra("id", id)
         goToChangeNumberOfProductActivity.putExtra("name", name)
         goToChangeNumberOfProductActivity.putExtra("quantity", quantity)
-
+        goToChangeNumberOfProductActivity.putExtra("expirationDate", expirationDate)
         startActivity(goToChangeNumberOfProductActivity)
     }
 }
