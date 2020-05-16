@@ -171,5 +171,20 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         return allProductsList
     }
 
+
+    fun removeProduct(id: String): Boolean
+    {
+        try {
+            val db=this.writableDatabase
+            db.delete(PRODUCTS_TABLE_NAME, "$ID_PRODUCT=?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+        return true
+    }
+
 }
 

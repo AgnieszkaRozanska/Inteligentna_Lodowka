@@ -15,4 +15,11 @@
     <string name="addProduct">Dodano Produkt</string>
     <string name="AlertDialogTitleLackOfData">Brak  danych</string>
     <string name="AlertDialogMessageLackOfData">Proszę podać niezbędne dane: nazwę, typ oraz ilość</string>
+    <string name="alertDialogRemoveProductTitle">Czy jesteś pewien?</string>
+    <string name="alertDialogRemoveProductMessage">Czy na pewno chcesz usunąć produkt z lodówki?</string>
+    <string name="AlertDialogYes">Tak</string>
+    <string name="AlertDialogNo">Nie</string>
+    <string name="successOfRemoveProduct">Produkt został usunięty</string>
+    <string name="alertDialogMistakeMessage">Usunięcie produktu się nie udało</string>
+    <string name="alertDialogMistakeTitle">Błąd</string>
 </resources>

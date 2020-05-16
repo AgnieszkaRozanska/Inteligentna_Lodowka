@@ -1,8 +1,12 @@
 package com.example.inteligentnalodowka_mobileapp.Fridge
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
 import com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts.FridgeActivity
 import com.example.inteligentnalodowka_mobileapp.R
 import kotlinx.android.synthetic.main.activity_product_details.*
@@ -16,24 +20,68 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         setVaues()
 
-        buttonChangeDate.setOnClickListener{
-            val goToChangeDateActivity = Intent(applicationContext, ChangeExpirationDateActivity::class.java)
+        buttonChangeDate.setOnClickListener {
+            val goToChangeDateActivity =
+                Intent(applicationContext, ChangeExpirationDateActivity::class.java)
             startActivity(goToChangeDateActivity)
         }
 
-        buttonAddProducts.setOnClickListener{
-            val goToChangeNumberOfProductActivity = Intent(applicationContext, ChangeNumberOfProductActivity::class.java)
+        buttonAddProducts.setOnClickListener {
+            val goToChangeNumberOfProductActivity =
+                Intent(applicationContext, ChangeNumberOfProductActivity::class.java)
             startActivity(goToChangeNumberOfProductActivity)
         }
+
+        buttonDeleteProduct.setOnClickListener {
+            alertDialogRemoveProduct()
+        }
+
     }
 
 
-    private fun setVaues(){
+    private fun setVaues() {
         if (intent.hasExtra("name")) textViewNameOfProduct.text = intent.getStringExtra("name")
-        if (intent.hasExtra("expirationDate")) textViewExpirationDate.text = intent.getStringExtra("expirationDate")
+        if (intent.hasExtra("expirationDate")) textViewExpirationDate.text =
+            intent.getStringExtra("expirationDate")
         if (intent.hasExtra("quantity")) textViewAmount.text = intent.getStringExtra("quantity")
 
-        if (intent.hasExtra("id"))  id= intent.getStringExtra("id")
+        if (intent.hasExtra("id")) id = intent.getStringExtra("id")
+    }
+
+    private fun alertDialogRemoveProduct() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.alertDialogRemoveProductTitle))
+        builder.setMessage(getString(R.string.alertDialogRemoveProductMessage))
+        builder.setPositiveButton(getString(R.string.AlertDialogYes)) { dialog: DialogInterface, which: Int ->
+            removeProduct()
+        }
+        builder.setNegativeButton(getString(R.string.AlertDialogNo)) { dialogInterface: DialogInterface, i: Int -> }
+        builder.show()
+    }
+
+    private fun removeProduct() {
+        val intentRemove = Intent(applicationContext, FridgeActivity::class.java)
+        val dbHelper = DataBaseHandler(this)
+        if (intent.hasExtra("id")) id = intent.getStringExtra("id")
+
+        val success = dbHelper.removeProduct(id)
+
+        if (success) {
+            startActivity(intentRemove)
+            Toast.makeText(applicationContext,getString(R.string.successOfRemoveProduct), Toast.LENGTH_SHORT).show()
+        }else  alertDialog()
 
     }
+
+
+    private fun alertDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.alertDialogMistakeTitle))
+        builder.setMessage(getString(R.string.alertDialogMistakeMessage))
+        builder.setPositiveButton(getString(R.string.Back)) { dialog: DialogInterface, which: Int -> }
+        builder.show()
+    }
 }
+
+
+
