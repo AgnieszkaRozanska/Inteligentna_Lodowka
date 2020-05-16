@@ -1,6 +1,7 @@
 package com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.inteligentnalodowka_mobileapp.Fridge.ProductDetailsActivity
 import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
+import kotlinx.android.synthetic.main.activity_card_view_all_products.view.*
 
 class ShowAllProductsAdapter(context: Context, var productsList: ArrayList<Product>): RecyclerView.Adapter<MyViewHolder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): MyViewHolder {
@@ -38,6 +41,50 @@ class ShowAllProductsAdapter(context: Context, var productsList: ArrayList<Produ
         } else {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#CCEBF6"))
         }
+
+        val cardViewProduct = holder.view.cardView_product
+        val context:Context = holder.view.context
+
+        cardViewProduct.setOnClickListener {
+            val intentEdit = Intent(context, ProductDetailsActivity::class.java)
+            val priductID = productsList[holder.adapterPosition].id
+            val priductName =productsList[holder.adapterPosition].nameProduct
+            val productExpirationDate=productsList[holder.adapterPosition].expirationDate
+            val productQuantity = productsList[holder.adapterPosition].quantity
+
+            intentEdit.putExtra("id", priductID)
+            intentEdit.putExtra("name", priductName)
+            intentEdit.putExtra("expirationDate", productExpirationDate)
+            intentEdit.putExtra("quantity", productQuantity)
+            
+            context.startActivity(intentEdit)
+        }
+
+        /*
+        val cardViewProduct = holder.view.cardView_product
+           val context:Context = holder.view.context
+
+        cardViewmedicine.setOnClickListener {
+
+            val intentEdit = Intent(context, ActivityUpdateRemoveMedicine::class.java)
+            val medNameEdit=medicineTypeList[holder.adapterPosition].name
+            val activeDose = medicineTypeList[holder.adapterPosition].activedoses
+            val medCountEdit= medicineTypeList[holder.adapterPosition].unitInStock.toString()
+            val medKindEdit= medicineTypeList[holder.adapterPosition].kindMedicineType
+            val medDescriptionEdit= medicineTypeList[holder.adapterPosition].description
+            val idEdit= medicineTypeList[holder.adapterPosition].iDMedicine
+            val fullname= "$medNameEdit $activeDose"
+
+            intentEdit.putExtra("name", fullname)
+            intentEdit.putExtra("count", medCountEdit)
+            intentEdit.putExtra("IDMedicine", idEdit)
+            intentEdit.putExtra("kind", medKindEdit)
+            intentEdit.putExtra("description", medDescriptionEdit)
+            context.startActivity(intentEdit)
+        }
+         */
+
+
     }
 }
 
