@@ -186,5 +186,24 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         return true
     }
 
+    fun updateQuantityOfProducts(id:String, quantity: String):Boolean{
+        try {
+            val db = this.writableDatabase
+            val cv = ContentValues()
+            cv.put(QUANTITY, quantity)
+            db.update(PRODUCTS_TABLE_NAME, cv, "ID_PRODUCT =?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+
+        return true
+    }
+
+
+
+
 }
 

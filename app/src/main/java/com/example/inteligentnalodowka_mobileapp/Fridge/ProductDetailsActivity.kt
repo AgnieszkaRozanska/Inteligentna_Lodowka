@@ -22,7 +22,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product_details)
 
         setVaues()
-
+        if (intent.hasExtra("quantity")) textViewAmount.text = intent.getStringExtra("quantity")
         buttonChangeDate.setOnClickListener {
             val goToChangeDateActivity =
                 Intent(applicationContext, ChangeExpirationDateActivity::class.java)

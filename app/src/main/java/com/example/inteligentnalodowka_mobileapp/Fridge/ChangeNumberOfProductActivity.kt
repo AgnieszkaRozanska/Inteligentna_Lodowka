@@ -28,6 +28,10 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
         buttonDecrease.setOnClickListener {
             decreaseProduct()
         }
+
+        buttonSave.setOnClickListener {
+            updateQuantity(textViewAmount.text.toString())
+        }
     }
 
 
@@ -83,5 +87,18 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateQuantity(quantity : String){
+        val intentUpdate = Intent(applicationContext, ProductDetailsActivity::class.java)
+        val dbHelper = DataBaseHandler(this)
+        intentUpdate.putExtra("quantity", textViewAmount.text.toString())
+        if (intent.hasExtra("id")) id = intent.getStringExtra("id")
+
+        val success = dbHelper.updateQuantityOfProducts(id, quantity)
+
+        if (success) {
+            startActivity(intentUpdate)
+            Toast.makeText(applicationContext,getString(R.string.succesOfUpdateProduct), Toast.LENGTH_SHORT).show()
+        }
+    }
 
 }

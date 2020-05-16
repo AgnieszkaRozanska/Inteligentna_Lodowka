@@ -24,4 +24,5 @@
     <string name="alertDialogMistakeTitle">Błąd</string>
     <string name="attention">Uwaga</string>
     <string name="alertDialogMessageChangeQuantity">Zmieniłeś ilość na 0, zatem produkt zostanie usunięty. Czy na pewno tego chcesz?</string>
+    <string name="succesOfUpdateProduct">Zaktualizowano produkt</string>
 </resources>
