@@ -29,7 +29,7 @@
         android:id="@+id/buttonDeleteProduct"
         android:layout_width="400px"
         android:layout_height="500px"
-        android:layout_marginBottom="50px"
+        android:layout_marginBottom="50dp"
         android:background="@mipmap/button_delete_product"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,5 +108,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/textViewAmount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNameOfProduct"
-        app:srcCompat="@mipmap/milk" />
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

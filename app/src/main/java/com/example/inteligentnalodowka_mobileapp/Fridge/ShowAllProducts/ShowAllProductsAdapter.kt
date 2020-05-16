@@ -56,7 +56,7 @@ class ShowAllProductsAdapter(context: Context, var productsList: ArrayList<Produ
             intentEdit.putExtra("name", priductName)
             intentEdit.putExtra("expirationDate", productExpirationDate)
             intentEdit.putExtra("quantity", productQuantity)
-            
+
             context.startActivity(intentEdit)
         }
 
