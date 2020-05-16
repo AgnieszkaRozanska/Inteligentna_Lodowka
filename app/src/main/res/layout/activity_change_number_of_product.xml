@@ -24,8 +24,8 @@
         android:id="@+id/textViewAmountConst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100px"
-        android:layout_marginTop="80px"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
         android:text="@string/amountOfProfuct"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
@@ -38,11 +38,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="110px"
-        android:layout_marginTop="80px"
+        android:layout_marginTop="50dp"
         android:hint="2"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewAmountConst"
         app:layout_constraintTop_toBottomOf="@+id/textViewNameOfProduct" />
 
@@ -54,7 +55,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/textViewAmount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNameOfProduct"
-        app:srcCompat="@mipmap/milk" />
+        />
 
     <Button
         android:id="@+id/buttonIncrease"
