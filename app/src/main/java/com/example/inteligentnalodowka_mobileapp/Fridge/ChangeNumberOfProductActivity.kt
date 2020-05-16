@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_change_number_of_product.*
 class ChangeNumberOfProductActivity : AppCompatActivity() {
 
     private var id = ""
+    private var quantityOld = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,16 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        var oldValue = intent.getStringExtra("quantity").toInt()
+        var newValue = textViewAmount.text.toString().toInt()
+        if(oldValue != newValue){
+            alertDialogOnBackPress()
+        }else{
+            val intentOnBackPress = Intent(applicationContext, ProductDetailsActivity::class.java)
+            startActivity(intentOnBackPress)
+        }
+    }
 
     private fun setVaues() {
         if (intent.hasExtra("name")) textViewNameOfProduct.text = intent.getStringExtra("name")
@@ -99,6 +110,19 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
             startActivity(intentUpdate)
             Toast.makeText(applicationContext,getString(R.string.succesOfUpdateProduct), Toast.LENGTH_SHORT).show()
         }
+    }
+
+
+    private fun alertDialogOnBackPress() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.attention))
+        builder.setMessage("Cofnięcie się spowoduje, że zmiany nie zostaną zapisane. Czy na pewno chcesz wrócić?")
+        builder.setPositiveButton(getString(R.string.AlertDialogYes)) { dialog: DialogInterface, which: Int ->
+            val intentOnBackPress = Intent(applicationContext, ProductDetailsActivity::class.java)
+            startActivity(intentOnBackPress)
+        }
+        builder.setNegativeButton(getString(R.string.AlertDialogNo)) { dialogInterface: DialogInterface, i: Int -> }
+        builder.show()
     }
 
 }

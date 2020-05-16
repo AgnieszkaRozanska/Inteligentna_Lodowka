@@ -39,6 +39,11 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        val intentOnBackPress = Intent(applicationContext, FridgeActivity::class.java)
+        startActivity(intentOnBackPress)
+    }
+
 
     private fun setVaues() {
         if (intent.hasExtra("name")) textViewNameOfProduct.text = intent.getStringExtra("name")
