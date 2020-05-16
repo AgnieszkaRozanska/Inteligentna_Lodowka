@@ -14,6 +14,9 @@ import kotlinx.android.synthetic.main.activity_product_details.*
 class ProductDetailsActivity : AppCompatActivity() {
 
     private var id = ""
+    private var name = ""
+    private var quantity = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
@@ -27,9 +30,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
 
         buttonAddProducts.setOnClickListener {
-            val goToChangeNumberOfProductActivity =
-                Intent(applicationContext, ChangeNumberOfProductActivity::class.java)
-            startActivity(goToChangeNumberOfProductActivity)
+            goToChangeQuantityActivity()
         }
 
         buttonDeleteProduct.setOnClickListener {
@@ -80,6 +81,20 @@ class ProductDetailsActivity : AppCompatActivity() {
         builder.setMessage(getString(R.string.alertDialogMistakeMessage))
         builder.setPositiveButton(getString(R.string.Back)) { dialog: DialogInterface, which: Int -> }
         builder.show()
+    }
+
+
+    fun goToChangeQuantityActivity(){
+        val goToChangeNumberOfProductActivity = Intent(applicationContext, ChangeNumberOfProductActivity::class.java)
+        if (intent.hasExtra("id")) id = intent.getStringExtra("id")
+        if (intent.hasExtra("name")) name = intent.getStringExtra("name")
+        if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
+
+        goToChangeNumberOfProductActivity.putExtra("id", id)
+        goToChangeNumberOfProductActivity.putExtra("name", name)
+        goToChangeNumberOfProductActivity.putExtra("quantity", quantity)
+
+        startActivity(goToChangeNumberOfProductActivity)
     }
 }
 

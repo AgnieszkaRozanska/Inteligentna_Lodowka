@@ -10,4 +10,5 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_number_of_product)
     }
+
 }
