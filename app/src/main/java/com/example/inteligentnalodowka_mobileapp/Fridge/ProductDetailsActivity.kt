@@ -1,7 +1,9 @@
 package com.example.inteligentnalodowka_mobileapp.Fridge
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts.FridgeActivity
 import com.example.inteligentnalodowka_mobileapp.R
 import kotlinx.android.synthetic.main.activity_product_details.*
 
@@ -13,6 +15,16 @@ class ProductDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product_details)
 
         setVaues()
+
+        buttonChangeDate.setOnClickListener{
+            val goToChangeDateActivity = Intent(applicationContext, ChangeExpirationDateActivity::class.java)
+            startActivity(goToChangeDateActivity)
+        }
+
+        buttonAddProducts.setOnClickListener{
+            val goToChangeNumberOfProductActivity = Intent(applicationContext, ChangeNumberOfProductActivity::class.java)
+            startActivity(goToChangeNumberOfProductActivity)
+        }
     }
 
 
