@@ -16,6 +16,7 @@ const val NAME_PRODUCT = "Name_Product"
 const val EXPIRATION_DATE = "Expiration_date"
 const val QUANTITY = "Quantity_Product"
 const val TYPE = "Type_Product"
+const val ID_PRODUCT_FROM_DATABASE = "ID_Product_from_Database"
 
 //TABELA PRZEPISÓW
 
@@ -43,15 +44,15 @@ const val NAME_PRODUCT_DATABASE = "Name_Product_Database"
 const val TYPE_PRODUCT_DATABASE = "Type_Product_Database"
 
 
-
-
 //TABELA PRODUKTY
 const val SQL_CREATE_TABLE_PRODUCTS = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS_TABLE_NAME +" (" +
         ID_PRODUCT + " TEXT PRIMARY KEY," +
         NAME_PRODUCT + " TEXT NOT NULL," +
         EXPIRATION_DATE + " TEXT," +
         QUANTITY + " TEXT," +
-        TYPE + " TEXT)")
+        ID_PRODUCT_FROM_DATABASE + " TEXT," +
+        TYPE + " TEXT," +
+        "FOREIGN KEY(" + ID_PRODUCT_FROM_DATABASE + ") REFERENCES " + PRODUCTS_DATABASE_TABLE_NAME + "(" + ID_PRODUCT_DATABASE +"))" )
 
 //TABELA PRZEPISY
 
@@ -191,6 +192,22 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
             val db = this.writableDatabase
             val cv = ContentValues()
             cv.put(QUANTITY, quantity)
+            db.update(PRODUCTS_TABLE_NAME, cv, "ID_PRODUCT =?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+
+        return true
+    }
+
+    fun updateExpirationDate(id:String, date: String):Boolean{
+        try {
+            val db = this.writableDatabase
+            val cv = ContentValues()
+            cv.put(EXPIRATION_DATE, date)
             db.update(PRODUCTS_TABLE_NAME, cv, "ID_PRODUCT =?", arrayOf(id))
             db.close()
         }

@@ -24,10 +24,9 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         setVaues()
         if (intent.hasExtra("quantity")) textViewAmount.text = intent.getStringExtra("quantity")
+
         buttonChangeDate.setOnClickListener {
-            val goToChangeDateActivity =
-                Intent(applicationContext, ChangeExpirationDateActivity::class.java)
-            startActivity(goToChangeDateActivity)
+            goToChangeDateActivity()
         }
 
         buttonAddProducts.setOnClickListener {
@@ -104,6 +103,22 @@ class ProductDetailsActivity : AppCompatActivity() {
         goToChangeNumberOfProductActivity.putExtra("quantity", quantity)
         goToChangeNumberOfProductActivity.putExtra("expirationDate", expirationDate)
         startActivity(goToChangeNumberOfProductActivity)
+    }
+
+    fun goToChangeDateActivity(){
+        val goToChangeExpirationDateActivity = Intent(applicationContext, ChangeExpirationDateActivity::class.java)
+        if (intent.hasExtra("id")) id = intent.getStringExtra("id")
+        if (intent.hasExtra("name")) name = intent.getStringExtra("name")
+        if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
+        if (intent.hasExtra("expirationDate")) expirationDate=
+            intent.getStringExtra("expirationDate")
+
+
+        goToChangeExpirationDateActivity.putExtra("id", id)
+        goToChangeExpirationDateActivity.putExtra("name", name)
+        goToChangeExpirationDateActivity.putExtra("quantity", quantity)
+        goToChangeExpirationDateActivity.putExtra("expirationDate", expirationDate)
+        startActivity(goToChangeExpirationDateActivity)
     }
 }
 

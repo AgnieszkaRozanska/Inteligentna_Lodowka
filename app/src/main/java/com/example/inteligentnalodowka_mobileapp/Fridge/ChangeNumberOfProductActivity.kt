@@ -120,6 +120,8 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
         if (success) {
             if (intent.hasExtra("expirationDate"))   expirationDate = intent.getStringExtra("expirationDate")
             intentUpdate.putExtra("expirationDate", expirationDate)
+            if (intent.hasExtra("name"))   name = intent.getStringExtra("name")
+            intentUpdate.putExtra("name", name)
             startActivity(intentUpdate)
             Toast.makeText(applicationContext,getString(R.string.succesOfUpdateProduct), Toast.LENGTH_SHORT).show()
         }
