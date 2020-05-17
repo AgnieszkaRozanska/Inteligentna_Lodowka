@@ -203,6 +203,22 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         return true
     }
 
+    fun updateExpirationDate(id:String, date: String):Boolean{
+        try {
+            val db = this.writableDatabase
+            val cv = ContentValues()
+            cv.put(EXPIRATION_DATE, date)
+            db.update(PRODUCTS_TABLE_NAME, cv, "ID_PRODUCT =?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+
+        return true
+    }
+
 
 
 
