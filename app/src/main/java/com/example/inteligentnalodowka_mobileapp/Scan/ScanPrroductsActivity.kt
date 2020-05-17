@@ -1,7 +1,10 @@
 package com.example.inteligentnalodowka_mobileapp.Scan
 
+import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -14,6 +17,7 @@ import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
+import kotlinx.android.synthetic.main.activity_change_number_of_product.*
 import kotlinx.android.synthetic.main.activity_scan_prroducts.*
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -163,6 +167,35 @@ class ScanPrroductsActivity : AppCompatActivity() {
         var modifiedDate = dateEndFormatDate.plus(period)
 
         textViewDate.setText(modifiedDate.toString())
+
+        textViewDate.setOnClickListener {
+            var cal = Calendar.getInstance()
+            val year = cal.get(Calendar.YEAR)
+            val month = cal.get(Calendar.MONTH)
+            val day = cal.get(Calendar.DAY_OF_MONTH)
+
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, monthOfYear)
+                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                    val myFormat = "dd.MM.yyyy" // mention the format you need
+                    val sdf = SimpleDateFormat(myFormat, Locale.US)
+                    textViewDate.text = sdf.format(cal.time)
+
+                }
+            DatePickerDialog(
+                this@ScanPrroductsActivity,
+                dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
+            val date = "$day.$month.$year"
+            textViewDate.setText(date.toString())
+        }
+
     }
 
     private fun checkifExistsProdukt(){

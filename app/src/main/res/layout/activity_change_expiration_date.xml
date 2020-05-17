@@ -84,7 +84,7 @@
         app:srcCompat="@mipmap/milk" />
 
     <Button
-        android:id="@+id/buttonCanendar"
+        android:id="@+id/buttonCalendar"
         android:layout_width="400px"
         android:layout_height="500px"
         android:layout_marginBottom="200px"
