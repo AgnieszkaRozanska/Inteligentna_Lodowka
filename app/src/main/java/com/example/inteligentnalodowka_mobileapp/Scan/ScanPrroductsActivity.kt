@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
+import com.example.inteligentnalodowka_mobileapp.MainActivity
 import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
 import com.google.zxing.integration.android.IntentIntegrator
@@ -130,6 +131,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         val success = dbHelper.addProduct(product)
         if(success){
             Toast.makeText(this, getString(R.string.addProduct), Toast.LENGTH_LONG).show()
+            alertDialogAddProduct()
         }
     }
 
@@ -202,6 +204,27 @@ class ScanPrroductsActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun alertDialogAddProduct() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Dodano produkt")
+        builder.setMessage("Czy chcesz dodać kolejny produkt?")
+        builder.setPositiveButton(getString(R.string.AlertDialogYes)) { dialog: DialogInterface, which: Int ->
+            editTextNumberOfPackages.text.clear()
+            textViewNameProduct.text.clear()
+            buttonAddProduct.setVisibility(View.VISIBLE)
+        }
+        builder.setNegativeButton(getString(R.string.AlertDialogNo)) { dialogInterface: DialogInterface, i: Int ->
+            goToMainWindow()
+        }
+        builder.show()
+    }
+
+    private fun goToMainWindow(){
+        val activityGoToMainWindowy = Intent(applicationContext, MainActivity::class.java)
+        startActivity(activityGoToMainWindowy)
+    }
+
 
     private fun checkifExistsProdukt(){
         // w przyszłości trzeba będzie sprawdzać czy produkt istnieje i updatować ilość
