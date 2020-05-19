@@ -27,8 +27,8 @@
         android:text="@string/numberOfPackages"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
-        android:visibility="invisible"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/textViewNameProduct" />
 
@@ -40,9 +40,9 @@
         android:layout_marginBottom="40dp"
         android:text="@string/ExpirationDateInfo"
         android:textColor="@color/darkGray"
-        android:visibility="invisible"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2" />
 
@@ -55,10 +55,10 @@
         android:layout_marginEnd="30dp"
         android:hint="Proszę wpisać"
         android:inputType="number"
-        android:visibility="invisible"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewNumberOfPackagesInfo"
         app:layout_constraintTop_toBottomOf="@+id/textViewNameProduct" />
@@ -70,10 +70,10 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:text="04.05.2020"
-        android:visibility="invisible"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewExpirationDate"
         app:layout_constraintTop_toTopOf="@+id/textViewExpirationDate" />
@@ -93,10 +93,20 @@
         android:id="@+id/buttonScanProduct"
         android:layout_width="400px"
         android:layout_height="500px"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/button_scan"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonAddProductWithoutScan"
+        android:layout_width="400px"
+        android:layout_height="500px"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/button_add_product_withoiut_scan"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -106,10 +116,10 @@
         android:layout_marginTop="20dp"
         android:hint="Nazwa Produktu"
         android:textAlignment="center"
-        android:visibility="invisible"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
@@ -123,8 +133,8 @@
         android:autofillHints="Proszę wybrać"
         android:textColor="@color/darkGray"
         android:textSize="20sp"
-        android:visibility="invisible"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/textViewDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewTypeOfProductInfo"
@@ -136,10 +146,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:text="Rodzaj produktu"
-        android:visibility="invisible"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/textViewExpirationDate"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/textViewNumberOfPackagesInfo" />
@@ -149,14 +159,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Naciśnij przycisk Skanuj"
-        android:visibility="visible"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/textViewInfo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Uzupełnij dane"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

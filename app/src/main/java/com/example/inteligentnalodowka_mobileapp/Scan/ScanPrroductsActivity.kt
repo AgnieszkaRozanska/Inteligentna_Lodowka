@@ -53,6 +53,11 @@ class ScanPrroductsActivity : AppCompatActivity() {
             }
         }
 
+        buttonAddProductWithoutScan.setOnClickListener {
+            setVisibilityItems()
+            textViewInfo2.setVisibility(View.VISIBLE)
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
