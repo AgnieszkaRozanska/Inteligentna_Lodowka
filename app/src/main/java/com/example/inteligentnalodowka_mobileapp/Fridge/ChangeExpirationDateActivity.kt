@@ -12,7 +12,12 @@ import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
 import com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts.FridgeActivity
 import com.example.inteligentnalodowka_mobileapp.R
 import kotlinx.android.synthetic.main.activity_change_expiration_date.*
+import kotlinx.android.synthetic.main.activity_change_expiration_date.buttonSave
+import kotlinx.android.synthetic.main.activity_change_expiration_date.textViewNameOfProduct
+import kotlinx.android.synthetic.main.activity_change_number_of_product.*
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -39,11 +44,63 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val formatted = current.format(formatter)
+
+        val newValue = textViewNewDate.text.toString()
+        if(formatted.toString()!= newValue){
+            alertDialogOnBackPress()
+        }else{
+            val intentOnBackPress = Intent(applicationContext, ProductDetailsActivity::class.java)
+            if (intent.hasExtra("id")) id = intent.getStringExtra("id")
+            if (intent.hasExtra("name")) name = intent.getStringExtra("name")
+            if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
+            if (intent.hasExtra("expirationDate"))   expirationDate = intent.getStringExtra("expirationDate")
+
+            intentOnBackPress.putExtra("id", id)
+            intentOnBackPress.putExtra("name", name)
+            intentOnBackPress.putExtra("quantity", quantity)
+            intentOnBackPress.putExtra("expirationDate", expirationDate)
+            startActivity(intentOnBackPress)
+        }
+    }
+
+    private fun alertDialogOnBackPress() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.attention))
+        builder.setMessage("Cofnięcie się spowoduje, że zmiany nie zostaną zapisane. Czy na pewno chcesz wrócić?")
+        builder.setPositiveButton(getString(R.string.AlertDialogYes)) { dialog: DialogInterface, which: Int ->
+            val intentOnBackPress = Intent(applicationContext, ProductDetailsActivity::class.java)
+            if (intent.hasExtra("id")) id = intent.getStringExtra("id")
+            if (intent.hasExtra("name")) name = intent.getStringExtra("name")
+            if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
+            if (intent.hasExtra("expirationDate"))   expirationDate = intent.getStringExtra("expirationDate")
+
+            intentOnBackPress.putExtra("id", id)
+            intentOnBackPress.putExtra("name", name)
+            intentOnBackPress.putExtra("quantity", quantity)
+            intentOnBackPress.putExtra("expirationDate", expirationDate)
+            startActivity(intentOnBackPress)
+
+            startActivity(intentOnBackPress)
+        }
+        builder.setNegativeButton(getString(R.string.AlertDialogNo)) { dialogInterface: DialogInterface, i: Int -> }
+        builder.show()
+    }
+
     private fun setVaues() {
         if (intent.hasExtra("name")) textViewNameOfProduct.text = intent.getStringExtra("name")
         if (intent.hasExtra("expirationDate")) textPreviousDate.text =
             intent.getStringExtra("expirationDate")
         if (intent.hasExtra("id")) id = intent.getStringExtra("id")
+        val current = LocalDateTime.now()
+
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val formatted = current.format(formatter)
+        textViewNewDate.text = formatted.toString()
     }
 
     private fun chooseNewDate(){
