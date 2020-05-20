@@ -1,13 +1,10 @@
 package com.example.inteligentnalodowka_mobileapp
 
+import android.content.Context
 import android.content.Intent
-import android.database.sqlite.SQLiteDatabase
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.widget.Toast
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts.FridgeActivity
 import com.example.inteligentnalodowka_mobileapp.Recipies.ShowAllRecipesActivity
 import com.example.inteligentnalodowka_mobileapp.Scan.ScanPrroductsActivity
@@ -16,7 +13,6 @@ import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.OkHttpClient
-import java.io.FileOutputStream
 import java.util.*
 
 
@@ -41,6 +37,18 @@ class MainActivity : AppCompatActivity() {
         buttonShoppingList.setOnClickListener{
             goToShopListActivity()
         }
+
+
+        val isFirstRun =
+            getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+                .getBoolean("isFirstRun", true)
+
+        if (isFirstRun) {
+            loadApiToDatabase(db)
+        }
+
+        getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE).edit()
+            .putBoolean("isFirstRun", false).commit()
     }
 
     private fun goToWindowFridgeActivity(){
@@ -119,4 +127,7 @@ class MainActivity : AppCompatActivity() {
             db.addDatabaseProduct(APIData[i])
         }
     }
+
+
+
 }

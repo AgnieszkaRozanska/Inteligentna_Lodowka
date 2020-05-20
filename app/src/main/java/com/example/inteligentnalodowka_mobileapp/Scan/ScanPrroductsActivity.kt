@@ -53,6 +53,8 @@ class ScanPrroductsActivity : AppCompatActivity() {
             }
         }
 
+        checkEanCode("7614500010013")
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -77,9 +79,16 @@ class ScanPrroductsActivity : AppCompatActivity() {
 
         // tu bedzie kod sprawdzający, czy w api mamy produkt czy też nie
         // jeżeli go nie będzie mamy alert dialog
-
-        alertDialogNoProductInDatabase()
-
+        var db = DataBaseHandler(this)
+        var product = db.getDatabaseProduct(eanCode)
+        if(product==null)
+        {
+            alertDialogNoProductInDatabase()
+        }else
+        {
+            setVisibilityItems()
+            textViewNameProduct.setText(product.nameProduct)
+        }
     }
 
 

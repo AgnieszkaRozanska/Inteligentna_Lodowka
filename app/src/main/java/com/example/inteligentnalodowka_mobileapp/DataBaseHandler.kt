@@ -180,6 +180,29 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         db.close()
         return allProductsList
     }
+    fun getDatabaseProduct(eanCode : String): DatabaseProduct?
+    {
+        val db= readableDatabase
+        val cursor=db.rawQuery("SELECT * FROM $PRODUCTS_DATABASE_TABLE_NAME WHERE $EAN_QR_CODE='$eanCode'", null)
+        if(cursor!= null)
+        {
+            if(cursor.moveToNext())
+            {
+                val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT_DATABASE))
+                val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT_DATABASE))
+                val ean = cursor.getString(cursor.getColumnIndex(EAN_QR_CODE))
+                val productType=cursor.getString(cursor.getColumnIndex(TYPE_PRODUCT_DATABASE))
+
+                cursor.close()
+                db.close()
+                return DatabaseProduct(id, name, ean, productType)
+            }
+        }
+        cursor.close()
+        db.close()
+        return null
+    }
+
     fun getAllProducts(): ArrayList<Product>
     {
         val allProductsList= ArrayList<Product>()
