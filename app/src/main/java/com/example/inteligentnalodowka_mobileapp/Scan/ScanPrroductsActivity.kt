@@ -52,9 +52,6 @@ class ScanPrroductsActivity : AppCompatActivity() {
                 addProduct(this)
             }
         }
-
-        checkEanCode("7614500010013")
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
