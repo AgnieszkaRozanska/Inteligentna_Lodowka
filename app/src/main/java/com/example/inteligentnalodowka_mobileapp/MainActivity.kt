@@ -2,6 +2,7 @@ package com.example.inteligentnalodowka_mobileapp
 
 import android.content.Context
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 .getBoolean("isFirstRun", true)
 
         if (isFirstRun) {
-            loadApiToDatabase(db)
+            LoadDatabaseAsync(this,db).execute()
         }
 
         getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE).edit()
@@ -128,6 +129,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //@SuppressLint("StaticFieldLeak")
+    class LoadDatabaseAsync(private var activity: MainActivity?,private var db: DataBaseHandler) : AsyncTask<String, String, String>() {
 
+        override fun onPreExecute() {
+            super.onPreExecute()
+        }
 
+        override fun doInBackground(vararg p0: String?): String {
+
+            activity?.loadApiToDatabase(db)
+            return ""
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            }
+        }
 }
