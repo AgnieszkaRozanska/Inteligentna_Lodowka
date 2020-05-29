@@ -32,6 +32,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
     var flagScanned = false
     var list_of_types= arrayOf("Wybierz typ", "Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Napoje", "Inne")
     var typeProduct = ""
+    var idProduct = ""
     var idProductFromDatabase = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +52,14 @@ class ScanPrroductsActivity : AppCompatActivity() {
         buttonAddProduct.setOnClickListener{
             var result : Boolean = checkCorrectOfData()
             if(result){
-                addProduct(this)
+
+                if(checkifExistsProdukt(textViewNameProduct.text.toString(), spinnerTypeOfProduct.getSelectedItem().toString())){
+                    updateProduct(idProduct)
+                }else{
+                    addProduct(this)
+                }
+
+
             }
         }
 
@@ -221,6 +229,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
             editTextNumberOfPackages.text.clear()
             textViewNameProduct.text.clear()
             buttonAddProduct.setVisibility(View.VISIBLE)
+            setInvisibilityItems()
         }
         builder.setNegativeButton(getString(R.string.AlertDialogNo)) { dialogInterface: DialogInterface, i: Int ->
             goToMainWindow()
@@ -234,9 +243,49 @@ class ScanPrroductsActivity : AppCompatActivity() {
     }
 
 
-    private fun checkifExistsProdukt(){
-        // w przyszłości trzeba będzie sprawdzać czy produkt istnieje i updatować ilość
+    private fun checkifExistsProdukt(name : String, type : String) : Boolean{
+        val dbHelper = DataBaseHandler(this)
+        var result = false
+        var productsList = dbHelper.getAllProducts()
+
+        for (i: Product in productsList) {
+            if (i.nameProduct == name && i.type == type) {
+                idProduct = i.id
+                result = true
+            }
+        }
+
+        return result
     }
+
+    private fun updateProduct(id :String){
+        val dbHelper = DataBaseHandler(this)
+        var oldQuantity = dbHelper.findProduct(id)?.quantity.toString()
+        var newQuantity = oldQuantity.toInt() + editTextNumberOfPackages.text.toString().toInt()
+
+
+        val success = dbHelper.inscreaseQuantityOfProducts(id, newQuantity.toString())
+        if(success){
+            Toast.makeText(this, getString(R.string.addProduct), Toast.LENGTH_LONG).show()
+            alertDialogAddProduct()
+        }
+    }
+
+
+    private fun setInvisibilityItems(){
+        textViewNameProduct.setVisibility(View.INVISIBLE)
+        textViewNumberOfPackagesInfo.setVisibility(View.INVISIBLE)
+        textViewTypeOfProductInfo.setVisibility(View.INVISIBLE)
+        textViewExpirationDate.setVisibility(View.INVISIBLE)
+        textViewDate.setVisibility(View.INVISIBLE)
+        spinnerTypeOfProduct.setVisibility(View.INVISIBLE)
+        editTextNumberOfPackages.setVisibility(View.INVISIBLE)
+        textViewInformed.setVisibility(View.VISIBLE)
+        buttonAddProduct.setVisibility(View.INVISIBLE)
+        takeCurrentDate()
+    }
+
+
 
     private fun ifExistsProdukt(){
         // update ilości produktów już w bazie

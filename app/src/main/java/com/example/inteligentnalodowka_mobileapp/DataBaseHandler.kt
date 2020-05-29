@@ -278,6 +278,46 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
     }
 
 
+    fun findProduct(id:String) : Product?{
+        val db= readableDatabase
+        val cursor=db.rawQuery("SELECT * FROM $PRODUCTS_TABLE_NAME WHERE $ID_PRODUCT='$id'", null)
+        if(cursor!= null)
+        {
+            if(cursor.moveToNext())
+            {
+                val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT))
+                val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT))
+                val dateExpiration = cursor.getString(cursor.getColumnIndex(EXPIRATION_DATE))
+                val quantity = cursor.getString(cursor.getColumnIndex(QUANTITY))
+                val productType=cursor.getString(cursor.getColumnIndex(TYPE))
+
+                cursor.close()
+                db.close()
+                return Product(id, name, dateExpiration, quantity, productType)
+            }
+        }
+        cursor.close()
+        db.close()
+        return null
+    }
+
+
+    fun inscreaseQuantityOfProducts(id:String, count: String):Boolean{
+        try {
+            val db = this.writableDatabase
+            val cv = ContentValues()
+            cv.put(QUANTITY, count)
+            db.update(PRODUCTS_TABLE_NAME, cv, "ID_PRODUCT =?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+
+        return true
+    }
+
 
 
 }
