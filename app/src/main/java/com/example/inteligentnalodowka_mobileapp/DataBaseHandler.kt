@@ -74,13 +74,9 @@ const val SQL_CREATE_TABLE_PRODUCTS_TO_RECIPES= ("CREATE TABLE IF NOT EXISTS "  
 
 
 
-
-
-
-
 //BAZA PRODUKTOW
 const val SQL_CREATE_TABLE_PRODUCTS_DATABASE = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS_DATABASE_TABLE_NAME +" (" +
-        ID_PRODUCT_DATABASE + " INTEGER PRIMARY KEY," +
+        ID_PRODUCT_DATABASE + " INTEGER PRIMARY KEY AUTOINCREMENT," +
         EAN_QR_CODE + " TEXT NOT NULL," +
         NAME_PRODUCT_DATABASE + " TEXT NOT NULL," +
         TYPE_PRODUCT_DATABASE + " TEXT)")
@@ -122,7 +118,8 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         onCreate(db)
     }
 
-    fun insertData(data: String){
+    fun insertData(data: String)
+    {
         val db = this.writableDatabase
         var cv = ContentValues()
         cv.put(ID_PRODUCT, data)
@@ -143,6 +140,67 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
 
         db.close()
         return !result.equals(-1)
+    }
+
+    fun addDatabaseProduct(product : DatabaseProduct)
+    {
+        val db=this.writableDatabase
+        val cv = ContentValues()
+        cv.put(NAME_PRODUCT_DATABASE, product.nameProduct)
+        //cv.put(ID_PRODUCT_DATABASE,  product.id)
+        cv.put(EAN_QR_CODE, product.eanCode)
+        cv.put(TYPE_PRODUCT_DATABASE, product.type)
+
+        val result= db.insert(PRODUCTS_DATABASE_TABLE_NAME, null, cv)
+        db.close()
+    }
+    fun getAllDatabaseProducts(): ArrayList<DatabaseProduct>
+    {
+        val allProductsList= ArrayList<DatabaseProduct>()
+        val db= readableDatabase
+
+        val cursor=db.rawQuery("SELECT * FROM $PRODUCTS_DATABASE_TABLE_NAME", null)
+        if(cursor!= null)
+        {
+            if(cursor.moveToNext())
+            {
+                do{
+                    val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT_DATABASE))
+                    val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT_DATABASE))
+                    val ean = cursor.getString(cursor.getColumnIndex(EAN_QR_CODE))
+                    val productType=cursor.getString(cursor.getColumnIndex(TYPE_PRODUCT_DATABASE))
+
+                    val product = DatabaseProduct(id, name, ean, productType)
+                    allProductsList.add(product)
+                }while (cursor.moveToNext())
+            }
+        }
+
+        cursor.close()
+        db.close()
+        return allProductsList
+    }
+    fun getDatabaseProduct(eanCode : String): DatabaseProduct?
+    {
+        val db= readableDatabase
+        val cursor=db.rawQuery("SELECT * FROM $PRODUCTS_DATABASE_TABLE_NAME WHERE $EAN_QR_CODE='$eanCode'", null)
+        if(cursor!= null)
+        {
+            if(cursor.moveToNext())
+            {
+                val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT_DATABASE))
+                val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT_DATABASE))
+                val ean = cursor.getString(cursor.getColumnIndex(EAN_QR_CODE))
+                val productType=cursor.getString(cursor.getColumnIndex(TYPE_PRODUCT_DATABASE))
+
+                cursor.close()
+                db.close()
+                return DatabaseProduct(id, name, ean, productType)
+            }
+        }
+        cursor.close()
+        db.close()
+        return null
     }
 
     fun getAllProducts(): ArrayList<Product>
