@@ -53,7 +53,7 @@
         android:layout_marginTop="80px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/kitchen_icon" />
+        app:srcCompat="@drawable/kitchen_icon2" />
 
     <ImageView
         android:id="@+id/imageView9"

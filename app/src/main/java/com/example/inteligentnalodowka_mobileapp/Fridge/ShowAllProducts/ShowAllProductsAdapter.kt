@@ -60,31 +60,6 @@ class ShowAllProductsAdapter(context: Context, var productsList: ArrayList<Produ
             context.startActivity(intentEdit)
         }
 
-        /*
-        val cardViewProduct = holder.view.cardView_product
-           val context:Context = holder.view.context
-
-        cardViewmedicine.setOnClickListener {
-
-            val intentEdit = Intent(context, ActivityUpdateRemoveMedicine::class.java)
-            val medNameEdit=medicineTypeList[holder.adapterPosition].name
-            val activeDose = medicineTypeList[holder.adapterPosition].activedoses
-            val medCountEdit= medicineTypeList[holder.adapterPosition].unitInStock.toString()
-            val medKindEdit= medicineTypeList[holder.adapterPosition].kindMedicineType
-            val medDescriptionEdit= medicineTypeList[holder.adapterPosition].description
-            val idEdit= medicineTypeList[holder.adapterPosition].iDMedicine
-            val fullname= "$medNameEdit $activeDose"
-
-            intentEdit.putExtra("name", fullname)
-            intentEdit.putExtra("count", medCountEdit)
-            intentEdit.putExtra("IDMedicine", idEdit)
-            intentEdit.putExtra("kind", medKindEdit)
-            intentEdit.putExtra("description", medDescriptionEdit)
-            context.startActivity(intentEdit)
-        }
-         */
-
-
     }
 }
 

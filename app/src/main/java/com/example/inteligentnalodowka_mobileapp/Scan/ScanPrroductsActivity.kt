@@ -30,8 +30,9 @@ class ScanPrroductsActivity : AppCompatActivity() {
 
     var eanCode = ""
     var flagScanned = false
-    var list_of_types= arrayOf("Wybierz typ", "Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Inne")
+    var list_of_types= arrayOf("Wybierz typ", "Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Napoje", "Inne")
     var typeProduct = ""
+    var idProductFromDatabase = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

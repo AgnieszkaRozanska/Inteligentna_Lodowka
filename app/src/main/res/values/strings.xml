@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">InteligentnaLodowka_MobileApp</string>
+    <string name="app_name">Twoja lodówka</string>
     <string name="hintFridgeSearchProducts">Wpisz nazwę produktu</string>
     <string name="numberOfPackages">Ilość sztuk</string>
     <string name="ExpirationDateInfo">Data ważności</string>
