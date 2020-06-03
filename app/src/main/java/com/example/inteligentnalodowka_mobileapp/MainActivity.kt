@@ -32,9 +32,6 @@ class MainActivity : AppCompatActivity() {
         buttonScan.setOnClickListener{
             goToWindowScanActivity()
         }
-        buttonRecipes.setOnClickListener{
-            goToWindowShowAllRecipesActivity()
-        }
         buttonShoppingList.setOnClickListener{
             goToShopListActivity()
         }

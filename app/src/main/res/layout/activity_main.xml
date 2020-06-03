@@ -9,42 +9,32 @@
 
     <Button
         android:id="@+id/buttonFridge"
-        android:layout_width="400px"
-        android:layout_height="500px"
-        android:layout_marginStart="100px"
+        android:layout_width="420px"
+        android:layout_height="520px"
+        android:layout_marginStart="29dp"
         android:background="@drawable/button_fridge"
-        app:layout_constraintBottom_toTopOf="@+id/buttonShoppingList"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonRecipes"
-        android:layout_width="400px"
-        android:layout_height="500px"
-        android:layout_marginEnd="100px"
-        android:background="@drawable/button_recipes"
         app:layout_constraintBottom_toTopOf="@+id/buttonScan"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <Button
         android:id="@+id/buttonShoppingList"
-        android:layout_width="400px"
-        android:layout_height="500px"
-        android:layout_marginStart="100px"
-        android:layout_marginBottom="50px"
+        android:layout_width="420px"
+        android:layout_height="520px"
+        android:layout_marginEnd="29dp"
         android:background="@drawable/button_shopping_list"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonScan"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/buttonScan"
-        android:layout_width="400px"
-        android:layout_height="500px"
-        android:layout_marginEnd="100px"
-        android:layout_marginBottom="50px"
+        android:layout_width="420px"
+        android:layout_height="520px"
+        android:layout_marginBottom="29dp"
         android:background="@drawable/button_scan"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView7"
