@@ -16,27 +16,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <SearchView
         android:id="@+id/editTextSearchProducts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="5dp"
-        android:padding="10dp"
-        android:hint="@string/hintFridgeSearchProducts"
-        android:textAlignment="center"
-        android:inputType="text"
-        android:background="@mipmap/search_panel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:layout_marginTop="32dp"
+        android:background="@color/colorPrimary"
+        android:textCursorDrawable="@null"
+        app:iconifiedByDefault="false"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:queryBackground="@null"
+        tools:layout_editor_absoluteX="0dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAllProducts"
-        android:layout_width="match_parent"
+        android:layout_width="369dp"
+        android:layout_height="330dp"
         android:layout_margin="10dp"
-        android:layout_height="542dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
