@@ -65,8 +65,8 @@
         android:id="@+id/textViewExpirationDateConst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100px"
-        android:layout_marginTop="80px"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="20dp"
         android:text="@string/expirationDate"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
@@ -78,8 +78,8 @@
         android:id="@+id/textViewAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="29dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="116dp"
         android:hint="2"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
@@ -107,4 +107,32 @@
         app:layout_constraintBottom_toBottomOf="@+id/textViewAmount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNameOfProduct" />
+
+    <TextView
+        android:id="@+id/textViewPurchaseDateConst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="24dp"
+        android:text="Data zakupu"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewExpirationDateConst" />
+
+    <TextView
+        android:id="@+id/textViewPurchaseDateActual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="28dp"
+        android:text="22.10.2020"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewPurchaseDateConst"
+        app:layout_constraintTop_toBottomOf="@+id/textViewExpirationDate" />
 </androidx.constraintlayout.widget.ConstraintLayout>
