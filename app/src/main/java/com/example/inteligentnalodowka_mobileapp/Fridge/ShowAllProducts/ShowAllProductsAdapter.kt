@@ -49,11 +49,13 @@ class ShowAllProductsAdapter(context: Context, var productsList: ArrayList<Produ
             val intentEdit = Intent(context, ProductDetailsActivity::class.java)
             val priductID = productsList[holder.adapterPosition].id
             val priductName =productsList[holder.adapterPosition].nameProduct
+            val productPurchaseDate = productsList[holder.adapterPosition].purchaseDate
             val productExpirationDate=productsList[holder.adapterPosition].expirationDate
             val productQuantity = productsList[holder.adapterPosition].quantity
 
             intentEdit.putExtra("id", priductID)
             intentEdit.putExtra("name", priductName)
+            intentEdit.putExtra("purchaseDate", productPurchaseDate)
             intentEdit.putExtra("expirationDate", productExpirationDate)
             intentEdit.putExtra("quantity", productQuantity)
 

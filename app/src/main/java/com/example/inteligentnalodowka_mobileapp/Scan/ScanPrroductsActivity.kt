@@ -1,5 +1,6 @@
 package com.example.inteligentnalodowka_mobileapp.Scan
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -117,6 +118,8 @@ class ScanPrroductsActivity : AppCompatActivity() {
     private fun setVisibilityItems(){
         textViewNameProduct.setVisibility(View.VISIBLE)
         textViewNumberOfPackagesInfo.setVisibility(View.VISIBLE)
+        textViewPurchaseDate.setVisibility(View.VISIBLE)
+        textViewPurchaseDateInfo.setVisibility(View.VISIBLE)
         textViewTypeOfProductInfo.setVisibility(View.VISIBLE)
         textViewExpirationDate.setVisibility(View.VISIBLE)
         textViewDate.setVisibility(View.VISIBLE)
@@ -132,6 +135,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         val dbHelper = DataBaseHandler(this)
         val idProduct = UUID.randomUUID().toString()
         var name = textViewNameProduct.text.toString()
+        var purchaseDate = textViewPurchaseDate.text.toString()
         var quantity = editTextNumberOfPackages.text.toString()
         var type = spinnerTypeOfProduct.getSelectedItem().toString();
         var date = textViewDate.text.toString()
@@ -139,6 +143,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         var product = Product(
             idProduct,
             name,
+            purchaseDate,
             date,
             quantity,
             type
@@ -176,20 +181,56 @@ class ScanPrroductsActivity : AppCompatActivity() {
     private fun takeCurrentDate() : String{
         val current = LocalDateTime.now()
 
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         val formatted = current.format(formatter)
+        setPurchaseDate(formatted)
         setDate(formatted)
         return  formatted
     }
 
+    private fun setPurchaseDate(currentDate : String){
+
+
+
+
+        textViewPurchaseDate.setText(currentDate.toString())
+
+        textViewPurchaseDate.setOnClickListener {
+            var cal = Calendar.getInstance()
+            val year = cal.get(Calendar.YEAR)
+            val month = cal.get(Calendar.MONTH)
+            val day = cal.get(Calendar.DAY_OF_MONTH)
+
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, monthOfYear)
+                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                    val myFormat = "dd.MM.yyyy" // mention the format you need
+                    val sdf = SimpleDateFormat(myFormat, Locale.US)
+                    textViewPurchaseDate.text = sdf.format(cal.time)
+
+                }
+            DatePickerDialog(
+                this@ScanPrroductsActivity,
+                dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
+            val date = "$day.$month.$year"
+            textViewPurchaseDate.setText(date.toString())
+        }
+
+    }
+
+
     private fun setDate(currentDate : String){
 
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        var dateEndFormatDate = LocalDate.parse(currentDate, formatter)
-        var period = Period.of(0, 0, 7)
-        var modifiedDate = dateEndFormatDate.plus(period)
 
-        textViewDate.setText(modifiedDate.toString())
+        val lack = "Brak"
+        textViewDate.setText(lack)
 
         textViewDate.setOnClickListener {
             var cal = Calendar.getInstance()
@@ -275,6 +316,8 @@ class ScanPrroductsActivity : AppCompatActivity() {
     private fun setInvisibilityItems(){
         textViewNameProduct.setVisibility(View.INVISIBLE)
         textViewNumberOfPackagesInfo.setVisibility(View.INVISIBLE)
+        textViewPurchaseDate.setVisibility(View.INVISIBLE)
+        textViewPurchaseDateInfo.setVisibility(View.INVISIBLE)
         textViewTypeOfProductInfo.setVisibility(View.INVISIBLE)
         textViewExpirationDate.setVisibility(View.INVISIBLE)
         textViewDate.setVisibility(View.INVISIBLE)
