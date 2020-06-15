@@ -15,16 +15,15 @@ import com.example.inteligentnalodowka_mobileapp.Fridge.ProductDetailsActivity
 import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
 import kotlinx.android.synthetic.main.activity_card_view_all_products.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ShowAllProductsAdapter(context: FridgeActivity, var productsList: ArrayList<Product>): RecyclerView.Adapter<MyViewHolder>(),
     Filterable {
 
-    var productsFilterList = ArrayList<Product>()
+    internal var productsFilterList = ArrayList<Product>()
 
     init {
-        productsFilterList = productsList
+        this.productsFilterList = productsList
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): MyViewHolder {
@@ -33,41 +32,38 @@ class ShowAllProductsAdapter(context: FridgeActivity, var productsList: ArrayLis
             layoutInflater.inflate(R.layout.activity_card_view_all_products, viewGroup, false)
 
 
-
-
         return MyViewHolder(cardViewProduct)
     }
 
     override fun getItemCount(): Int {
-        return productsFilterList.count()
+        return productsFilterList.size
     }
 
     override fun getFilter(): Filter {
         return object : Filter() {
-            override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val charSearch = constraint.toString()
+            override fun performFiltering(charString: CharSequence?): FilterResults {
+                val charSearch = charString.toString()
                 if (charSearch.isEmpty()) {
                     productsFilterList = productsList
-                } else {
+                }
+                else {
                     val resultList = ArrayList<Product>()
                     for (row in productsList) {
 
-                        if (row.nameProduct.toLowerCase(Locale.ROOT)
-                                .contains(charSearch.toLowerCase(Locale.ROOT))
-                        ) {
+                        if (row.nameProduct!!.toLowerCase().contains(charSearch.toLowerCase()))
                             resultList.add(row)
-                        }
+
                     }
                     productsFilterList = resultList
                 }
-                val filterResults = FilterResults()
+                val filterResults = Filter.FilterResults()
                 filterResults.values = productsFilterList
                 return filterResults
             }
 
             @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                productsFilterList = results?.values as ArrayList<Product>
+            override fun publishResults(charSequence: CharSequence?, filterResults: FilterResults?) {
+                productsFilterList = filterResults!!.values as ArrayList<Product>
                 notifyDataSetChanged()
             }
 
@@ -78,9 +74,9 @@ class ShowAllProductsAdapter(context: FridgeActivity, var productsList: ArrayLis
 
 
 
-        val productName_cardView = productsFilterList[holder.adapterPosition].nameProduct
-        val typeProduct_cardView = productsFilterList[holder.adapterPosition].type
-        val countProduct_cardView = productsFilterList[holder.adapterPosition].quantity
+        val productName_cardView = productsFilterList.get(position).nameProduct
+        val typeProduct_cardView = productsFilterList.get(position).type
+        val countProduct_cardView = productsFilterList.get(position).quantity
 
         holder.productName.text = productName_cardView
         holder.productType.text = typeProduct_cardView

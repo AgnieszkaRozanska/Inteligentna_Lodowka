@@ -1,18 +1,26 @@
 package com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.SearchView
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
 import com.example.inteligentnalodowka_mobileapp.MainActivity
+import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
 import kotlinx.android.synthetic.main.activity_fridge.*
+import java.util.Locale.filter
+
 
 class FridgeActivity : AppCompatActivity() {
-    lateinit var adapter: ShowAllProductsAdapter
+
+
+    var editTextSearch: EditText? = null
+    var adapter: ShowAllProductsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,39 +28,34 @@ class FridgeActivity : AppCompatActivity() {
 
         setTextIfListIsEmpty()
 
-        editTextSearchProducts.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
 
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+        editTextSearch = findViewById(R.id.editTextSearchProducts);
+
+
+        editTextSearch!!.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                adapter?.filter?.filter(charSequence.toString())
+
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
+            override fun afterTextChanged(editable: Editable) {
+                adapter?.filter?.filter(editable.toString())
 
-                adapter.filter.filter(newText)
-                return false
             }
         })
 
 
-        getListOfProducts()
-
     }
 
 
-    private fun getListOfProducts() {
-        val dbHelper = DataBaseHandler(this)
-        dbHelper.writableDatabase
-        val  productList = dbHelper.getAllProducts()
-
-        adapter = ShowAllProductsAdapter(this, productList)
-
-    }
 
 
     override fun onBackPressed() {
         val intentOnBackPress = Intent(applicationContext, MainActivity::class.java)
         startActivity(intentOnBackPress)
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -63,6 +66,9 @@ class FridgeActivity : AppCompatActivity() {
 
         recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
         recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+        adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
 
     }
 
@@ -78,6 +84,8 @@ class FridgeActivity : AppCompatActivity() {
 
     }
 }
+
+
 
 
 
