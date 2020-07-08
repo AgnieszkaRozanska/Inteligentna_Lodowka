@@ -16,7 +16,6 @@ class ProductDetailsActivity : AppCompatActivity() {
     private var id = ""
     private var name = ""
     private var quantity = ""
-    private var purchaseDate = ""
     private var expirationDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +47,6 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private fun setVaues() {
         if (intent.hasExtra("name")) textViewNameOfProduct.text = intent.getStringExtra("name")
-        if(intent.hasExtra("purchaseDate")) textViewPurchaseDateActual.text = intent.getStringExtra("purchaseDate")
         if (intent.hasExtra("expirationDate")) textViewExpirationDate.text =
             intent.getStringExtra("expirationDate")
         if (intent.hasExtra("quantity")) textViewAmount.text = intent.getStringExtra("quantity")
@@ -96,8 +94,6 @@ class ProductDetailsActivity : AppCompatActivity() {
         if (intent.hasExtra("id")) id = intent.getStringExtra("id")
         if (intent.hasExtra("name")) name = intent.getStringExtra("name")
         if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
-        if (intent.hasExtra("purchaseDate")) purchaseDate=
-            intent.getStringExtra("purchaseDate")
         if (intent.hasExtra("expirationDate")) expirationDate=
             intent.getStringExtra("expirationDate")
 
@@ -105,7 +101,6 @@ class ProductDetailsActivity : AppCompatActivity() {
         goToChangeNumberOfProductActivity.putExtra("id", id)
         goToChangeNumberOfProductActivity.putExtra("name", name)
         goToChangeNumberOfProductActivity.putExtra("quantity", quantity)
-        goToChangeNumberOfProductActivity.putExtra("purchaseDate", purchaseDate)
         goToChangeNumberOfProductActivity.putExtra("expirationDate", expirationDate)
         startActivity(goToChangeNumberOfProductActivity)
     }
@@ -115,8 +110,6 @@ class ProductDetailsActivity : AppCompatActivity() {
         if (intent.hasExtra("id")) id = intent.getStringExtra("id")
         if (intent.hasExtra("name")) name = intent.getStringExtra("name")
         if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
-        if (intent.hasExtra("purchaseDate")) purchaseDate=
-            intent.getStringExtra("purchaseDate")
         if (intent.hasExtra("expirationDate")) expirationDate=
             intent.getStringExtra("expirationDate")
 
@@ -124,7 +117,6 @@ class ProductDetailsActivity : AppCompatActivity() {
         goToChangeExpirationDateActivity.putExtra("id", id)
         goToChangeExpirationDateActivity.putExtra("name", name)
         goToChangeExpirationDateActivity.putExtra("quantity", quantity)
-        goToChangeExpirationDateActivity.putExtra("purchaseDate", purchaseDate)
         goToChangeExpirationDateActivity.putExtra("expirationDate", expirationDate)
         startActivity(goToChangeExpirationDateActivity)
     }

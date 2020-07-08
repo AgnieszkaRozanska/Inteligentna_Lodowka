@@ -13,7 +13,6 @@ const  val DATABASE_NAME = "Fridge.db"
 const val PRODUCTS_TABLE_NAME = "Products"
 const val ID_PRODUCT = "ID_Product"
 const val NAME_PRODUCT = "Name_Product"
-const val PURCHASE_DATE = "Purchase_date"
 const val EXPIRATION_DATE = "Expiration_date"
 const val QUANTITY = "Quantity_Product"
 const val TYPE = "Type_Product"
@@ -49,7 +48,6 @@ const val TYPE_PRODUCT_DATABASE = "Type_Product_Database"
 const val SQL_CREATE_TABLE_PRODUCTS = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS_TABLE_NAME +" (" +
         ID_PRODUCT + " TEXT PRIMARY KEY," +
         NAME_PRODUCT + " TEXT NOT NULL," +
-        PURCHASE_DATE + " TEXT," +
         EXPIRATION_DATE + " TEXT," +
         QUANTITY + " TEXT," +
         ID_PRODUCT_FROM_DATABASE + " TEXT," +
@@ -134,7 +132,6 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         val cv = ContentValues()
         cv.put(ID_PRODUCT,  product.id)
         cv.put(NAME_PRODUCT, product.nameProduct)
-        cv.put(PURCHASE_DATE, product.purchaseDate)
         cv.put(EXPIRATION_DATE, product.expirationDate)
         cv.put(QUANTITY, product.quantity)
         cv.put(TYPE, product.type)
@@ -219,12 +216,11 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                 do{
                     val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT))
                     val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT))
-                    val purchaseDate = cursor.getString(cursor.getColumnIndex(PURCHASE_DATE))
                     val date = cursor.getString(cursor.getColumnIndex(EXPIRATION_DATE))
                     val productType=cursor.getString(cursor.getColumnIndex(TYPE))
                     val quantity =cursor.getString(cursor.getColumnIndex(QUANTITY))
 
-                    val product = Product(id, name,purchaseDate, date, quantity, productType)
+                    val product = Product(id, name, date, quantity, productType)
                     allProductsList.add(product)
                 }while (cursor.moveToNext())
             }
@@ -281,22 +277,6 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         return true
     }
 
-    fun updatePurchaseDate(id:String, date: String):Boolean{
-        try {
-            val db = this.writableDatabase
-            val cv = ContentValues()
-            cv.put(PURCHASE_DATE, date)
-            db.update(PRODUCTS_TABLE_NAME, cv, "ID_PRODUCT =?", arrayOf(id))
-            db.close()
-        }
-        catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-
-        return true
-    }
-
 
     fun findProduct(id:String) : Product?{
         val db= readableDatabase
@@ -307,14 +287,13 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
             {
                 val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT))
                 val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT))
-                val purchaseDate = cursor.getString(cursor.getColumnIndex(PURCHASE_DATE))
                 val dateExpiration = cursor.getString(cursor.getColumnIndex(EXPIRATION_DATE))
                 val quantity = cursor.getString(cursor.getColumnIndex(QUANTITY))
                 val productType=cursor.getString(cursor.getColumnIndex(TYPE))
 
                 cursor.close()
                 db.close()
-                return Product(id, name,purchaseDate, dateExpiration, quantity, productType)
+                return Product(id, name, dateExpiration, quantity, productType)
             }
         }
         cursor.close()

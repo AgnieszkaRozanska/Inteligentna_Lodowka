@@ -11,10 +11,10 @@
         android:id="@+id/imageView2"
         android:layout_width="401dp"
         android:layout_height="302dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="44dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddProduct"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/rectangle_white" />
 
@@ -36,8 +36,8 @@
         android:id="@+id/textViewExpirationDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="40dp"
         android:text="@string/ExpirationDateInfo"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:hint="Proszę wpisać"
         android:inputType="number"
@@ -60,7 +60,6 @@
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.722"
         app:layout_constraintStart_toEndOf="@+id/textViewNumberOfPackagesInfo"
         app:layout_constraintTop_toBottomOf="@+id/textViewNameProduct" />
 
@@ -70,13 +69,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:text="Brak"
+        android:text="04.05.2020"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.398"
         app:layout_constraintStart_toEndOf="@+id/textViewExpirationDate"
         app:layout_constraintTop_toTopOf="@+id/textViewExpirationDate" />
 
@@ -139,16 +137,14 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/textViewDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textViewTypeOfProductInfo"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNumberOfPackagesInfo"
-        app:layout_constraintVertical_bias="0.34" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewNumberOfPackagesInfo" />
 
     <TextView
         android:id="@+id/textViewTypeOfProductInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="50dp"
         android:text="Rodzaj produktu"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
@@ -156,8 +152,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/textViewExpirationDate"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNumberOfPackagesInfo"
-        app:layout_constraintVertical_bias="0.319" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewNumberOfPackagesInfo" />
 
     <TextView
         android:id="@+id/textViewInformed"
@@ -185,36 +180,6 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewPurchaseDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginBottom="44dp"
-        android:text="04.05.2020"
-        android:textColor="@color/darkGray"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewDate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewPurchaseDateInfo" />
-
-    <TextView
-        android:id="@+id/textViewPurchaseDateInfo"
-        android:layout_width="126dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginBottom="44dp"
-        android:text="Data zakupu"
-        android:textColor="@color/darkGray"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewExpirationDate"
         app:layout_constraintStart_toStartOf="parent" />
 
 
