@@ -43,6 +43,15 @@ const val EAN_QR_CODE = "Code"
 const val NAME_PRODUCT_DATABASE = "Name_Product_Database"
 const val TYPE_PRODUCT_DATABASE = "Type_Product_Database"
 
+// TABELA DOTYCZACA lISTY ZAKUPOW
+const val SHOPPING_LIST_TABLE_NAME = "Shopping_List"
+const val ID_SHOPPING_ITEM = "ID_Shopping_Item"
+const val NAME_SHOPPING_ITEM = "Name"
+const val HOW_MUCH = "How_Much"
+const val TYPE_SHOPPING_ITEM = "Type_Shopping_Item"
+const val IF_BUY = "If_Buy"
+
+
 
 //TABELA PRODUKTY
 const val SQL_CREATE_TABLE_PRODUCTS = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS_TABLE_NAME +" (" +
@@ -82,6 +91,16 @@ const val SQL_CREATE_TABLE_PRODUCTS_DATABASE = ("CREATE TABLE IF NOT EXISTS "  +
         TYPE_PRODUCT_DATABASE + " TEXT)")
 
 
+// TABELA DOTYCZACA LISTY ZAKUPOW
+const val SQL_CREATE_TABLE_SHOPPING_LIST = ("CREATE TABLE IF NOT EXISTS "  + SHOPPING_LIST_TABLE_NAME +" (" +
+        ID_SHOPPING_ITEM + " TEXT PRIMARY KEY," +
+        NAME_SHOPPING_ITEM + " TEXT NOT NULL," +
+        TYPE_SHOPPING_ITEM + " TEXT," +
+        HOW_MUCH + " TEXT NOT NULL," +
+        IF_BUY + " INT)")
+
+
+
 
 //TABALA PRODUKTY
 const val SQL_DELETE_TABLE_PRODUCTS= "DROP TABLE IF EXISTS $PRODUCTS_TABLE_NAME"
@@ -96,6 +115,8 @@ const val SQL_DELETE_TABLE_PRODUCTS_TO_RECIPES = "DROP TABLE IF EXISTS $PRODUCTS
 //BAZA PRODUKTOW
 const val SQL_DELETE_TABLE_PRODUCTS_DATABASE = "DROP TABLE IF EXISTS $PRODUCTS_DATABASE_TABLE_NAME"
 
+//TABELA DOTYCZACA LISTY ZAKUPOW
+const val SQL_DELETE_TABLE_SHOPPING_LIST = "DROP TABLE IF EXISTS $SHOPPING_LIST_TABLE_NAME"
 
 
 class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
@@ -105,7 +126,7 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         db.execSQL(SQL_CREATE_TABLE_RECIPES)
         db.execSQL(SQL_CREATE_TABLE_PRODUCTS_TO_RECIPES)
         db.execSQL(SQL_CREATE_TABLE_PRODUCTS_DATABASE)
-
+        db.execSQL(SQL_CREATE_TABLE_SHOPPING_LIST)
 
 
     }
@@ -115,6 +136,7 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         db.execSQL(SQL_DELETE_TABLE_RECIPES)
         db.execSQL(SQL_DELETE_TABLE_PRODUCTS_TO_RECIPES)
         db.execSQL(SQL_DELETE_TABLE_PRODUCTS_DATABASE)
+        db.execSQL(SQL_DELETE_TABLE_SHOPPING_LIST)
         onCreate(db)
     }
 
