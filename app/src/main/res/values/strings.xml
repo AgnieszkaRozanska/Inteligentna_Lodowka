@@ -25,4 +25,5 @@
     <string name="attention">Uwaga</string>
     <string name="alertDialogMessageChangeQuantity">Zmieniłeś ilość na 0, zatem produkt zostanie usunięty. Czy na pewno tego chcesz?</string>
     <string name="succesOfUpdateProduct">Zaktualizowano produkt</string>
+    <string name="Custom_AlertDialog_AddShoppingItem_Title">Dodaj produkt do listy zakupów</string>
 </resources>
