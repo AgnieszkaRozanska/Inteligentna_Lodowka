@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.inteligentnalodowka_mobileapp.ShoppingList.ShoppingProduct
 
 
 const  val DATABASE_NAME = "Fridge.db"
@@ -340,6 +341,76 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         return true
     }
 
+    fun addShoppingProduct(shoppingProduct : ShoppingProduct)
+    {
+        val db=this.writableDatabase
+        val cv = ContentValues()
+        cv.put(ID_SHOPPING_ITEM,  shoppingProduct.id)
+        cv.put(NAME_SHOPPING_ITEM, shoppingProduct.nameShoppingProduct)
+        cv.put(HOW_MUCH, shoppingProduct.howMuch)
+        cv.put(TYPE_SHOPPING_ITEM, shoppingProduct.type)
+        cv.put(IF_BUY, shoppingProduct.ifBuy)
+
+        val result= db.insert(SHOPPING_LIST_TABLE_NAME, null, cv)
+        db.close()
+    }
+
+    fun getShoppingList() :ArrayList<ShoppingProduct>{
+
+        val shoppingList= ArrayList<ShoppingProduct>()
+        val db= readableDatabase
+
+        val cursor=db.rawQuery("SELECT * FROM $SHOPPING_LIST_TABLE_NAME", null)
+        if(cursor!= null)
+        {
+            if(cursor.moveToNext())
+            {
+                do{
+                    val id= cursor.getString(cursor.getColumnIndex(ID_SHOPPING_ITEM))
+                    val name=cursor.getString(cursor.getColumnIndex(NAME_SHOPPING_ITEM))
+                    val howMuch = cursor.getString(cursor.getColumnIndex(HOW_MUCH))
+                    val type= cursor.getString(cursor.getColumnIndex(TYPE_SHOPPING_ITEM))
+                    val ifBuy =  cursor.getString(cursor.getColumnIndex(IF_BUY)).toInt()
+
+                    val shoppingProduct = ShoppingProduct(id, name, howMuch, type,  ifBuy)
+                    shoppingList.add(shoppingProduct)
+                }while (cursor.moveToNext())
+            }
+        }
+        cursor.close()
+        db.close()
+        return shoppingList
+    }
+
+    fun updateIsChecked(id:String):Boolean{
+        try {
+            val db = this.writableDatabase
+            val cv = ContentValues()
+            cv.put(IF_BUY, 1)
+            db.update(SHOPPING_LIST_TABLE_NAME, cv, "ID_SHOPPING_ITEM =?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+        return true
+    }
+
+    fun updateIsNotChecked(id:String):Boolean{
+        try {
+            val db = this.writableDatabase
+            val cv = ContentValues()
+            cv.put(IF_BUY, 0)
+            db.update(SHOPPING_LIST_TABLE_NAME, cv, "ID_SHOPPING_ITEM =?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+        return true
+    }
 
 
 }
