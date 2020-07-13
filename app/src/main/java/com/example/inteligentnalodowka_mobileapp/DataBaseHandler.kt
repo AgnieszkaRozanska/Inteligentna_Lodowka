@@ -412,6 +412,42 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         return true
     }
 
+    fun getAllDatabaseProductsNames(): ArrayList<String>
+    {
+        val resultsList= ArrayList<String>()
+        val db= readableDatabase
+
+        val cursor=db.rawQuery("SELECT * FROM $PRODUCTS_DATABASE_TABLE_NAME", null)
+        if(cursor!= null)
+        {
+            if(cursor.moveToNext())
+            {
+                do{
+                    val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT_DATABASE))
+                    resultsList.add(name)
+                }while (cursor.moveToNext())
+            }
+        }
+
+        cursor.close()
+        db.close()
+        return resultsList
+    }
+
+    fun removeShoppingProduct(id: String): Boolean
+    {
+        try {
+            val db=this.writableDatabase
+            db.delete(SHOPPING_LIST_TABLE_NAME, "$ID_SHOPPING_ITEM=?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+        return true
+    }
+
 
 }
 
