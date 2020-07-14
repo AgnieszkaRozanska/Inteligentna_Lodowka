@@ -26,4 +26,8 @@
     <string name="alertDialogMessageChangeQuantity">Zmieniłeś ilość na 0, zatem produkt zostanie usunięty. Czy na pewno tego chcesz?</string>
     <string name="succesOfUpdateProduct">Zaktualizowano produkt</string>
     <string name="Custom_AlertDialog_AddShoppingItem_Title">Dodaj produkt do listy zakupów</string>
+    <string name="AlertDialogMessageShoppingProductLackOfData">Uzupełnij wszytskie pola</string>
+    <string name="alertDialogShoppingItemExistsMessage">Ten produkt jest już na liście zakupów. Zmień nazwę lub rodzaj produktu</string>
+    <string name="alertDialogAttention">Uwaga</string>
+    <string name="alertDialogShoppingItemMaybeExistsMessage">Podobny produkt jest już na liście zakupów. Różni się tylko typem opakowania. Czy pomimo tego chcesz dodać produkt?</string>
 </resources>
