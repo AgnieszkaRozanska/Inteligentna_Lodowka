@@ -30,6 +30,16 @@
             android:padding="5dp">
 
 
+            <TextView
+                android:id="@+id/textView_HowMuch_cardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/checkBoxProductShoppingList"
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxProductShoppingList" />
+
             <Button
                 android:id="@+id/button_delete"
                 android:layout_width="43dp"
@@ -41,8 +51,8 @@
 
             <CheckBox
                 android:id="@+id/checkBoxProductShoppingList"
-                android:layout_width="273dp"
-                android:layout_height="41dp"
+                android:layout_width="287dp"
+                android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:ems="10"
                 android:lines="1"

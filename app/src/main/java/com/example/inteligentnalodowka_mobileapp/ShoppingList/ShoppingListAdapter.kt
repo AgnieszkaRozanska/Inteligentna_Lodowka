@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -35,7 +36,8 @@ class ShoppingListAdapter(context: Context, var shoppingList: ArrayList<Shopping
         val countProduct_cardView = shoppingList[holder.adapterPosition].howMuch
         val ifBuy = shoppingList[holder.adapterPosition].ifBuy
 
-        holder.shoppingProduct.text = productName_cardView + ",  "+ countProduct_cardView
+        holder.shoppingProduct.text = productName_cardView
+        holder.textViewHowMuch.text = countProduct_cardView
 
         val cardViewCheckBox = holder.shoppingProduct
         val context:Context = holder.view.context
@@ -123,4 +125,5 @@ class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     var imageShoppingProduct : ImageView = view.findViewById(R.id.imageView_ShoppingProduct)
     var cardView : CardView = view.findViewById(R.id.cardView_product)
     var buttonDelete : Button = view.findViewById(R.id.button_delete)
+    var textViewHowMuch : TextView = view.findViewById(R.id.textView_HowMuch_cardView)
 }
