@@ -124,7 +124,7 @@
     <AutoCompleteTextView
         android:id="@+id/EditText_NameShoppingProduct"
         android:layout_width="350dp"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="Wpisz nazwę produktu"
         android:textAlignment="center"

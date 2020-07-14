@@ -5,10 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
@@ -251,7 +248,11 @@ class ShoppingListActivity : AppCompatActivity() {
 
         if(productsList.isNullOrEmpty()) {
             textView_InformAboutLackOfShoppingList.visibility = TextView.VISIBLE
+            imageView_groupOfProducts.visibility = ImageView.VISIBLE
         }
-        else textView_InformAboutLackOfShoppingList.visibility = TextView.INVISIBLE
+        else {
+            textView_InformAboutLackOfShoppingList.visibility = TextView.INVISIBLE
+            imageView_groupOfProducts.visibility = ImageView.INVISIBLE
+        }
     }
 }

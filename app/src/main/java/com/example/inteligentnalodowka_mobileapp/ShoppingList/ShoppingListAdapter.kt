@@ -16,6 +16,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
 import com.example.inteligentnalodowka_mobileapp.R
+import kotlinx.android.synthetic.main.custom_details_of_shopping_product.*
+import kotlinx.android.synthetic.main.custom_details_of_shopping_product.view.*
 
 class ShoppingListAdapter(context: Context, var shoppingList: ArrayList<ShoppingProduct>): RecyclerView.Adapter<MyViewHolder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MyViewHolder {
@@ -66,8 +68,50 @@ class ShoppingListAdapter(context: Context, var shoppingList: ArrayList<Shopping
         }
 
 
+        holder.cardView.setOnClickListener {
 
+            val mDialogView = LayoutInflater.from(context).inflate(R.layout.custom_details_of_shopping_product, null)
+            val mBuilder = AlertDialog.Builder(context)
+                .setView(mDialogView)
+            val  mAlertDialog = mBuilder.show()
+
+            mAlertDialog.textView_FullName_ShoppingItem.setText(shoppingList[holder.adapterPosition].nameShoppingProduct)
+            mAlertDialog.textView_HowMuch_ShoppingItem.setText(shoppingList[holder.adapterPosition].howMuch)
+            mAlertDialog.textView_Type_ShoppingItem.setText(shoppingList[holder.adapterPosition].type)
+
+            if(typeProduct_cardView == "Owoce"){
+                mAlertDialog.imageView_ShoppingItem.setBackgroundResource(R.drawable.fruits)
+            }else if(typeProduct_cardView == "Warzywa"){
+                mAlertDialog.imageView_ShoppingItem.setBackgroundResource(R.drawable.vegetable)
+            }else if(typeProduct_cardView == "Nabiał"){
+                mAlertDialog.imageView_ShoppingItem.setBackgroundResource(R.drawable.milk_products)
+            }else if(typeProduct_cardView == "Produkty zbożowe"){
+                mAlertDialog.imageView_ShoppingItem.setBackgroundResource(R.drawable.flour)
+            }else if(typeProduct_cardView == "Słodycze") {
+                mAlertDialog.imageView_ShoppingItem.setBackgroundResource(R.drawable.candy)
+            }else if(typeProduct_cardView == "Przekąski") {
+                mAlertDialog.imageView_ShoppingItem.setBackgroundResource(R.drawable.snack)
+            }else if(typeProduct_cardView == "Mięso") {
+                mAlertDialog.imageView_ShoppingItem.setBackgroundResource(R.drawable.meat)
+            }else if(typeProduct_cardView == "Ryby") {
+                mAlertDialog.imageView_ShoppingItem.setBackgroundResource(R.drawable.fish)
+            }else if(typeProduct_cardView == "Napoje") {
+                mAlertDialog.imageView_ShoppingItem.setBackgroundResource(R.drawable.drinks)
+            }else{
+                mAlertDialog.imageView_ShoppingItem.setBackgroundResource(R.drawable.shopping_bag_red)
+            }
+
+            mDialogView.button_Back.setOnClickListener {
+                mAlertDialog.dismiss()
+            }
+
+
+        }
     }
+
+
+
+
 
     fun setImage(typeProduct_cardView : String, holder: MyViewHolder){
 

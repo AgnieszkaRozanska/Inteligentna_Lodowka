@@ -51,7 +51,7 @@
 
             <CheckBox
                 android:id="@+id/checkBoxProductShoppingList"
-                android:layout_width="287dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:ems="10"
