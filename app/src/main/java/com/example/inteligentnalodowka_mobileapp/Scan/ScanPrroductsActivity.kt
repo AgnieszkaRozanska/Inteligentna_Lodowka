@@ -123,6 +123,8 @@ class ScanPrroductsActivity : AppCompatActivity() {
         spinnerTypeOfProduct.setVisibility(View.VISIBLE)
         editTextNumberOfPackages.setVisibility(View.VISIBLE)
         textViewInformed.setVisibility(View.INVISIBLE)
+        textViewPurchaseDate.setVisibility(View.VISIBLE)
+        textViewPurDate.setVisibility(View.VISIBLE)
         buttonAddProduct.setVisibility(View.VISIBLE)
         takeCurrentDate()
     }
@@ -135,11 +137,13 @@ class ScanPrroductsActivity : AppCompatActivity() {
         var quantity = editTextNumberOfPackages.text.toString()
         var type = spinnerTypeOfProduct.getSelectedItem().toString();
         var date = textViewDate.text.toString()
+        var purdate = textViewPurDate.text.toString()
 
         var product = Product(
             idProduct,
             name,
             date,
+            purdate,
             quantity,
             type
         )
@@ -176,15 +180,16 @@ class ScanPrroductsActivity : AppCompatActivity() {
     private fun takeCurrentDate() : String{
         val current = LocalDateTime.now()
 
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         val formatted = current.format(formatter)
         setDate(formatted)
+        setPurchaseDate(formatted)
         return  formatted
     }
 
     private fun setDate(currentDate : String){
 
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         var dateEndFormatDate = LocalDate.parse(currentDate, formatter)
         var period = Period.of(0, 0, 7)
         var modifiedDate = dateEndFormatDate.plus(period)
@@ -217,6 +222,42 @@ class ScanPrroductsActivity : AppCompatActivity() {
             ).show()
             val date = "$day.$month.$year"
             textViewDate.setText(date.toString())
+        }
+
+    }
+
+    private fun setPurchaseDate(currentDate : String){
+
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        var dateEndFormatDate = LocalDate.parse(currentDate, formatter)
+        textViewPurDate.setText(dateEndFormatDate.toString())
+
+        textViewDate.setOnClickListener {
+            var cal = Calendar.getInstance()
+            val year = cal.get(Calendar.YEAR)
+            val month = cal.get(Calendar.MONTH)
+            val day = cal.get(Calendar.DAY_OF_MONTH)
+
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, monthOfYear)
+                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                    val myFormat = "dd.MM.yyyy" // mention the format you need
+                    val sdf = SimpleDateFormat(myFormat, Locale.US)
+                    textViewPurDate.text = sdf.format(cal.time)
+
+                }
+            DatePickerDialog(
+                this@ScanPrroductsActivity,
+                dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
+            val date = "$day.$month.$year"
+            textViewPurDate.setText(date.toString())
         }
 
     }
@@ -281,6 +322,8 @@ class ScanPrroductsActivity : AppCompatActivity() {
         spinnerTypeOfProduct.setVisibility(View.INVISIBLE)
         editTextNumberOfPackages.setVisibility(View.INVISIBLE)
         textViewInformed.setVisibility(View.VISIBLE)
+        textViewPurchaseDate.setVisibility(View.INVISIBLE)
+        textViewPurDate.setVisibility(View.INVISIBLE)
         buttonAddProduct.setVisibility(View.INVISIBLE)
         takeCurrentDate()
     }

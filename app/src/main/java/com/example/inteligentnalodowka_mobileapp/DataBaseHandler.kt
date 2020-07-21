@@ -17,6 +17,7 @@ const val NAME_PRODUCT = "Name_Product"
 const val EXPIRATION_DATE = "Expiration_date"
 const val QUANTITY = "Quantity_Product"
 const val TYPE = "Type_Product"
+const val PURCHASE_DATE = "Purchase_date"
 const val ID_PRODUCT_FROM_DATABASE = "ID_Product_from_Database"
 
 //TABELA PRZEPISÓW
@@ -62,6 +63,7 @@ const val SQL_CREATE_TABLE_PRODUCTS = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS
         QUANTITY + " TEXT," +
         ID_PRODUCT_FROM_DATABASE + " TEXT," +
         TYPE + " TEXT," +
+        PURCHASE_DATE + " TEXT," +
         "FOREIGN KEY(" + ID_PRODUCT_FROM_DATABASE + ") REFERENCES " + PRODUCTS_DATABASE_TABLE_NAME + "(" + ID_PRODUCT_DATABASE +"))" )
 
 //TABELA PRZEPISY
@@ -156,6 +158,7 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         cv.put(ID_PRODUCT,  product.id)
         cv.put(NAME_PRODUCT, product.nameProduct)
         cv.put(EXPIRATION_DATE, product.expirationDate)
+        cv.put(PURCHASE_DATE, product.purchaseDate)
         cv.put(QUANTITY, product.quantity)
         cv.put(TYPE, product.type)
 
@@ -240,10 +243,11 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                     val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT))
                     val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT))
                     val date = cursor.getString(cursor.getColumnIndex(EXPIRATION_DATE))
+                    val purchaseDate = cursor.getString(cursor.getColumnIndex(PURCHASE_DATE))
                     val productType=cursor.getString(cursor.getColumnIndex(TYPE))
                     val quantity =cursor.getString(cursor.getColumnIndex(QUANTITY))
 
-                    val product = Product(id, name, date, quantity, productType)
+                    val product = Product(id, name, date, purchaseDate, quantity, productType)
                     allProductsList.add(product)
                 }while (cursor.moveToNext())
             }
@@ -311,12 +315,13 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                 val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT))
                 val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT))
                 val dateExpiration = cursor.getString(cursor.getColumnIndex(EXPIRATION_DATE))
+                val datePurchase = cursor.getString(cursor.getColumnIndex(PURCHASE_DATE))
                 val quantity = cursor.getString(cursor.getColumnIndex(QUANTITY))
                 val productType=cursor.getString(cursor.getColumnIndex(TYPE))
 
                 cursor.close()
                 db.close()
-                return Product(id, name, dateExpiration, quantity, productType)
+                return Product(id, name, dateExpiration, datePurchase, quantity, productType)
             }
         }
         cursor.close()
