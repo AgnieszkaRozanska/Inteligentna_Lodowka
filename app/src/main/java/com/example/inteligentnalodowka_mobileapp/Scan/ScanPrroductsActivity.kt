@@ -189,10 +189,9 @@ class ScanPrroductsActivity : AppCompatActivity() {
 
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         var dateEndFormatDate = LocalDate.parse(currentDate, formatter)
-        var period = Period.of(0, 0, 7)
-        var modifiedDate = dateEndFormatDate.plus(period)
 
-        textViewDate.setText(modifiedDate.toString())
+
+        textViewDate.setText("Brak")
 
         textViewDate.setOnClickListener {
             var cal = Calendar.getInstance()
@@ -230,7 +229,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         var dateEndFormatDate = LocalDate.parse(currentDate, formatter)
         textViewPurDate.setText(dateEndFormatDate.toString())
 
-        textViewDate.setOnClickListener {
+        textViewPurDate.setOnClickListener {
             var cal = Calendar.getInstance()
             val year = cal.get(Calendar.YEAR)
             val month = cal.get(Calendar.MONTH)
