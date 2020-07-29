@@ -183,7 +183,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textViewPurchaseDate"
+        android:id="@+id/textViewFinalPurDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -208,7 +208,7 @@
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/textViewPurchaseDate"
+        app:layout_constraintStart_toEndOf="@+id/textViewFinalPurDate"
         app:layout_constraintTop_toBottomOf="@+id/textViewDate"
         app:layout_constraintVertical_bias="0.0" />
 

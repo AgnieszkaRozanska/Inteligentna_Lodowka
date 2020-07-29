@@ -8,7 +8,6 @@ import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -18,7 +17,6 @@ import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
-import kotlinx.android.synthetic.main.activity_change_number_of_product.*
 import kotlinx.android.synthetic.main.activity_scan_prroducts.*
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -123,7 +121,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         spinnerTypeOfProduct.setVisibility(View.VISIBLE)
         editTextNumberOfPackages.setVisibility(View.VISIBLE)
         textViewInformed.setVisibility(View.INVISIBLE)
-        textViewPurchaseDate.setVisibility(View.VISIBLE)
+        textViewFinalPurDate.setVisibility(View.VISIBLE)
         textViewPurDate.setVisibility(View.VISIBLE)
         buttonAddProduct.setVisibility(View.VISIBLE)
         takeCurrentDate()
@@ -322,7 +320,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         spinnerTypeOfProduct.setVisibility(View.INVISIBLE)
         editTextNumberOfPackages.setVisibility(View.INVISIBLE)
         textViewInformed.setVisibility(View.VISIBLE)
-        textViewPurchaseDate.setVisibility(View.INVISIBLE)
+        textViewFinalPurDate.setVisibility(View.INVISIBLE)
         textViewPurDate.setVisibility(View.INVISIBLE)
         buttonAddProduct.setVisibility(View.INVISIBLE)
         takeCurrentDate()

@@ -11,7 +11,6 @@ import com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts.FridgeAc
 import com.example.inteligentnalodowka_mobileapp.R
 import kotlinx.android.synthetic.main.activity_product_details.*
 import kotlinx.android.synthetic.main.activity_product_details.textViewExpirationDate
-import kotlinx.android.synthetic.main.activity_scan_prroducts.*
 
 class ProductDetailsActivity : AppCompatActivity() {
 
@@ -52,7 +51,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         if (intent.hasExtra("name")) textViewNameOfProduct.text = intent.getStringExtra("name")
         if (intent.hasExtra("expirationDate")) textViewExpirationDate.text =
             intent.getStringExtra("expirationDate")
-        if (intent.hasExtra("purchaseDate")) textViewPurDate.text =
+        if (intent.hasExtra("purchaseDate")) textViewFinalPurDate.text =
             intent.getStringExtra("purchaseDate")
         if (intent.hasExtra("quantity")) textViewAmount.text = intent.getStringExtra("quantity")
 
