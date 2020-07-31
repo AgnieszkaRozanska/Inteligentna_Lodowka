@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/blueBackground">
+
+    <TextView
+        android:id="@+id/textView_HowMuch_ShoppingItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Ilość"
+        android:textColor="@color/darkGray"
+        android:textSize="21dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView_HowMuch_temp"
+        app:layout_constraintTop_toBottomOf="@+id/textView_HowMuch_temp" />
+
+    <TextView
+        android:id="@+id/textView_HowMuch_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Ilość"
+        android:textColor="@android:color/tertiary_text_light"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView_Name_temp"
+        app:layout_constraintTop_toBottomOf="@+id/textView_FullName_ShoppingItem" />
+
+    <TextView
+        android:id="@+id/textView_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Szczegóły"
+        android:textColor="@color/darkGray"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_ShoppingItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView_ShoppingItem" />
+
+    <ImageView
+        android:id="@+id/imageView_ShoppingItem"
+        android:layout_width="93dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_Name_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Nazwa"
+        android:textColor="@android:color/tertiary_text_light"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Title" />
+
+    <TextView
+        android:id="@+id/textView_Type_ShoppingItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Warzywa"
+        android:textColor="@color/darkGray"
+        android:textSize="21dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView_Type_temp"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Type_temp" />
+
+    <TextView
+        android:id="@+id/textView_Type_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Nazwa"
+        android:textColor="@android:color/tertiary_text_light"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView_HowMuch_temp"
+        app:layout_constraintTop_toBottomOf="@+id/textView_HowMuch_ShoppingItem" />
+
+    <TextView
+        android:id="@+id/textView_FullName_ShoppingItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:text="Pełna nazwa"
+        android:textColor="@color/darkGray"
+        android:textSize="21dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Name_temp" />
+
+    <Button
+        android:id="@+id/button_Back"
+        android:layout_width="104dp"
+        android:layout_height="105dp"
+        android:background="@drawable/back_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_Type_ShoppingItem"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_ShoppingItem" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_Back" />
+</androidx.constraintlayout.widget.ConstraintLayout>

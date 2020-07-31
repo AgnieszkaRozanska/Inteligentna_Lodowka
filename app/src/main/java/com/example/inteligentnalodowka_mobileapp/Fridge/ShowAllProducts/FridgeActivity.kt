@@ -29,6 +29,7 @@ class FridgeActivity : AppCompatActivity() {
         setTextIfListIsEmpty()
 
 
+
         editTextSearch = findViewById(R.id.editTextSearchProducts);
 
 
@@ -44,6 +45,7 @@ class FridgeActivity : AppCompatActivity() {
 
             }
         })
+
 
 
     }
@@ -68,7 +70,6 @@ class FridgeActivity : AppCompatActivity() {
         recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
 
         adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
-
 
     }
 

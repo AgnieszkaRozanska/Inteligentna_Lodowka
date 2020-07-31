@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.inteligentnalodowka_mobileapp.ShoppingList.ShoppingProduct
 
 
 const  val DATABASE_NAME = "Fridge.db"
@@ -13,7 +14,6 @@ const  val DATABASE_NAME = "Fridge.db"
 const val PRODUCTS_TABLE_NAME = "Products"
 const val ID_PRODUCT = "ID_Product"
 const val NAME_PRODUCT = "Name_Product"
-const val PURCHASE_DATE = "Purchase_date"
 const val EXPIRATION_DATE = "Expiration_date"
 const val QUANTITY = "Quantity_Product"
 const val TYPE = "Type_Product"
@@ -44,12 +44,20 @@ const val EAN_QR_CODE = "Code"
 const val NAME_PRODUCT_DATABASE = "Name_Product_Database"
 const val TYPE_PRODUCT_DATABASE = "Type_Product_Database"
 
+// TABELA DOTYCZACA lISTY ZAKUPOW
+const val SHOPPING_LIST_TABLE_NAME = "Shopping_List"
+const val ID_SHOPPING_ITEM = "ID_Shopping_Item"
+const val NAME_SHOPPING_ITEM = "Name"
+const val HOW_MUCH = "How_Much"
+const val TYPE_SHOPPING_ITEM = "Type_Shopping_Item"
+const val IF_BUY = "If_Buy"
+
+
 
 //TABELA PRODUKTY
 const val SQL_CREATE_TABLE_PRODUCTS = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS_TABLE_NAME +" (" +
         ID_PRODUCT + " TEXT PRIMARY KEY," +
         NAME_PRODUCT + " TEXT NOT NULL," +
-        PURCHASE_DATE + " TEXT," +
         EXPIRATION_DATE + " TEXT," +
         QUANTITY + " TEXT," +
         ID_PRODUCT_FROM_DATABASE + " TEXT," +
@@ -84,6 +92,16 @@ const val SQL_CREATE_TABLE_PRODUCTS_DATABASE = ("CREATE TABLE IF NOT EXISTS "  +
         TYPE_PRODUCT_DATABASE + " TEXT)")
 
 
+// TABELA DOTYCZACA LISTY ZAKUPOW
+const val SQL_CREATE_TABLE_SHOPPING_LIST = ("CREATE TABLE IF NOT EXISTS "  + SHOPPING_LIST_TABLE_NAME +" (" +
+        ID_SHOPPING_ITEM + " TEXT PRIMARY KEY," +
+        NAME_SHOPPING_ITEM + " TEXT NOT NULL," +
+        TYPE_SHOPPING_ITEM + " TEXT," +
+        HOW_MUCH + " TEXT NOT NULL," +
+        IF_BUY + " INT)")
+
+
+
 
 //TABALA PRODUKTY
 const val SQL_DELETE_TABLE_PRODUCTS= "DROP TABLE IF EXISTS $PRODUCTS_TABLE_NAME"
@@ -98,6 +116,8 @@ const val SQL_DELETE_TABLE_PRODUCTS_TO_RECIPES = "DROP TABLE IF EXISTS $PRODUCTS
 //BAZA PRODUKTOW
 const val SQL_DELETE_TABLE_PRODUCTS_DATABASE = "DROP TABLE IF EXISTS $PRODUCTS_DATABASE_TABLE_NAME"
 
+//TABELA DOTYCZACA LISTY ZAKUPOW
+const val SQL_DELETE_TABLE_SHOPPING_LIST = "DROP TABLE IF EXISTS $SHOPPING_LIST_TABLE_NAME"
 
 
 class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
@@ -107,7 +127,7 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         db.execSQL(SQL_CREATE_TABLE_RECIPES)
         db.execSQL(SQL_CREATE_TABLE_PRODUCTS_TO_RECIPES)
         db.execSQL(SQL_CREATE_TABLE_PRODUCTS_DATABASE)
-
+        db.execSQL(SQL_CREATE_TABLE_SHOPPING_LIST)
 
 
     }
@@ -117,6 +137,7 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         db.execSQL(SQL_DELETE_TABLE_RECIPES)
         db.execSQL(SQL_DELETE_TABLE_PRODUCTS_TO_RECIPES)
         db.execSQL(SQL_DELETE_TABLE_PRODUCTS_DATABASE)
+        db.execSQL(SQL_DELETE_TABLE_SHOPPING_LIST)
         onCreate(db)
     }
 
@@ -134,7 +155,6 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         val cv = ContentValues()
         cv.put(ID_PRODUCT,  product.id)
         cv.put(NAME_PRODUCT, product.nameProduct)
-        cv.put(PURCHASE_DATE, product.purchaseDate)
         cv.put(EXPIRATION_DATE, product.expirationDate)
         cv.put(QUANTITY, product.quantity)
         cv.put(TYPE, product.type)
@@ -219,12 +239,11 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                 do{
                     val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT))
                     val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT))
-                    val purchaseDate = cursor.getString(cursor.getColumnIndex(PURCHASE_DATE))
                     val date = cursor.getString(cursor.getColumnIndex(EXPIRATION_DATE))
                     val productType=cursor.getString(cursor.getColumnIndex(TYPE))
                     val quantity =cursor.getString(cursor.getColumnIndex(QUANTITY))
 
-                    val product = Product(id, name,purchaseDate, date, quantity, productType)
+                    val product = Product(id, name, date, quantity, productType)
                     allProductsList.add(product)
                 }while (cursor.moveToNext())
             }
@@ -281,22 +300,6 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         return true
     }
 
-    fun updatePurchaseDate(id:String, date: String):Boolean{
-        try {
-            val db = this.writableDatabase
-            val cv = ContentValues()
-            cv.put(PURCHASE_DATE, date)
-            db.update(PRODUCTS_TABLE_NAME, cv, "ID_PRODUCT =?", arrayOf(id))
-            db.close()
-        }
-        catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-
-        return true
-    }
-
 
     fun findProduct(id:String) : Product?{
         val db= readableDatabase
@@ -307,14 +310,13 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
             {
                 val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT))
                 val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT))
-                val purchaseDate = cursor.getString(cursor.getColumnIndex(PURCHASE_DATE))
                 val dateExpiration = cursor.getString(cursor.getColumnIndex(EXPIRATION_DATE))
                 val quantity = cursor.getString(cursor.getColumnIndex(QUANTITY))
                 val productType=cursor.getString(cursor.getColumnIndex(TYPE))
 
                 cursor.close()
                 db.close()
-                return Product(id, name,purchaseDate, dateExpiration, quantity, productType)
+                return Product(id, name, dateExpiration, quantity, productType)
             }
         }
         cursor.close()
@@ -339,6 +341,112 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         return true
     }
 
+    fun addShoppingProduct(shoppingProduct : ShoppingProduct)
+    {
+        val db=this.writableDatabase
+        val cv = ContentValues()
+        cv.put(ID_SHOPPING_ITEM,  shoppingProduct.id)
+        cv.put(NAME_SHOPPING_ITEM, shoppingProduct.nameShoppingProduct)
+        cv.put(HOW_MUCH, shoppingProduct.howMuch)
+        cv.put(TYPE_SHOPPING_ITEM, shoppingProduct.type)
+        cv.put(IF_BUY, shoppingProduct.ifBuy)
+
+        val result= db.insert(SHOPPING_LIST_TABLE_NAME, null, cv)
+        db.close()
+    }
+
+    fun getShoppingList() :ArrayList<ShoppingProduct>{
+
+        val shoppingList= ArrayList<ShoppingProduct>()
+        val db= readableDatabase
+
+        val cursor=db.rawQuery("SELECT * FROM $SHOPPING_LIST_TABLE_NAME", null)
+        if(cursor!= null)
+        {
+            if(cursor.moveToNext())
+            {
+                do{
+                    val id= cursor.getString(cursor.getColumnIndex(ID_SHOPPING_ITEM))
+                    val name=cursor.getString(cursor.getColumnIndex(NAME_SHOPPING_ITEM))
+                    val howMuch = cursor.getString(cursor.getColumnIndex(HOW_MUCH))
+                    val type= cursor.getString(cursor.getColumnIndex(TYPE_SHOPPING_ITEM))
+                    val ifBuy =  cursor.getString(cursor.getColumnIndex(IF_BUY)).toInt()
+
+                    val shoppingProduct = ShoppingProduct(id, name, howMuch, type,  ifBuy)
+                    shoppingList.add(shoppingProduct)
+                }while (cursor.moveToNext())
+            }
+        }
+        cursor.close()
+        db.close()
+        return shoppingList
+    }
+
+    fun updateIsChecked(id:String):Boolean{
+        try {
+            val db = this.writableDatabase
+            val cv = ContentValues()
+            cv.put(IF_BUY, 1)
+            db.update(SHOPPING_LIST_TABLE_NAME, cv, "ID_SHOPPING_ITEM =?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+        return true
+    }
+
+    fun updateIsNotChecked(id:String):Boolean{
+        try {
+            val db = this.writableDatabase
+            val cv = ContentValues()
+            cv.put(IF_BUY, 0)
+            db.update(SHOPPING_LIST_TABLE_NAME, cv, "ID_SHOPPING_ITEM =?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+        return true
+    }
+
+    fun getAllDatabaseProductsNames(): ArrayList<String>
+    {
+        val resultsList= ArrayList<String>()
+        val db= readableDatabase
+
+        val cursor=db.rawQuery("SELECT * FROM $PRODUCTS_DATABASE_TABLE_NAME", null)
+        if(cursor!= null)
+        {
+            if(cursor.moveToNext())
+            {
+                do{
+                    val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT_DATABASE))
+                    resultsList.add(name)
+                }while (cursor.moveToNext())
+            }
+        }
+
+        cursor.close()
+        db.close()
+        return resultsList
+    }
+
+    fun removeShoppingProduct(id: String): Boolean
+    {
+        try {
+            val db=this.writableDatabase
+            db.delete(SHOPPING_LIST_TABLE_NAME, "$ID_SHOPPING_ITEM=?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+        return true
+    }
 
 
 }

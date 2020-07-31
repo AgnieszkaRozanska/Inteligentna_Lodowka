@@ -17,14 +17,18 @@ import com.example.inteligentnalodowka_mobileapp.R
 import kotlinx.android.synthetic.main.activity_card_view_all_products.view.*
 import kotlin.collections.ArrayList
 
+
+
+
 class ShowAllProductsAdapter(context: FridgeActivity, var productsList: ArrayList<Product>): RecyclerView.Adapter<MyViewHolder>(),
-    Filterable {
+Filterable {
 
     internal var productsFilterList = ArrayList<Product>()
 
-    init {
+    init{
         this.productsFilterList = productsList
     }
+
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): MyViewHolder {
         val layoutInflater = LayoutInflater.from(viewGroup.context)
@@ -48,6 +52,7 @@ class ShowAllProductsAdapter(context: FridgeActivity, var productsList: ArrayLis
                 }
                 else {
                     val resultList = ArrayList<Product>()
+
                     for (row in productsList) {
 
                         if (row.nameProduct!!.toLowerCase().contains(charSearch.toLowerCase()))
@@ -56,16 +61,19 @@ class ShowAllProductsAdapter(context: FridgeActivity, var productsList: ArrayLis
                     }
                     productsFilterList = resultList
                 }
+
                 val filterResults = Filter.FilterResults()
                 filterResults.values = productsFilterList
                 return filterResults
             }
+
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(charSequence: CharSequence?, filterResults: FilterResults?) {
                 productsFilterList = filterResults!!.values as ArrayList<Product>
                 notifyDataSetChanged()
             }
+
 
         }
     }
@@ -93,15 +101,15 @@ class ShowAllProductsAdapter(context: FridgeActivity, var productsList: ArrayLis
 
         cardViewProduct.setOnClickListener {
             val intentEdit = Intent(context, ProductDetailsActivity::class.java)
-            val priductID = productsFilterList[holder.adapterPosition].id
-            val priductName = productsFilterList[holder.adapterPosition].nameProduct
-            val productPurchaseDate = productsFilterList[holder.adapterPosition].purchaseDate
-            val productExpirationDate = productsFilterList[holder.adapterPosition].expirationDate
-            val productQuantity = productsFilterList[holder.adapterPosition].quantity
+
+            val priductID = productsList[holder.adapterPosition].id
+            val priductName =productsList[holder.adapterPosition].nameProduct
+            val productExpirationDate=productsList[holder.adapterPosition].expirationDate
+            val productQuantity = productsList[holder.adapterPosition].quantity
+
 
             intentEdit.putExtra("id", priductID)
             intentEdit.putExtra("name", priductName)
-            intentEdit.putExtra("purchaseDate", productPurchaseDate)
             intentEdit.putExtra("expirationDate", productExpirationDate)
             intentEdit.putExtra("quantity", productQuantity)
 
