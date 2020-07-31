@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -15,7 +17,15 @@ import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
 import kotlinx.android.synthetic.main.activity_card_view_all_products.view.*
 
-class ShowAllProductsAdapter(context: Context, var productsList: ArrayList<Product>): RecyclerView.Adapter<MyViewHolder>() {
+class ShowAllProductsAdapter(context: FridgeActivity, var productsList: ArrayList<Product>): RecyclerView.Adapter<MyViewHolder>(),
+Filterable {
+
+    internal var productsFilterList = ArrayList<Product>()
+
+    init{
+        this.productsFilterList = productsList
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): MyViewHolder {
         val layoutInflater = LayoutInflater.from(viewGroup.context)
         val cardViewProduct = layoutInflater.inflate(R.layout.activity_card_view_all_products, viewGroup, false)
@@ -23,7 +33,38 @@ class ShowAllProductsAdapter(context: Context, var productsList: ArrayList<Produ
     }
 
     override fun getItemCount(): Int {
-        return productsList.count()
+        return productsFilterList.size
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(charString: CharSequence?): FilterResults {
+                val charSearch = charString.toString()
+                if(charSearch.isEmpty()){
+                    productsFilterList = productsList
+                }
+                else {
+                    val resultList = ArrayList<Product>()
+                    for(row in productsList){
+                        if(row.nameProduct!!.toLowerCase().contains(charSearch.toLowerCase())){
+                            resultList.add(row)
+                        }
+                    }
+
+                    productsFilterList = resultList
+
+                }
+
+                val filterResults = Filter.FilterResults()
+                filterResults.values = productsFilterList
+                return filterResults
+            }
+
+            override fun publishResults(charSequence: CharSequence?, results: FilterResults?) {
+                productsFilterList = results!!.values as ArrayList<Product>
+                notifyDataSetChanged()
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
