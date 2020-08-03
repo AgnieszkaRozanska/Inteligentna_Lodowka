@@ -69,9 +69,9 @@ Filterable {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val productName_cardView=productsList[holder.adapterPosition].nameProduct
-        val typeProduct_cardView = productsList[holder.adapterPosition].type
-        val countProduct_cardView = productsList[holder.adapterPosition].quantity
+        val productName_cardView=productsFilterList[holder.adapterPosition].nameProduct
+        val typeProduct_cardView = productsFilterList[holder.adapterPosition].type
+        val countProduct_cardView = productsFilterList[holder.adapterPosition].quantity
 
         holder.productName.text = productName_cardView
         holder.productType.text = typeProduct_cardView
@@ -88,10 +88,10 @@ Filterable {
 
         cardViewProduct.setOnClickListener {
             val intentEdit = Intent(context, ProductDetailsActivity::class.java)
-            val priductID = productsList[holder.adapterPosition].id
-            val priductName =productsList[holder.adapterPosition].nameProduct
-            val productExpirationDate=productsList[holder.adapterPosition].expirationDate
-            val productQuantity = productsList[holder.adapterPosition].quantity
+            val priductID = productsFilterList[holder.adapterPosition].id
+            val priductName =productsFilterList[holder.adapterPosition].nameProduct
+            val productExpirationDate=productsFilterList[holder.adapterPosition].expirationDate
+            val productQuantity = productsFilterList[holder.adapterPosition].quantity
 
             intentEdit.putExtra("id", priductID)
             intentEdit.putExtra("name", priductName)
