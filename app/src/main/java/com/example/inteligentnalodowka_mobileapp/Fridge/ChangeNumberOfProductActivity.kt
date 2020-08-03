@@ -17,6 +17,7 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
     private var name = ""
     private var quantity = ""
     private var expirationDate = ""
+    private var purchaseDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +49,13 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
             if (intent.hasExtra("name")) name = intent.getStringExtra("name")
             if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
             if (intent.hasExtra("expirationDate"))   expirationDate = intent.getStringExtra("expirationDate")
+            if (intent.hasExtra("purchaseDate"))   purchaseDate = intent.getStringExtra("purchaseDate")
 
             intentOnBackPress.putExtra("id", id)
             intentOnBackPress.putExtra("name", name)
             intentOnBackPress.putExtra("quantity", quantity)
             intentOnBackPress.putExtra("expirationDate", expirationDate)
+            intentOnBackPress.putExtra("purchaseDate", purchaseDate)
             startActivity(intentOnBackPress)
         }
     }
@@ -120,6 +123,8 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
         if (success) {
             if (intent.hasExtra("expirationDate"))   expirationDate = intent.getStringExtra("expirationDate")
             intentUpdate.putExtra("expirationDate", expirationDate)
+            if (intent.hasExtra("purchaseDate"))   purchaseDate = intent.getStringExtra("purchaseDate")
+            intentUpdate.putExtra("purchaseDate", purchaseDate)
             if (intent.hasExtra("name"))   name = intent.getStringExtra("name")
             intentUpdate.putExtra("name", name)
             startActivity(intentUpdate)
@@ -138,11 +143,13 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
             if (intent.hasExtra("name")) name = intent.getStringExtra("name")
             if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
             if (intent.hasExtra("expirationDate"))   expirationDate = intent.getStringExtra("expirationDate")
+            if (intent.hasExtra("purchaseDate"))   purchaseDate = intent.getStringExtra("purchaseDate")
 
             intentOnBackPress.putExtra("id", id)
             intentOnBackPress.putExtra("name", name)
             intentOnBackPress.putExtra("quantity", quantity)
             intentOnBackPress.putExtra("expirationDate", expirationDate)
+            intentOnBackPress.putExtra("purchaseDate", purchaseDate)
             startActivity(intentOnBackPress)
 
             startActivity(intentOnBackPress)
