@@ -16,6 +16,9 @@ import com.example.inteligentnalodowka_mobileapp.Fridge.ProductDetailsActivity
 import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
 import kotlinx.android.synthetic.main.activity_card_view_all_products.view.*
+import kotlinx.android.synthetic.main.activity_fridge.*
+import kotlinx.android.synthetic.main.activity_fridge.view.*
+import org.w3c.dom.Text
 
 class ShowAllProductsAdapter(context: FridgeActivity, var productsList: ArrayList<Product>): RecyclerView.Adapter<MyViewHolder>(),
 Filterable {
@@ -56,7 +59,9 @@ Filterable {
                 }
 
                 val filterResults = Filter.FilterResults()
+
                 filterResults.values = productsFilterList
+
                 return filterResults
             }
 
@@ -73,6 +78,8 @@ Filterable {
         val typeProduct_cardView = productsFilterList[holder.adapterPosition].type
         val countProduct_cardView = productsFilterList[holder.adapterPosition].quantity
 
+
+
         holder.productName.text = productName_cardView
         holder.productType.text = typeProduct_cardView
         holder.productCount.text = "Liczba opakowań: "+countProduct_cardView
@@ -82,6 +89,8 @@ Filterable {
         } else {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#CCEBF6"))
         }
+
+
 
         val cardViewProduct = holder.view.cardView_product
         val context:Context = holder.view.context
@@ -109,4 +118,6 @@ class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     var productType : TextView = view.findViewById(R.id.Type_cardView)
     var productCount : TextView = view.findViewById(R.id.Count_cardView)
     var cardView : CardView = view.findViewById(R.id.cardView_product)
+
+
 }

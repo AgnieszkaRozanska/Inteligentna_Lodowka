@@ -18,6 +18,7 @@ class FridgeActivity : AppCompatActivity() {
 
     var editTextSearch: EditText? = null
     var adapter: ShowAllProductsAdapter? = null
+    var textViewBrakProduktu: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +27,7 @@ class FridgeActivity : AppCompatActivity() {
         setTextIfListIsEmpty()
 
         editTextSearch = findViewById(R.id.editTextSearchProducts)
+        textViewBrakProduktu = findViewById(R.id.textViewBrakProduktu)
 
         editTextSearch!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -35,8 +37,19 @@ class FridgeActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
                 adapter?.filter?.filter(s.toString())
+
+                if (adapter?.productsFilterList.isNullOrEmpty()) {
+                    textViewBrakProduktu!!.visibility = TextView.VISIBLE
+                    
+                }
+                else textViewBrakProduktu!!.visibility = TextView.INVISIBLE
+
+
+
             }
         })
+
+
     }
 
     override fun onBackPressed() {
