@@ -225,9 +225,8 @@ class ScanPrroductsActivity : AppCompatActivity() {
 
     private fun setPurchaseDate(currentDate : String){
 
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-        var dateEndFormatDate = LocalDate.parse(currentDate, formatter)
-        textViewPurDate.setText(dateEndFormatDate.toString())
+
+        textViewPurDate.setText(currentDate)
 
         textViewPurDate.setOnClickListener {
             var cal = Calendar.getInstance()
