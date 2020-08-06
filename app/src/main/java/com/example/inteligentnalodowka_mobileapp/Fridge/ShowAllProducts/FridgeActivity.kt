@@ -33,6 +33,12 @@ class FridgeActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 adapter?.filter?.filter(s.toString())
+
+                if (adapter?.productsFilterList.isNullOrEmpty()) {
+                    textViewBrakProduktu!!.visibility = TextView.VISIBLE
+
+                }
+                else textViewBrakProduktu!!.visibility = TextView.INVISIBLE
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -40,7 +46,7 @@ class FridgeActivity : AppCompatActivity() {
 
                 if (adapter?.productsFilterList.isNullOrEmpty()) {
                     textViewBrakProduktu!!.visibility = TextView.VISIBLE
-                    
+
                 }
                 else textViewBrakProduktu!!.visibility = TextView.INVISIBLE
 
