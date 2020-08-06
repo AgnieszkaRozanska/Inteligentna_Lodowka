@@ -27,6 +27,7 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
     private var name = ""
     private var quantity = ""
     private var expirationDate = ""
+    private var purchaseDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,11 +60,13 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
             if (intent.hasExtra("name")) name = intent.getStringExtra("name")
             if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
             if (intent.hasExtra("expirationDate"))   expirationDate = intent.getStringExtra("expirationDate")
+            if (intent.hasExtra("purchaseDate"))   purchaseDate = intent.getStringExtra("purchaseDate")
 
             intentOnBackPress.putExtra("id", id)
             intentOnBackPress.putExtra("name", name)
             intentOnBackPress.putExtra("quantity", quantity)
             intentOnBackPress.putExtra("expirationDate", expirationDate)
+            intentOnBackPress.putExtra("purchaseDate", purchaseDate)
             startActivity(intentOnBackPress)
         }
     }
@@ -78,11 +81,13 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
             if (intent.hasExtra("name")) name = intent.getStringExtra("name")
             if (intent.hasExtra("quantity")) quantity = intent.getStringExtra("quantity")
             if (intent.hasExtra("expirationDate"))   expirationDate = intent.getStringExtra("expirationDate")
+            if (intent.hasExtra("purchaseDate"))   purchaseDate = intent.getStringExtra("purchaseDate")
 
             intentOnBackPress.putExtra("id", id)
             intentOnBackPress.putExtra("name", name)
             intentOnBackPress.putExtra("quantity", quantity)
             intentOnBackPress.putExtra("expirationDate", expirationDate)
+            intentOnBackPress.putExtra("purchaseDate", purchaseDate)
             startActivity(intentOnBackPress)
 
             startActivity(intentOnBackPress)
@@ -95,6 +100,7 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
         if (intent.hasExtra("name")) textViewNameOfProduct.text = intent.getStringExtra("name")
         if (intent.hasExtra("expirationDate")) textPreviousDate.text =
             intent.getStringExtra("expirationDate")
+
         if (intent.hasExtra("id")) id = intent.getStringExtra("id")
         val current = LocalDateTime.now()
 
@@ -146,6 +152,8 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
             intentUpdate.putExtra("quantity", quantity)
             if (intent.hasExtra("name"))   name = intent.getStringExtra("name")
             intentUpdate.putExtra("name", name)
+            if (intent.hasExtra("purchaseDate"))   purchaseDate = intent.getStringExtra("purchaseDate")
+            intentUpdate.putExtra("purchaseDate", purchaseDate)
             startActivity(intentUpdate)
             Toast.makeText(applicationContext,getString(R.string.succesOfUpdateProduct), Toast.LENGTH_SHORT).show()
         }
