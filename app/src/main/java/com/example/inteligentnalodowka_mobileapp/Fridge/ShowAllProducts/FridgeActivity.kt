@@ -3,6 +3,9 @@ package com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
@@ -13,11 +16,46 @@ import kotlinx.android.synthetic.main.activity_fridge.*
 
 class FridgeActivity : AppCompatActivity() {
 
+    var editTextSearch: EditText? = null
+    var adapter: ShowAllProductsAdapter? = null
+    var textViewBrakProduktu: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fridge)
 
         setTextIfListIsEmpty()
+
+        editTextSearch = findViewById(R.id.editTextSearchProducts)
+        textViewBrakProduktu = findViewById(R.id.textViewBrakProduktu)
+
+        editTextSearch!!.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                adapter?.filter?.filter(s.toString())
+
+                if (adapter?.productsFilterList.isNullOrEmpty()) {
+                    textViewBrakProduktu!!.visibility = TextView.VISIBLE
+
+                }
+                else textViewBrakProduktu!!.visibility = TextView.INVISIBLE
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                adapter?.filter?.filter(s.toString())
+
+                if (adapter?.productsFilterList.isNullOrEmpty()) {
+                    textViewBrakProduktu!!.visibility = TextView.VISIBLE
+
+                }
+                else textViewBrakProduktu!!.visibility = TextView.INVISIBLE
+
+
+
+            }
+        })
+
+
     }
 
     override fun onBackPressed() {
@@ -34,6 +72,8 @@ class FridgeActivity : AppCompatActivity() {
 
         recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
         recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+        adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
     }
 
     private fun  setTextIfListIsEmpty(){

@@ -16,31 +16,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/editTextSearchProducts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
-        android:padding="10dp"
-        android:hint="@string/hintFridgeSearchProducts"
-        android:textAlignment="center"
-        android:inputType="text"
         android:background="@mipmap/search_panel"
+        android:hint="@string/hintFridgeSearchProducts"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAllProducts"
-        android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="542dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="394dp"
+        android:layout_height="522dp"
+        android:layout_marginTop="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextSearchProducts" />
@@ -49,12 +45,25 @@
         android:id="@+id/textViewInformationAboutLackOfProducts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerViewAllProducts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="invisible"
-        android:textAlignment="center"
-        android:textSize="25dp"
         app:layout_constraintTop_toTopOf="@+id/recyclerViewAllProducts" />
+
+    <TextView
+        android:id="@+id/textViewBrakProduktu"
+        android:layout_width="287dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="64dp"
+        android:text="Brak poszukiwanego produktu"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSearchProducts" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
