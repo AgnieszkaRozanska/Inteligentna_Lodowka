@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.animation.AnimationUtils
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
@@ -50,10 +52,16 @@ class FridgeActivity : AppCompatActivity() {
                 }
                 else textViewBrakProduktu!!.visibility = TextView.INVISIBLE
 
-
-
             }
         })
+
+        //declare the animation
+        val animation = AnimationUtils.loadAnimation(this, R.anim.animationapperance)
+        val imageView = findViewById(R.id.imageView) as ImageView
+
+        // set the animation
+        imageView.startAnimation(animation)
+
 
 
     }
