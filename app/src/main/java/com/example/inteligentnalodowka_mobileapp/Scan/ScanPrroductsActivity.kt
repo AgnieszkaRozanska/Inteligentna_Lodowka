@@ -11,10 +11,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
-import com.example.inteligentnalodowka_mobileapp.MainActivity
-import com.example.inteligentnalodowka_mobileapp.Product
-import com.example.inteligentnalodowka_mobileapp.R
+import com.example.inteligentnalodowka_mobileapp.*
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
 import kotlinx.android.synthetic.main.activity_scan_prroducts.*
@@ -32,6 +29,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
     var typeProduct = ""
     var idProduct = ""
     var eanCodeDatabase = "Brak"
+    var flagIfNotExists = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,7 +108,9 @@ class ScanPrroductsActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.AlertDialogTitle))
         builder.setMessage(getString(R.string.AlertDialogMessageNoProductInDatabase))
-        builder.setPositiveButton(getString(R.string.Back)) { dialog: DialogInterface, which: Int -> }
+        builder.setPositiveButton(getString(R.string.Back)) { dialog: DialogInterface, which: Int ->
+            flagIfNotExists = true
+        }
         builder.show()
     }
 
@@ -152,6 +152,9 @@ class ScanPrroductsActivity : AppCompatActivity() {
         val success = dbHelper.addProduct(product)
         if(success){
             Toast.makeText(this, getString(R.string.addProduct), Toast.LENGTH_LONG).show()
+            if(flagIfNotExists){
+                addScanedProductToDatabaseOfPRoducts()
+            }
             alertDialogAddProduct()
         }
     }
@@ -270,6 +273,12 @@ class ScanPrroductsActivity : AppCompatActivity() {
             textViewNameProduct.text.clear()
             buttonAddProduct.setVisibility(View.VISIBLE)
             eanCodeDatabase = "Brak"
+            flagIfNotExists = false
+
+            var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list_of_types)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerTypeOfProduct!!.setAdapter(adapter)
+            
             setInvisibilityItems()
         }
         builder.setNegativeButton(getString(R.string.AlertDialogNo)) { dialogInterface: DialogInterface, i: Int ->
@@ -325,13 +334,16 @@ class ScanPrroductsActivity : AppCompatActivity() {
         textViewFinalPurDate.setVisibility(View.INVISIBLE)
         textViewPurDate.setVisibility(View.INVISIBLE)
         buttonAddProduct.setVisibility(View.INVISIBLE)
+
         takeCurrentDate()
     }
 
+    private fun addScanedProductToDatabaseOfPRoducts(){
+        val dbHelper = DataBaseHandler(this)
+        var databaseProduct = DatabaseProduct("", textViewNameProduct.text.toString(),eanCodeDatabase)
 
+        dbHelper.addDatabaseProduct(databaseProduct)
 
-    private fun ifExistsProdukt(){
-        // update ilości produktów już w bazie
     }
 
 }

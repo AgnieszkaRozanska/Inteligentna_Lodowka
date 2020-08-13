@@ -134,6 +134,9 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         val result= db.insert(PRODUCTS_DATABASE_TABLE_NAME, null, cv)
         db.close()
     }
+
+
+
     fun getAllDatabaseProducts(): ArrayList<DatabaseProduct>
     {
         val allProductsList= ArrayList<DatabaseProduct>()
