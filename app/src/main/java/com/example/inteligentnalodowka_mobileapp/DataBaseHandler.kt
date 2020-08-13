@@ -27,7 +27,6 @@ const val PRODUCTS_DATABASE_TABLE_NAME = "Products_Database"
 const val ID_PRODUCT_DATABASE = "ID_Product_Database"
 const val EAN_QR_CODE = "Code"
 const val NAME_PRODUCT_DATABASE = "Name_Product_Database"
-const val TYPE_PRODUCT_DATABASE = "Type_Product_Database"
 
 // TABELA DOTYCZACA lISTY ZAKUPOW
 const val SHOPPING_LIST_TABLE_NAME = "Shopping_List"
@@ -56,8 +55,7 @@ const val SQL_CREATE_TABLE_PRODUCTS = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS
 const val SQL_CREATE_TABLE_PRODUCTS_DATABASE = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS_DATABASE_TABLE_NAME +" (" +
         ID_PRODUCT_DATABASE + " INTEGER PRIMARY KEY AUTOINCREMENT," +
         EAN_QR_CODE + " TEXT NOT NULL," +
-        NAME_PRODUCT_DATABASE + " TEXT NOT NULL," +
-        TYPE_PRODUCT_DATABASE + " TEXT)")
+        NAME_PRODUCT_DATABASE + " TEXT NOT NULL)")
 
 
 // TABELA DOTYCZACA LISTY ZAKUPOW
@@ -131,7 +129,6 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         cv.put(NAME_PRODUCT_DATABASE, product.nameProduct)
         //cv.put(ID_PRODUCT_DATABASE,  product.id)
         cv.put(EAN_QR_CODE, product.eanCode)
-        cv.put(TYPE_PRODUCT_DATABASE, product.type)
 
         val result= db.insert(PRODUCTS_DATABASE_TABLE_NAME, null, cv)
         db.close()
@@ -150,9 +147,8 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                     val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT_DATABASE))
                     val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT_DATABASE))
                     val ean = cursor.getString(cursor.getColumnIndex(EAN_QR_CODE))
-                    val productType=cursor.getString(cursor.getColumnIndex(TYPE_PRODUCT_DATABASE))
 
-                    val product = DatabaseProduct(id, name, ean, productType)
+                    val product = DatabaseProduct(id, name, ean)
                     allProductsList.add(product)
                 }while (cursor.moveToNext())
             }
@@ -173,11 +169,10 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                 val id= cursor.getString(cursor.getColumnIndex(ID_PRODUCT_DATABASE))
                 val name=cursor.getString(cursor.getColumnIndex(NAME_PRODUCT_DATABASE))
                 val ean = cursor.getString(cursor.getColumnIndex(EAN_QR_CODE))
-                val productType=cursor.getString(cursor.getColumnIndex(TYPE_PRODUCT_DATABASE))
 
                 cursor.close()
                 db.close()
-                return DatabaseProduct(id, name, ean, productType)
+                return DatabaseProduct(id, name, ean)
             }
         }
         cursor.close()

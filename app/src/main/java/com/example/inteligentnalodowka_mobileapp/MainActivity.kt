@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
         var data = arrayOf<DatabaseProduct>()
         for (i in 0..APIData.size - 1) {
             val id = UUID.randomUUID().toString()
-            data += DatabaseProduct(id, APIData[i][1], APIData[i][0], "")
+            data += DatabaseProduct(id, APIData[i][1], APIData[i][0])
         }
         return  data
     }
