@@ -1,6 +1,7 @@
 package com.example.inteligentnalodowka_mobileapp
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.media.Image
@@ -8,6 +9,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +26,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val context = this
@@ -46,13 +49,23 @@ class MainActivity : AppCompatActivity() {
         //declare the animation
         val header = AnimationUtils.loadAnimation(this, R.anim.header)
         val appearanceAndScale = AnimationUtils.loadAnimation(this, R.anim.appearancechangeofscale)
+        val animation_for_buttonFridge = AnimationUtils.loadAnimation(this, R.anim.buttonfridge)
+        val animation_for_buttonShoppingList = AnimationUtils.loadAnimation(this, R.anim.buttonshoppinglist)
+        val animation_for_buttonScan = AnimationUtils.loadAnimation(this, R.anim.buttonscan)
         val headerOfApp = findViewById(R.id.imageView9) as ImageView
         val imageOfApp = findViewById(R.id.imageView7) as ImageView
+        val button_go_to_Fridge = findViewById(R.id.buttonFridge) as Button
+        val button_shoppingList = findViewById(R.id.buttonShoppingList) as Button
+        val button_ScanProducts = findViewById(R.id.buttonScan) as Button
 
 
         // set the animation
         headerOfApp.startAnimation(header)
         imageOfApp.startAnimation(appearanceAndScale)
+        button_go_to_Fridge.startAnimation(animation_for_buttonFridge)
+        button_shoppingList.startAnimation(animation_for_buttonShoppingList)
+        button_ScanProducts.startAnimation(animation_for_buttonScan)
+
 
         val isFirstRun =
             getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)

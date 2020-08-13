@@ -66,6 +66,11 @@ class ScanPrroductsActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        val intentOnBackPress = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intentOnBackPress)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         var result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
