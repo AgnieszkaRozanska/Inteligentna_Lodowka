@@ -1,9 +1,14 @@
 package com.example.inteligentnalodowka_mobileapp
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
+import android.media.Image
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts.FridgeActivity
@@ -36,6 +41,17 @@ class MainActivity : AppCompatActivity() {
             goToShopListActivity()
         }
 
+
+
+        //declare the animation
+        val header = AnimationUtils.loadAnimation(this, R.anim.header)
+        val headerOfApp = findViewById(R.id.imageView9) as ImageView
+        val imageOfApp = findViewById(R.id.imageView7) as ImageView
+
+
+        // set the animation
+        headerOfApp.startAnimation(header)
+        imageOfApp.startAnimation(header)
 
         val isFirstRun =
             getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
@@ -143,4 +159,7 @@ class MainActivity : AppCompatActivity() {
             super.onPostExecute(result)
             }
         }
+
+
+
 }
