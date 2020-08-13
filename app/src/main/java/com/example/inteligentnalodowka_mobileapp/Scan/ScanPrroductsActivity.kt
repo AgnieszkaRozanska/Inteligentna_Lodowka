@@ -290,7 +290,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         var productsList = dbHelper.getAllProducts()
 
         for (i: Product in productsList) {
-            if (i.nameProduct == name && i.type == type) {
+            if ((i.nameProduct == name && i.type == type) || i.eanCode == eanCodeDatabase) {
                 idProduct = i.id
                 result = true
             }
