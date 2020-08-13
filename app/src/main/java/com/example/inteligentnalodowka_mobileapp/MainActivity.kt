@@ -114,6 +114,7 @@ class MainActivity : AppCompatActivity() {
         addAPIToDatabase(db,APIData2)
     }
 
+
     private fun loadApiAsTxt():
             Array<Array<String>> {
         //ładuje Api z pliku txt i zwraca w tablicy

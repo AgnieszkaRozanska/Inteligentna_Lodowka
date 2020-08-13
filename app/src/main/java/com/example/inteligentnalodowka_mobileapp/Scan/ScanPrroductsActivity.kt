@@ -8,7 +8,9 @@ import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.inteligentnalodowka_mobileapp.*
@@ -63,6 +65,20 @@ class ScanPrroductsActivity : AppCompatActivity() {
             setVisibilityItems()
             textViewInfo2.setVisibility(View.VISIBLE)
         }
+
+
+        //declare the animation
+        val animation_for_buttonScan = AnimationUtils.loadAnimation(this, R.anim.animationbuttonscanproducts)
+        val animation_for_buttonAdd = AnimationUtils.loadAnimation(this, R.anim.animationbuttonaddproduct)
+
+        val buttonScan = findViewById(R.id.buttonScanProduct) as Button
+        val buttonAddWithoutScan = findViewById(R.id.buttonAddProductWithoutScan) as Button
+
+
+        // set the animation
+        buttonScan.startAnimation(animation_for_buttonScan)
+        buttonAddWithoutScan.startAnimation(animation_for_buttonAdd)
+
 
     }
 
