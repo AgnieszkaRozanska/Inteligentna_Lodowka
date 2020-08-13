@@ -31,7 +31,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
     var list_of_types= arrayOf("Wybierz typ", "Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Napoje", "Inne")
     var typeProduct = ""
     var idProduct = ""
-    var idProductFromDatabase = ""
+    var eanCodeDatabase = "Brak"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,10 +95,12 @@ class ScanPrroductsActivity : AppCompatActivity() {
         if(product==null)
         {
             alertDialogNoProductInDatabase()
+            eanCodeDatabase = eanCode
         }else
         {
             setVisibilityItems()
             textViewNameProduct.setText(product.nameProduct)
+            eanCodeDatabase = product.eanCode
         }
     }
 
@@ -143,7 +145,8 @@ class ScanPrroductsActivity : AppCompatActivity() {
             date,
             purdate,
             quantity,
-            type
+            type,
+            eanCodeDatabase
         )
 
         val success = dbHelper.addProduct(product)
@@ -266,6 +269,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
             editTextNumberOfPackages.text.clear()
             textViewNameProduct.text.clear()
             buttonAddProduct.setVisibility(View.VISIBLE)
+            eanCodeDatabase = "Brak"
             setInvisibilityItems()
         }
         builder.setNegativeButton(getString(R.string.AlertDialogNo)) { dialogInterface: DialogInterface, i: Int ->

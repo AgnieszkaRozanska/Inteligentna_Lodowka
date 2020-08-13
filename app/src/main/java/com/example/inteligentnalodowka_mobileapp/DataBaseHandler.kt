@@ -18,7 +18,7 @@ const val EXPIRATION_DATE = "Expiration_date"
 const val QUANTITY = "Quantity_Product"
 const val TYPE = "Type_Product"
 const val PURCHASE_DATE = "Purchase_date"
-const val ID_PRODUCT_FROM_DATABASE = "ID_Product_from_Database"
+const val EAN_PRODUCT_FROM_DATABASE = "ID_Product_from_Database"
 
 
 
@@ -44,10 +44,10 @@ const val SQL_CREATE_TABLE_PRODUCTS = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS
         NAME_PRODUCT + " TEXT NOT NULL," +
         EXPIRATION_DATE + " TEXT," +
         QUANTITY + " TEXT," +
-        ID_PRODUCT_FROM_DATABASE + " TEXT," +
+        EAN_PRODUCT_FROM_DATABASE + " TEXT," +
         TYPE + " TEXT," +
         PURCHASE_DATE + " TEXT," +
-        "FOREIGN KEY(" + ID_PRODUCT_FROM_DATABASE + ") REFERENCES " + PRODUCTS_DATABASE_TABLE_NAME + "(" + ID_PRODUCT_DATABASE +"))" )
+        "FOREIGN KEY(" + EAN_PRODUCT_FROM_DATABASE + ") REFERENCES " + PRODUCTS_DATABASE_TABLE_NAME + "(" + ID_PRODUCT_DATABASE +"))" )
 
 
 
@@ -115,6 +115,7 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         cv.put(PURCHASE_DATE, product.purchaseDate)
         cv.put(QUANTITY, product.quantity)
         cv.put(TYPE, product.type)
+        cv.put(EAN_PRODUCT_FROM_DATABASE, product.eanCode)
 
         val result= db.insert(PRODUCTS_TABLE_NAME, null, cv)
 
@@ -197,8 +198,9 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                     val purchaseDate = cursor.getString(cursor.getColumnIndex(PURCHASE_DATE))
                     val productType=cursor.getString(cursor.getColumnIndex(TYPE))
                     val quantity =cursor.getString(cursor.getColumnIndex(QUANTITY))
+                    val eanCodeDatabase = cursor.getString(cursor.getColumnIndex(EAN_PRODUCT_FROM_DATABASE))
 
-                    val product = Product(id, name, date, purchaseDate, quantity, productType)
+                    val product = Product(id, name, date, purchaseDate, quantity, productType, eanCodeDatabase)
                     allProductsList.add(product)
                 }while (cursor.moveToNext())
             }
@@ -269,10 +271,11 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                 val datePurchase = cursor.getString(cursor.getColumnIndex(PURCHASE_DATE))
                 val quantity = cursor.getString(cursor.getColumnIndex(QUANTITY))
                 val productType=cursor.getString(cursor.getColumnIndex(TYPE))
+                val eanCodeDatabase = cursor.getString(cursor.getColumnIndex(EAN_PRODUCT_FROM_DATABASE))
 
                 cursor.close()
                 db.close()
-                return Product(id, name, dateExpiration, datePurchase, quantity, productType)
+                return Product(id, name, dateExpiration, datePurchase, quantity, productType, eanCodeDatabase)
             }
         }
         cursor.close()

@@ -10,14 +10,16 @@ class Product {
     var purchaseDate : String
     var quantity : String
     var type : String
+    var eanCode : String
 
-    constructor(id : String, nameProduct : String, expirationDate: String, purchaseDate: String, quantity : String, type : String){
+    constructor(id : String, nameProduct : String, expirationDate: String, purchaseDate: String, quantity : String, type : String, eanCode : String){
         this.id = id
         this.nameProduct = nameProduct
         this.expirationDate = expirationDate
         this.purchaseDate = purchaseDate
         this.quantity = quantity
         this.type = type
+        this.eanCode = eanCode
     }
 
 }
