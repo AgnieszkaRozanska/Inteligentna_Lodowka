@@ -45,13 +45,14 @@ class MainActivity : AppCompatActivity() {
 
         //declare the animation
         val header = AnimationUtils.loadAnimation(this, R.anim.header)
+        val appearanceAndScale = AnimationUtils.loadAnimation(this, R.anim.appearancechangeofscale)
         val headerOfApp = findViewById(R.id.imageView9) as ImageView
         val imageOfApp = findViewById(R.id.imageView7) as ImageView
 
 
         // set the animation
         headerOfApp.startAnimation(header)
-        imageOfApp.startAnimation(header)
+        imageOfApp.startAnimation(appearanceAndScale)
 
         val isFirstRun =
             getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
