@@ -78,14 +78,14 @@
         android:id="@+id/textViewAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
         android:layout_marginEnd="29dp"
         android:hint="2"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAmountConst"
         app:layout_constraintEnd_toEndOf="@+id/imageViewProductDetail"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNameOfProduct" />
+        app:layout_constraintTop_toTopOf="@+id/textViewAmountConst" />
 
     <TextView
         android:id="@+id/textViewExpirationDate"
@@ -96,6 +96,7 @@
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewExpirationDateConst"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textViewExpirationDateConst" />
 
@@ -112,25 +113,24 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="23dp"
         android:text="Data zakupu"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewExpirationDateConst"
         app:layout_constraintTop_toBottomOf="@+id/textViewExpirationDateConst" />
 
     <TextView
         android:id="@+id/textViewFinalPurDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginEnd="29dp"
         android:text="TextView"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewExpirationDate" />
+        app:layout_constraintTop_toTopOf="@+id/textView4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,4 +7,5 @@
     <color name="darkGray">#595959</color>
     <color name="blueBackground">#CCEBF6</color>
     <color name="lightGray">#D8D6D6</color>
+    <color name="black">#000000</color>
 </resources>
