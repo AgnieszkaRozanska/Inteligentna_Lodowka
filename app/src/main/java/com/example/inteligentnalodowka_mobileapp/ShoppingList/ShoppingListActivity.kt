@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +38,15 @@ class ShoppingListActivity : AppCompatActivity() {
         AddShoppingProduct.setOnClickListener {
             AlertDialogAddShoppingProduct()
         }
+
+        //declare the animation
+        val animation = AnimationUtils.loadAnimation(this, R.anim.animationapperance)
+        val imageView = findViewById(R.id.imageView4) as ImageView
+        val buttonAddShopingItem = findViewById(R.id.AddShoppingProduct) as Button
+
+        // set the animation
+        imageView.startAnimation(animation)
+        buttonAddShopingItem.startAnimation(animation)
     }
 
     override fun onBackPressed() {
