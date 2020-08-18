@@ -1,17 +1,13 @@
 package com.example.inteligentnalodowka_mobileapp
 
-import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.os.AsyncTask
 import android.os.Bundle
-import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts.FridgeActivity
 import com.example.inteligentnalodowka_mobileapp.Recipies.ShowAllRecipesActivity
@@ -25,6 +21,8 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+
+
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,6 +112,9 @@ class MainActivity : AppCompatActivity() {
         addAPIToDatabase(db,APIData2)
     }
 
+    override fun onBackPressed() {
+        finishAffinity()
+    }
 
     private fun loadApiAsTxt():
             Array<Array<String>> {
