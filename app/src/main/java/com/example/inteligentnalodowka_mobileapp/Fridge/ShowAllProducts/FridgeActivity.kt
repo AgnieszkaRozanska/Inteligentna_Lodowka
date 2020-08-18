@@ -170,7 +170,7 @@ class FridgeActivity : AppCompatActivity() {
                 if (success) {
 
                     Toast.makeText(applicationContext,"Produkt został zaktualizowany", Toast.LENGTH_SHORT).show()
-                }else  Toast.makeText(applicationContext,"Produkt nie został zaktualizowany", Toast.LENGTH_SHORT).show()
+                }else  Toast.makeText(applicationContext,"Aktualizacja produktu się nie powiodła", Toast.LENGTH_SHORT).show()
                 onResume()
             }
         }
