@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.inteligentnalodowka_mobileapp">
     <application
         android:name=".Scan.MultiDexApp"
@@ -10,15 +11,33 @@
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Fridge.ChangeExpirationDateActivity"></activity>
-        <activity android:name=".Recipies.ConcreteRecipeActivity" />
-        <activity android:name=".Fridge.ChangeNumberOfProductActivity" />
-        <activity android:name=".Fridge.ProductDetailsActivity" />
-        <activity android:name=".ShoppingList.ShoppingListActivity" />
-        <activity android:name=".Recipies.ShowAllRecipesActivity" />
-        <activity android:name=".Scan.ScanPrroductsActivity" />
-        <activity android:name=".Fridge.ShowAllProducts.FridgeActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Fridge.ChangeExpirationDateActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"></activity>
+        <activity android:name=".Recipies.ConcreteRecipeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".Fridge.ChangeNumberOfProductActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".Fridge.ProductDetailsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".ShoppingList.ShoppingListActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".Recipies.ShowAllRecipesActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".Scan.ScanPrroductsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".Fridge.ShowAllProducts.FridgeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".MainActivity"
+                  android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

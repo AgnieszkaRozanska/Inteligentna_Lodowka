@@ -19,6 +19,7 @@ const val QUANTITY = "Quantity_Product"
 const val TYPE = "Type_Product"
 const val PURCHASE_DATE = "Purchase_date"
 const val EAN_PRODUCT_FROM_DATABASE = "ID_Product_from_Database"
+const val AFTER_EXPIRATION_DATE = "After_Expiration_Date"
 
 
 
@@ -46,6 +47,7 @@ const val SQL_CREATE_TABLE_PRODUCTS = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS
         QUANTITY + " TEXT," +
         EAN_PRODUCT_FROM_DATABASE + " TEXT," +
         TYPE + " TEXT," +
+        AFTER_EXPIRATION_DATE + " TEXT," +
         PURCHASE_DATE + " TEXT," +
         "FOREIGN KEY(" + EAN_PRODUCT_FROM_DATABASE + ") REFERENCES " + PRODUCTS_DATABASE_TABLE_NAME + "(" + ID_PRODUCT_DATABASE +"))" )
 
@@ -116,6 +118,7 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         cv.put(QUANTITY, product.quantity)
         cv.put(TYPE, product.type)
         cv.put(EAN_PRODUCT_FROM_DATABASE, product.eanCode)
+        cv.put(AFTER_EXPIRATION_DATE,product.afterExpirationDate)
 
         val result= db.insert(PRODUCTS_TABLE_NAME, null, cv)
 
@@ -202,8 +205,10 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                     val productType=cursor.getString(cursor.getColumnIndex(TYPE))
                     val quantity =cursor.getString(cursor.getColumnIndex(QUANTITY))
                     val eanCodeDatabase = cursor.getString(cursor.getColumnIndex(EAN_PRODUCT_FROM_DATABASE))
+                    val afterExpirationDate = cursor.getString(cursor.getColumnIndex(
+                        AFTER_EXPIRATION_DATE))
 
-                    val product = Product(id, name, date, purchaseDate, quantity, productType, eanCodeDatabase)
+                    val product = Product(id, name, date, purchaseDate, quantity, productType, eanCodeDatabase,afterExpirationDate)
                     allProductsList.add(product)
                 }while (cursor.moveToNext())
             }
@@ -233,6 +238,22 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
             val db = this.writableDatabase
             val cv = ContentValues()
             cv.put(QUANTITY, quantity)
+            db.update(PRODUCTS_TABLE_NAME, cv, "ID_PRODUCT =?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+
+        return true
+    }
+
+    fun updateAfterExpirationDate(id:String):Boolean{
+        try {
+            val db = this.writableDatabase
+            val cv = ContentValues()
+            cv.put(AFTER_EXPIRATION_DATE, "true")
             db.update(PRODUCTS_TABLE_NAME, cv, "ID_PRODUCT =?", arrayOf(id))
             db.close()
         }
@@ -275,10 +296,12 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                 val quantity = cursor.getString(cursor.getColumnIndex(QUANTITY))
                 val productType=cursor.getString(cursor.getColumnIndex(TYPE))
                 val eanCodeDatabase = cursor.getString(cursor.getColumnIndex(EAN_PRODUCT_FROM_DATABASE))
+                val afterExpirationDate = cursor.getString(cursor.getColumnIndex(
+                    AFTER_EXPIRATION_DATE))
 
                 cursor.close()
                 db.close()
-                return Product(id, name, dateExpiration, datePurchase, quantity, productType, eanCodeDatabase)
+                return Product(id, name, dateExpiration, datePurchase, quantity, productType, eanCodeDatabase, afterExpirationDate)
             }
         }
         cursor.close()

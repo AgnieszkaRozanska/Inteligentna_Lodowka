@@ -2,12 +2,16 @@ package com.example.inteligentnalodowka_mobileapp
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.animation.AnimationUtils
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts.FridgeActivity
 import com.example.inteligentnalodowka_mobileapp.Recipies.ShowAllRecipesActivity
@@ -16,6 +20,7 @@ import com.example.inteligentnalodowka_mobileapp.ShoppingList.ShoppingListActivi
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_scan_prroducts.*
 import okhttp3.OkHttpClient
 import java.util.*
 
@@ -175,6 +180,8 @@ class MainActivity : AppCompatActivity() {
             super.onPostExecute(result)
             }
         }
+
+
 
 
 

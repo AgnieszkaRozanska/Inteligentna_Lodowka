@@ -159,6 +159,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         var type = spinnerTypeOfProduct.getSelectedItem().toString();
         var date = textViewDate.text.toString()
         var purdate = textViewPurDate.text.toString()
+        var after = "false"
 
         var product = Product(
             idProduct,
@@ -167,7 +168,8 @@ class ScanPrroductsActivity : AppCompatActivity() {
             purdate,
             quantity,
             type,
-            eanCodeDatabase
+            eanCodeDatabase,
+            after
         )
 
         val success = dbHelper.addProduct(product)
