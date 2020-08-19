@@ -189,7 +189,7 @@ class FridgeActivity : AppCompatActivity() {
 
         for (item in productsAfterExpirationDate){
 
-            listitems.add(item.nameProduct)
+            listitems.add(item.nameProduct + " (" + item.expirationDate + ")")
         }
         val items = listitems.toTypedArray()
 
@@ -228,7 +228,14 @@ class FridgeActivity : AppCompatActivity() {
                     }else  alertDialogRemove()
 
             }
-            onResume()
+
+            val dbHelper = DataBaseHandler(this)
+            for (item in productsAfterExpirationDate) {
+                val success = dbHelper.updateAfterExpirationDate(item.id)
+
+
+                onResume()
+            }
         }
 
         builder.setNegativeButton("Anuluj") { dialogInterface: DialogInterface, i: Int ->
