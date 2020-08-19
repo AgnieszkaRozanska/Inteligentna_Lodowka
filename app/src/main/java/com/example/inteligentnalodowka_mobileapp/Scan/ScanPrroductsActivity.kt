@@ -322,7 +322,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         var productsList = dbHelper.getAllProducts()
 
         for (i: Product in productsList) {
-            if ((i.nameProduct == name && i.type == type) || i.eanCode == eanCodeDatabase) {
+            if ((i.nameProduct == name && i.type == type) || (i.eanCode != "Brak" && eanCodeDatabase != "Brak" && i.eanCode == eanCodeDatabase)) {
                 idProduct = i.id
                 result = true
             }
@@ -367,6 +367,12 @@ class ScanPrroductsActivity : AppCompatActivity() {
 
         dbHelper.addDatabaseProduct(databaseProduct)
 
+    }
+
+    private fun isNullOrEmpty(str: String?): Boolean {
+        if (str != null && !str.isEmpty())
+            return false
+        return true
     }
 
 }

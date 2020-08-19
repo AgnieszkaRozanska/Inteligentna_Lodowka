@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -78,7 +79,7 @@ Filterable {
         val typeProduct_cardView = productsFilterList[holder.adapterPosition].type
         val countProduct_cardView = productsFilterList[holder.adapterPosition].quantity
 
-
+        setImage(typeProduct_cardView, holder)
 
         holder.productName.text = productName_cardView
         holder.productType.text = typeProduct_cardView
@@ -115,6 +116,33 @@ Filterable {
         }
 
     }
+
+    fun setImage(typeProduct_cardView : String, holder: MyViewHolder){
+
+        if(typeProduct_cardView == "Owoce"){
+            holder.imageProduct.setBackgroundResource(R.drawable.fruits)
+        }else if(typeProduct_cardView == "Warzywa"){
+            holder.imageProduct.setBackgroundResource(R.drawable.vegetable)
+        }else if(typeProduct_cardView == "Nabiał"){
+            holder.imageProduct.setBackgroundResource(R.drawable.milk_products)
+        }else if(typeProduct_cardView == "Produkty zbożowe"){
+            holder.imageProduct.setBackgroundResource(R.drawable.flour)
+        }else if(typeProduct_cardView == "Słodycze") {
+            holder.imageProduct.setBackgroundResource(R.drawable.candy)
+        }else if(typeProduct_cardView == "Przekąski") {
+            holder.imageProduct.setBackgroundResource(R.drawable.snack)
+        }else if(typeProduct_cardView == "Mięso") {
+            holder.imageProduct.setBackgroundResource(R.drawable.meat)
+        }else if(typeProduct_cardView == "Ryby") {
+            holder.imageProduct.setBackgroundResource(R.drawable.fish)
+        }else if(typeProduct_cardView == "Napoje") {
+            holder.imageProduct.setBackgroundResource(R.drawable.drinks)
+        }else{
+            holder.imageProduct.setBackgroundResource(R.drawable.shopping_bag_red)
+        }
+    }
+
+
 }
 
 class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -122,6 +150,6 @@ class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     var productType : TextView = view.findViewById(R.id.Type_cardView)
     var productCount : TextView = view.findViewById(R.id.Count_cardView)
     var cardView : CardView = view.findViewById(R.id.cardView_product)
-
+    var imageProduct : ImageView = view.findViewById(R.id.imageViewProduct)
 
 }
