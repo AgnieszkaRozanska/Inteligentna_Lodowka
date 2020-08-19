@@ -42,6 +42,10 @@ class FridgeActivity : AppCompatActivity() {
 
         checkExpirationDate()
 
+        buttonFilters.setOnClickListener {
+            Filters()
+        }
+
 
 
         editTextSearch = findViewById(R.id.editTextSearchProducts)
@@ -251,5 +255,114 @@ class FridgeActivity : AppCompatActivity() {
         builder.setMessage(getString(R.string.alertDialogMistakeMessage))
         builder.setPositiveButton(getString(R.string.Back)) { dialog: DialogInterface, which: Int -> }
         builder.show()
+    }
+
+    fun Filters() {
+
+        var items= arrayOf("Data ważności", "Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Napoje", "Inne")
+
+
+        val selectedList = ArrayList<Int>()
+        val builder = AlertDialog.Builder(this)
+
+
+
+        builder.setTitle("Filtruj według")
+        builder.setMultiChoiceItems(items, null
+        ) { dialog, which, isChecked ->
+            if (isChecked) {
+                selectedList.add(which)
+            } else if (selectedList.contains(which)) {
+                selectedList.remove(Integer.valueOf(which))
+            }
+        }
+
+        builder.setPositiveButton("Zatwierdź") { dialogInterface, i ->
+            val selectedStrings = ArrayList<String>()
+
+            for (j in selectedList.indices) {
+                selectedStrings.add(items[selectedList[j]])
+            }
+
+
+            val dbHelper = DataBaseHandler(this)
+            dbHelper.writableDatabase
+            val  productList = dbHelper.getAllProducts()
+
+            val productFilteredList = ArrayList<Product>()
+
+            for (item in productList){
+
+                if (selectedStrings.contains("Warzywa") && item.type == "Warzywa"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Owoce") && item.type == "Owoce"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Nabiał") && item.type == "Nabiał"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Słodycze") && item.type == "Słodycze"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Przekąski") && item.type == "Przekąski"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Mięso") && item.type == "Mięso"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Ryby") && item.type == "Ryby"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Produkty zbożowe") && item.type == "Produkty zbożowe"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Napoje") && item.type == "Napoje"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Inne") && item.type == "Inne"){
+                    productFilteredList.add(item)
+                }
+
+                if (item.expirationDate!="Brak" && selectedStrings.contains("Data ważności")) {
+
+                    val current = LocalDateTime.now()
+
+                    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                    val formatted = current.format(formatter)
+
+                        var dateTime =
+                            LocalDate.parse(
+                                item.expirationDate,
+                                DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                            )
+
+                        var expirationDate =
+                            LocalDate.parse(formatted, DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+
+                        if (dateTime.compareTo(expirationDate) < 7 && !productFilteredList.contains(item))
+                            productFilteredList.add(item)
+
+
+                }
+            }
+
+
+
+            recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+            recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productFilteredList)
+
+            adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+
+
+
+        }
+
+        builder.setNegativeButton("Anuluj") { dialogInterface: DialogInterface, i: Int ->
+            onResume()
+        }
+        builder.show()
+
     }
 }
