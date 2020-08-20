@@ -36,11 +36,12 @@ class FridgeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        checkExpirationDate()
         setContentView(R.layout.activity_fridge)
 
         setTextIfListIsEmpty()
 
-        checkExpirationDate()
+
 
 
 
@@ -132,8 +133,13 @@ class FridgeActivity : AppCompatActivity() {
                     var expirationDate =
                         LocalDate.parse(formatted, DateTimeFormatter.ofPattern("dd.MM.yyyy"))
 
-                    if (dateTime.compareTo(expirationDate) < 0)
+                    if (dateTime.compareTo(expirationDate) < 0) {
                         productsAfterExpirationDate.add(item)
+                        val success = sqlConector.updateAfterExpirationDate(item.id, "true")
+                    }
+                }
+                else if(item.afterExpirationDate=="true"){
+                    productsAfterExpirationDate.add(item)
                 }
 
             }
@@ -152,7 +158,7 @@ class FridgeActivity : AppCompatActivity() {
 
             val dbHelper = DataBaseHandler(this)
             for (item in productsAfterExpirationDate){
-                val success = dbHelper.updateAfterExpirationDate(item.id)
+                val success = dbHelper.removeProduct(item.id)
 
                 if (success) {
 
@@ -166,7 +172,7 @@ class FridgeActivity : AppCompatActivity() {
         builder.setNegativeButton(getString(R.string.AlertDialogNo)) { dialogInterface: DialogInterface, i: Int ->
             val dbHelper = DataBaseHandler(this)
             for (item in productsAfterExpirationDate) {
-                val success = dbHelper.updateAfterExpirationDate(item.id)
+                val success = dbHelper.updateAfterExpirationDate(item.id,"neutral")
                 if (success) {
 
                     Toast.makeText(applicationContext,"Produkt został zaktualizowany", Toast.LENGTH_SHORT).show()
@@ -231,7 +237,7 @@ class FridgeActivity : AppCompatActivity() {
 
             val dbHelper = DataBaseHandler(this)
             for (item in productsAfterExpirationDate) {
-                val success = dbHelper.updateAfterExpirationDate(item.id)
+                val success = dbHelper.updateAfterExpirationDate(item.id,"neutral")
 
 
                 onResume()

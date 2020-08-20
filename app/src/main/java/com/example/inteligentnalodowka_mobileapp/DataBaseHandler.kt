@@ -249,11 +249,11 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         return true
     }
 
-    fun updateAfterExpirationDate(id:String):Boolean{
+    fun updateAfterExpirationDate(id:String,bool:String):Boolean{
         try {
             val db = this.writableDatabase
             val cv = ContentValues()
-            cv.put(AFTER_EXPIRATION_DATE, "true")
+            cv.put(AFTER_EXPIRATION_DATE, bool)
             db.update(PRODUCTS_TABLE_NAME, cv, "ID_PRODUCT =?", arrayOf(id))
             db.close()
         }

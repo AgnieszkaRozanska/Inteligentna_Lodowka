@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
 import com.example.inteligentnalodowka_mobileapp.Fridge.ProductDetailsActivity
 import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
@@ -20,6 +21,9 @@ import kotlinx.android.synthetic.main.activity_card_view_all_products.view.*
 import kotlinx.android.synthetic.main.activity_fridge.*
 import kotlinx.android.synthetic.main.activity_fridge.view.*
 import org.w3c.dom.Text
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ShowAllProductsAdapter(context: FridgeActivity, var productsList: ArrayList<Product>): RecyclerView.Adapter<MyViewHolder>(),
 Filterable {
@@ -31,6 +35,7 @@ Filterable {
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): MyViewHolder {
+
         val layoutInflater = LayoutInflater.from(viewGroup.context)
         val cardViewProduct = layoutInflater.inflate(R.layout.activity_card_view_all_products, viewGroup, false)
         return MyViewHolder(cardViewProduct)
@@ -73,13 +78,43 @@ Filterable {
         }
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    fun checkDate(context: FridgeActivity){
 
+        val current = LocalDateTime.now()
+        val dbHelper = DataBaseHandler(context)
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val formatted = current.format(formatter)
+
+        for(item in productsList)
+        {
+            if (item.expirationDate!="Brak") {
+                if(item.afterExpirationDate=="false") {
+                    var expirationDate =
+                        LocalDate.parse(
+                            item.expirationDate,
+                            DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                        )
+
+                    var dateTime =
+                        LocalDate.parse(formatted, DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+
+                    if (expirationDate.compareTo(dateTime) < 0){
+                        val success = dbHelper.updateAfterExpirationDate(item.id,"true")
+                    }
+
+                }
+
+            }
+
+        }
+    }
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        checkDate(FridgeActivity())
         val productName_cardView=productsFilterList[holder.adapterPosition].nameProduct
         val typeProduct_cardView = productsFilterList[holder.adapterPosition].type
         val countProduct_cardView = productsFilterList[holder.adapterPosition].quantity
         val ifExpiredProduct = productsList[holder.adapterPosition].afterExpirationDate
-
         setImage(typeProduct_cardView, holder)
 
         holder.productName.text = productName_cardView
