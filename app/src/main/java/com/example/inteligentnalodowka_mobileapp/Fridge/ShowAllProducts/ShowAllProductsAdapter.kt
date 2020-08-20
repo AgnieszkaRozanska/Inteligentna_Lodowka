@@ -78,6 +78,7 @@ Filterable {
         val productName_cardView=productsFilterList[holder.adapterPosition].nameProduct
         val typeProduct_cardView = productsFilterList[holder.adapterPosition].type
         val countProduct_cardView = productsFilterList[holder.adapterPosition].quantity
+        val ifExpiredProduct = productsList[holder.adapterPosition].afterExpirationDate
 
         setImage(typeProduct_cardView, holder)
 
@@ -85,11 +86,18 @@ Filterable {
         holder.productType.text = typeProduct_cardView
         holder.productCount.text = "Liczba opakowań: "+countProduct_cardView
 
-        if (position % 2 == 1) {
+        if(ifExpiredProduct.equals("true")){
+            holder.imageProduct.setBackgroundResource(R.drawable.alert)
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#EAE1A2"))
+        }
+
+        if (position % 2 == 1 && ifExpiredProduct != "true") {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
-        } else {
+        } else if (position % 2 != 1 && ifExpiredProduct != "true") {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#CCEBF6"))
         }
+
+
 
 
 
