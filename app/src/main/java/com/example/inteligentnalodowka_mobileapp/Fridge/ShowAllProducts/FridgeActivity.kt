@@ -2,30 +2,29 @@ package com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts
 
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
+import android.view.Menu
+import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
 import com.example.inteligentnalodowka_mobileapp.MainActivity
 import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
-import com.example.inteligentnalodowka_mobileapp.Recipies.ConcreteRecipeActivity
 import kotlinx.android.synthetic.main.activity_fridge.*
-import kotlinx.android.synthetic.main.activity_scan_prroducts.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.collections.ArrayList
+
 
 class FridgeActivity : AppCompatActivity() {
 
@@ -38,13 +37,24 @@ class FridgeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fridge)
 
+        toolbar.inflateMenu(R.menu.menu_fridge)
+        toolbar.setOnMenuItemClickListener {
+
+            if (it.itemId==R.id.filtruj){
+                Filters()
+            }
+            true
+        }
+
         setTextIfListIsEmpty()
 
         checkExpirationDate()
 
-        buttonFilters.setOnClickListener {
-            Filters()
-        }
+       // buttonFilters.setOnClickListener {
+        //    Filters()
+        //}
+
+
 
 
 
@@ -85,6 +95,8 @@ class FridgeActivity : AppCompatActivity() {
 
 
     }
+
+
 
     override fun onBackPressed() {
         val intentOnBackPress = Intent(applicationContext, MainActivity::class.java)
@@ -259,7 +271,7 @@ class FridgeActivity : AppCompatActivity() {
 
     fun Filters() {
 
-        var items= arrayOf("Data ważności", "Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Napoje", "Inne")
+        var items= arrayOf("Wszystko","Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Napoje", "Inne")
 
 
         val selectedList = ArrayList<Int>()
@@ -267,7 +279,7 @@ class FridgeActivity : AppCompatActivity() {
 
 
 
-        builder.setTitle("Filtruj według")
+        builder.setTitle("Filtruj według typu")
         builder.setMultiChoiceItems(items, null
         ) { dialog, which, isChecked ->
             if (isChecked) {
@@ -323,28 +335,11 @@ class FridgeActivity : AppCompatActivity() {
                 if (selectedStrings.contains("Inne") && item.type == "Inne"){
                     productFilteredList.add(item)
                 }
-
-                if (item.expirationDate!="Brak" && selectedStrings.contains("Data ważności")) {
-
-                    val current = LocalDateTime.now()
-
-                    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-                    val formatted = current.format(formatter)
-
-                        var dateTime =
-                            LocalDate.parse(
-                                item.expirationDate,
-                                DateTimeFormatter.ofPattern("dd.MM.yyyy")
-                            )
-
-                        var expirationDate =
-                            LocalDate.parse(formatted, DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-
-                        if (dateTime.compareTo(expirationDate) < 7 && !productFilteredList.contains(item))
-                            productFilteredList.add(item)
-
-
+                if(selectedStrings.contains("Wszystko")){
+                    productFilteredList.add(item)
                 }
+
+
             }
 
 

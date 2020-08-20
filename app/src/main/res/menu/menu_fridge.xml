@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/filtruj"
+        android:title="Filtruj"/>
+    <item android:id="@+id/sortuj"
+        android:title="Sortuj"/>
+
+    <item android:id="@+id/usun"
+        android:title="Usuń"/>
+</menu>
