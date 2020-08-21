@@ -43,6 +43,9 @@ class FridgeActivity : AppCompatActivity() {
             if (it.itemId==R.id.filtruj){
                 Filters()
             }
+            if (it.itemId==R.id.sortuj){
+                Sort()
+            }
             true
         }
 
@@ -360,4 +363,26 @@ class FridgeActivity : AppCompatActivity() {
         builder.show()
 
     }
+
+
+    fun Sort(){
+        val dbHelper = DataBaseHandler(this)
+        dbHelper.writableDatabase
+        val  productList = dbHelper.getAllProducts()
+
+
+        //najdalsza data na górze
+        //productList.sortByDescending { it.expirationDate }
+
+        productList.sortBy{it.expirationDate}
+
+        recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+        recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+        adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+
+    }
+
+
 }
