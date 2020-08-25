@@ -2,30 +2,29 @@ package com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts
 
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
+import android.view.Menu
+import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
 import com.example.inteligentnalodowka_mobileapp.MainActivity
 import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
-import com.example.inteligentnalodowka_mobileapp.Recipies.ConcreteRecipeActivity
 import kotlinx.android.synthetic.main.activity_fridge.*
-import kotlinx.android.synthetic.main.activity_scan_prroducts.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.collections.ArrayList
+
 
 class FridgeActivity : AppCompatActivity() {
 
@@ -39,7 +38,25 @@ class FridgeActivity : AppCompatActivity() {
         checkExpirationDate()
         setContentView(R.layout.activity_fridge)
 
+        toolbar.inflateMenu(R.menu.menu_fridge)
+        toolbar.setOnMenuItemClickListener {
+
+            if (it.itemId==R.id.filtruj){
+                Filters()
+            }
+            if (it.itemId==R.id.sortuj){
+                Sort()
+            }
+            true
+        }
+
         setTextIfListIsEmpty()
+
+
+
+       // buttonFilters.setOnClickListener {
+        //    Filters()
+        //}
 
 
 
@@ -82,6 +99,8 @@ class FridgeActivity : AppCompatActivity() {
 
 
     }
+
+
 
     override fun onBackPressed() {
         val intentOnBackPress = Intent(applicationContext, MainActivity::class.java)
@@ -258,4 +277,184 @@ class FridgeActivity : AppCompatActivity() {
         builder.setPositiveButton(getString(R.string.Back)) { dialog: DialogInterface, which: Int -> }
         builder.show()
     }
+
+    fun Filters() {
+
+        var items= arrayOf("Wszystko","Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Napoje", "Inne")
+
+
+        val selectedList = ArrayList<Int>()
+        val builder = AlertDialog.Builder(this)
+
+
+
+        builder.setTitle("Filtruj według typu")
+        builder.setMultiChoiceItems(items, null
+        ) { dialog, which, isChecked ->
+            if (isChecked) {
+                selectedList.add(which)
+            } else if (selectedList.contains(which)) {
+                selectedList.remove(Integer.valueOf(which))
+            }
+        }
+
+        builder.setPositiveButton("Zatwierdź") { dialogInterface, i ->
+            val selectedStrings = ArrayList<String>()
+
+            for (j in selectedList.indices) {
+                selectedStrings.add(items[selectedList[j]])
+            }
+
+
+            val dbHelper = DataBaseHandler(this)
+            dbHelper.writableDatabase
+            val  productList = dbHelper.getAllProducts()
+
+            val productFilteredList = ArrayList<Product>()
+
+            for (item in productList){
+
+                if (selectedStrings.contains("Warzywa") && item.type == "Warzywa"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Owoce") && item.type == "Owoce"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Nabiał") && item.type == "Nabiał"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Słodycze") && item.type == "Słodycze"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Przekąski") && item.type == "Przekąski"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Mięso") && item.type == "Mięso"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Ryby") && item.type == "Ryby"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Produkty zbożowe") && item.type == "Produkty zbożowe"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Napoje") && item.type == "Napoje"){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Inne") && item.type == "Inne"){
+                    productFilteredList.add(item)
+                }
+                if(selectedStrings.contains("Wszystko")){
+                    productFilteredList.add(item)
+                }
+
+
+            }
+
+
+
+            recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+            recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productFilteredList)
+
+            adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+
+
+
+        }
+
+        builder.setNegativeButton("Anuluj") { dialogInterface: DialogInterface, i: Int ->
+            onResume()
+        }
+        builder.show()
+
+    }
+
+
+    fun Sort(){
+        val dbHelper = DataBaseHandler(this)
+        dbHelper.writableDatabase
+        val  productList = dbHelper.getAllProducts()
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Sortuj")
+        builder.setMessage("Sortuj według daty:")
+
+        builder.setPositiveButton("ważności") { dialog: DialogInterface, which: Int ->
+            val builder2 = AlertDialog.Builder(this)
+            builder2.setTitle("Sortuj")
+            builder2.setMessage("Wybierz rodzaj sortowania:")
+
+            builder2.setPositiveButton("Rosnąco") { dialog: DialogInterface, which: Int ->
+                productList.sortBy{it.expirationDate}
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+            }
+            builder2.setNegativeButton("Malejąco"){dialog: DialogInterface, which: Int ->
+                productList.sortByDescending { it.expirationDate }
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+            }
+            builder2.setNeutralButton("Anuluj"){dialog: DialogInterface, which: Int ->
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+            }
+            builder2.show()
+
+        }
+        builder.setNegativeButton("zakupu"){dialog: DialogInterface, which: Int ->
+            val builder2 = AlertDialog.Builder(this)
+            builder2.setTitle("Sortuj")
+            builder2.setMessage("Wybierz rodzaj sortowania:")
+
+            builder2.setPositiveButton("Rosnąco") { dialog: DialogInterface, which: Int ->
+                productList.sortBy{it.purchaseDate}
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+            }
+            builder2.setNegativeButton("Malejąco"){dialog: DialogInterface, which: Int ->
+                productList.sortByDescending { it.purchaseDate }
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+            }
+            builder2.setNeutralButton("Anuluj"){dialog: DialogInterface, which: Int ->
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+            }
+            builder2.show()
+        }
+        builder.setNeutralButton("Anuluj"){dialog: DialogInterface, which: Int ->
+            recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+            recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+            adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+        }
+        builder.show()
+
+
+
+
+
+
+
+    }
+
+
 }
