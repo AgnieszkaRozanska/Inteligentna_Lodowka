@@ -121,14 +121,13 @@ Filterable {
         holder.productType.text = typeProduct_cardView
         holder.productCount.text = "Liczba opakowań: "+countProduct_cardView
 
-        if(ifExpiredProduct.equals("true")){
+        if(ifExpiredProduct.equals("true") || ifExpiredProduct.equals("neutral")){
             holder.imageProduct.setBackgroundResource(R.drawable.alert)
             holder.cardView.setCardBackgroundColor(Color.parseColor("#EAE1A2"))
         }
-
-        if (position % 2 == 1 && ifExpiredProduct != "true") {
+        else if (position % 2 == 1 ) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
-        } else if (position % 2 != 1 && ifExpiredProduct != "true") {
+        } else if (position % 2 != 1 ) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#CCEBF6"))
         }
 
