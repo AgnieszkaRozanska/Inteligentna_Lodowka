@@ -1,11 +1,13 @@
 package com.example.inteligentnalodowka_mobileapp.Fridge.ShowAllProducts
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -32,6 +34,7 @@ class FridgeActivity : AppCompatActivity() {
     var adapterDelete: MultiDeleteAdapter? =null
     var textViewBrakProduktu: TextView? = null
     var productsAfterExpirationDate = ArrayList<Product>()
+    var productList = ArrayList<Product>()
 
 
 
@@ -40,17 +43,25 @@ class FridgeActivity : AppCompatActivity() {
         checkExpirationDate()
         setContentView(R.layout.activity_fridge)
 
+        val dbHelper = DataBaseHandler(this)
+        dbHelper.writableDatabase
+        productList = dbHelper.getAllProducts()
 
 
 
         toolbar.inflateMenu(R.menu.menu_fridge)
         toolbar.setOnMenuItemClickListener {
 
+
             if (it.itemId==R.id.filtruj){
-                Filters()
+                Filters(productList)
             }
             if (it.itemId==R.id.sortuj){
-                Sort()
+                Sort(productList)
+            }
+            if (it.itemId==R.id.wyczysc){
+                textViewBrakProduktu!!.visibility = TextView.INVISIBLE
+                onResume()
             }
             if(it.itemId==R.id.usun){
                 setContentView(R.layout.activity_multi_delete)
@@ -147,6 +158,7 @@ class FridgeActivity : AppCompatActivity() {
 
             }
         })
+
 
         //declare the animation
         val animation = AnimationUtils.loadAnimation(this, R.anim.animationapperance)
@@ -341,7 +353,9 @@ class FridgeActivity : AppCompatActivity() {
         builder.show()
     }
 
-    fun Filters() {
+    fun Filters(productList: ArrayList<Product>) {
+
+        setTextIfListIsEmpty()
 
         var items= arrayOf("Wszystko","Przeterminowane","Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Napoje", "Inne")
 
@@ -369,48 +383,96 @@ class FridgeActivity : AppCompatActivity() {
             }
 
 
-            val dbHelper = DataBaseHandler(this)
-            dbHelper.writableDatabase
-            val  productList = dbHelper.getAllProducts()
+
 
             val productFilteredList = ArrayList<Product>()
 
             for (item in productList){
 
                 if (selectedStrings.contains("Warzywa") && item.type == "Warzywa"){
-                    productFilteredList.add(item)
+                    if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
+                        productFilteredList.add(item)
+                    }
+                    else {
+                        productFilteredList.add(item)
+                    }
                 }
                 if (selectedStrings.contains("Owoce") && item.type == "Owoce"){
-                    productFilteredList.add(item)
+                    if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
+                        productFilteredList.add(item)
+                    }
+                    else {
+                        productFilteredList.add(item)
+                    }
                 }
                 if (selectedStrings.contains("Nabiał") && item.type == "Nabiał"){
-                    productFilteredList.add(item)
+                    if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
+                        productFilteredList.add(item)
+                    }
+                    else {
+                        productFilteredList.add(item)
+                    }
                 }
                 if (selectedStrings.contains("Słodycze") && item.type == "Słodycze"){
-                    productFilteredList.add(item)
+                    if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
+                        productFilteredList.add(item)
+                    }
+                    else {
+                        productFilteredList.add(item)
+                    }
                 }
                 if (selectedStrings.contains("Przekąski") && item.type == "Przekąski"){
-                    productFilteredList.add(item)
+                    if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
+                        productFilteredList.add(item)
+                    }
+                    else {
+                        productFilteredList.add(item)
+                    }
                 }
                 if (selectedStrings.contains("Mięso") && item.type == "Mięso"){
-                    productFilteredList.add(item)
+                    if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
+                        productFilteredList.add(item)
+                    }
+                    else {
+                        productFilteredList.add(item)
+                    }
                 }
                 if (selectedStrings.contains("Ryby") && item.type == "Ryby"){
-                    productFilteredList.add(item)
+                    if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
+                        productFilteredList.add(item)
+                    }
+                    else {
+                        productFilteredList.add(item)
+                    }
                 }
                 if (selectedStrings.contains("Produkty zbożowe") && item.type == "Produkty zbożowe"){
-                    productFilteredList.add(item)
+                    if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
+                        productFilteredList.add(item)
+                    }
+                    else {
+                        productFilteredList.add(item)
+                    }
                 }
                 if (selectedStrings.contains("Napoje") && item.type == "Napoje"){
-                    productFilteredList.add(item)
+                    if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
+                        productFilteredList.add(item)
+                    }
+                    else {
+                        productFilteredList.add(item)
+                    }
                 }
                 if (selectedStrings.contains("Inne") && item.type == "Inne"){
-                    productFilteredList.add(item)
+                    if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
+                        productFilteredList.add(item)
+                    }
+                    else {
+                        productFilteredList.add(item)
+                    }
                 }
                 if(selectedStrings.contains("Wszystko")){
                     productFilteredList.add(item)
                 }
-                if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
+                if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false" && selectedStrings.size==1){
                     productFilteredList.add(item)
                 }
 
@@ -424,12 +486,19 @@ class FridgeActivity : AppCompatActivity() {
 
             adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
 
+            this.productList = productFilteredList
 
+            if (productFilteredList.isEmpty()){
+                textViewBrakProduktu!!.visibility = TextView.VISIBLE
+            }
+            else
+                textViewBrakProduktu!!.visibility = TextView.INVISIBLE
 
 
         }
 
         builder.setNegativeButton("Anuluj") { dialogInterface: DialogInterface, i: Int ->
+            textViewBrakProduktu!!.visibility = TextView.INVISIBLE
             onResume()
         }
         builder.show()
@@ -437,10 +506,10 @@ class FridgeActivity : AppCompatActivity() {
     }
 
 
-    fun Sort(){
-        val dbHelper = DataBaseHandler(this)
-        dbHelper.writableDatabase
-        val  productList = dbHelper.getAllProducts()
+    fun Sort(productList: ArrayList<Product>){
+
+
+        setTextIfListIsEmpty()
 
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Sortuj")

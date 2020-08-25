@@ -7,5 +7,7 @@
         android:title="Sortuj"/>
     <item android:id="@+id/usun"
         android:title="Usuń"/>
+    <item android:id="@+id/wyczysc"
+        android:title="Wyczyść filtry"/>
     
 </menu>
