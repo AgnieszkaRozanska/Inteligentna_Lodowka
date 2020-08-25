@@ -5,5 +5,7 @@
         android:title="Filtruj"/>
     <item android:id="@+id/sortuj"
         android:title="Sortuj"/>
+    <item android:id="@+id/usun"
+        android:title="Usuń"/>
     
 </menu>

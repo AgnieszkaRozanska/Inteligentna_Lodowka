@@ -5,8 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Menu
-import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import android.widget.EditText
 import android.widget.ImageView
@@ -14,13 +12,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
+import com.example.inteligentnalodowka_mobileapp.Fridge.MultiDeleteAdapter
 import com.example.inteligentnalodowka_mobileapp.MainActivity
 import com.example.inteligentnalodowka_mobileapp.Product
 import com.example.inteligentnalodowka_mobileapp.R
 import kotlinx.android.synthetic.main.activity_fridge.*
+import kotlinx.android.synthetic.main.activity_multi_delete.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -30,13 +29,19 @@ class FridgeActivity : AppCompatActivity() {
 
     var editTextSearch: EditText? = null
     var adapter: ShowAllProductsAdapter? = null
+    var adapterDelete: MultiDeleteAdapter? =null
     var textViewBrakProduktu: TextView? = null
     var productsAfterExpirationDate = ArrayList<Product>()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkExpirationDate()
         setContentView(R.layout.activity_fridge)
+
+
+
 
         toolbar.inflateMenu(R.menu.menu_fridge)
         toolbar.setOnMenuItemClickListener {
@@ -47,17 +52,71 @@ class FridgeActivity : AppCompatActivity() {
             if (it.itemId==R.id.sortuj){
                 Sort()
             }
+            if(it.itemId==R.id.usun){
+                setContentView(R.layout.activity_multi_delete)
+               // val activity = Intent(applicationContext, MultiDeleteActivity::class.java)
+                //startActivity(activity)
+
+
+                val dbHelper = DataBaseHandler(this)
+                dbHelper.writableDatabase
+                val  productList = dbHelper.getAllProducts()
+
+                recyclerViewAllProductsDelete.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProductsDelete.adapter =  MultiDeleteAdapter(this, productList)
+
+                adapterDelete = recyclerViewAllProductsDelete.adapter as MultiDeleteAdapter
+
+                buttonUsun.setOnClickListener {
+                    val dbHelper = DataBaseHandler(this)
+                    dbHelper.writableDatabase
+                    val  productList = dbHelper.getAllProducts()
+                    val listSuccess = ArrayList<Boolean>()
+
+                    for (item in productList){
+
+                        if(item.isSelected=="true"){
+                            val success = dbHelper.removeProduct(item.id)
+                            if (success){
+                                listSuccess.add(success)
+                            }
+                            else
+                                Toast.makeText(applicationContext,"Usunięcie produktu nie powiodło się", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+                    if (!listSuccess.isEmpty() && listSuccess.size >1){
+                        Toast.makeText(applicationContext,"Produkty zostały usunięte", Toast.LENGTH_SHORT).show()
+                    }
+                    else if(!listSuccess.isEmpty() && listSuccess.size == 1){
+                        Toast.makeText(applicationContext,"Produkt został usunięty", Toast.LENGTH_SHORT).show()
+                    }
+
+
+                    val activityGoToFridge = Intent(applicationContext, FridgeActivity::class.java)
+                    startActivity(activityGoToFridge)
+
+                }
+                buttonAnuluj.setOnClickListener {
+                    val dbHelper = DataBaseHandler(this)
+                    dbHelper.writableDatabase
+                    val  productList = dbHelper.getAllProducts()
+                    for (item in productList){
+                        val success = dbHelper.updateIsSelected(item.id,"false")
+                    }
+
+
+                    val activityGoToFridge = Intent(applicationContext, FridgeActivity::class.java)
+                    startActivity(activityGoToFridge)
+                }
+
+
+
+            }
             true
         }
 
         setTextIfListIsEmpty()
-
-
-
-       // buttonFilters.setOnClickListener {
-        //    Filters()
-        //}
-
 
 
 
@@ -462,3 +521,4 @@ class FridgeActivity : AppCompatActivity() {
 
 
 }
+
