@@ -184,13 +184,19 @@ class FridgeActivity : AppCompatActivity() {
         }
         builder.setNegativeButton(getString(R.string.AlertDialogNo)) { dialogInterface: DialogInterface, i: Int ->
             val dbHelper = DataBaseHandler(this)
+            val allsuccess =  ArrayList<Boolean>()
             for (item in productsAfterExpirationDate) {
                 val success = dbHelper.updateAfterExpirationDate(item.id)
                 if (success) {
+                    allsuccess.add(success)
 
-                    Toast.makeText(applicationContext,"Produkt został zaktualizowany", Toast.LENGTH_SHORT).show()
+
                 }else  Toast.makeText(applicationContext,"Aktualizacja produktu się nie powiodła", Toast.LENGTH_SHORT).show()
+
                 onResume()
+            }
+            if (!allsuccess.isEmpty()){
+                Toast.makeText(applicationContext,"Produkty zostały zaktualizowane", Toast.LENGTH_SHORT).show()
             }
         }
 
