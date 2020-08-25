@@ -160,6 +160,7 @@ class ScanPrroductsActivity : AppCompatActivity() {
         var date = textViewDate.text.toString()
         var purdate = textViewPurDate.text.toString()
         var after = "false"
+        var isSelected = "false"
 
         var product = Product(
             idProduct,
@@ -169,7 +170,8 @@ class ScanPrroductsActivity : AppCompatActivity() {
             quantity,
             type,
             eanCodeDatabase,
-            after
+            after,
+            isSelected
         )
 
         val success = dbHelper.addProduct(product)

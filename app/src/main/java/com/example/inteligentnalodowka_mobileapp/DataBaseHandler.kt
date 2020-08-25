@@ -20,6 +20,7 @@ const val TYPE = "Type_Product"
 const val PURCHASE_DATE = "Purchase_date"
 const val EAN_PRODUCT_FROM_DATABASE = "ID_Product_from_Database"
 const val AFTER_EXPIRATION_DATE = "After_Expiration_Date"
+const val IS_SELECTED = "Is_Selected"
 
 
 
@@ -49,6 +50,7 @@ const val SQL_CREATE_TABLE_PRODUCTS = ("CREATE TABLE IF NOT EXISTS "  + PRODUCTS
         TYPE + " TEXT," +
         AFTER_EXPIRATION_DATE + " TEXT," +
         PURCHASE_DATE + " TEXT," +
+        IS_SELECTED + " TEXT," +
         "FOREIGN KEY(" + EAN_PRODUCT_FROM_DATABASE + ") REFERENCES " + PRODUCTS_DATABASE_TABLE_NAME + "(" + ID_PRODUCT_DATABASE +"))" )
 
 
@@ -119,6 +121,7 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         cv.put(TYPE, product.type)
         cv.put(EAN_PRODUCT_FROM_DATABASE, product.eanCode)
         cv.put(AFTER_EXPIRATION_DATE,product.afterExpirationDate)
+        cv.put(IS_SELECTED,product.isSelected)
 
         val result= db.insert(PRODUCTS_TABLE_NAME, null, cv)
 
@@ -207,8 +210,9 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                     val eanCodeDatabase = cursor.getString(cursor.getColumnIndex(EAN_PRODUCT_FROM_DATABASE))
                     val afterExpirationDate = cursor.getString(cursor.getColumnIndex(
                         AFTER_EXPIRATION_DATE))
+                    val isSelected = cursor.getString(cursor.getColumnIndex(IS_SELECTED))
 
-                    val product = Product(id, name, date, purchaseDate, quantity, productType, eanCodeDatabase,afterExpirationDate)
+                    val product = Product(id, name, date, purchaseDate, quantity, productType, eanCodeDatabase,afterExpirationDate,isSelected)
                     allProductsList.add(product)
                 }while (cursor.moveToNext())
             }
@@ -281,6 +285,22 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
         return true
     }
 
+    fun updateIsSelected(id:String, selected: String):Boolean{
+        try {
+            val db = this.writableDatabase
+            val cv = ContentValues()
+            cv.put(IS_SELECTED, selected)
+            db.update(PRODUCTS_TABLE_NAME, cv, "ID_PRODUCT =?", arrayOf(id))
+            db.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+
+        return true
+    }
+
 
     fun findProduct(id:String) : Product?{
         val db= readableDatabase
@@ -298,10 +318,11 @@ class DataBaseHandler(context: Context): SQLiteOpenHelper(context,
                 val eanCodeDatabase = cursor.getString(cursor.getColumnIndex(EAN_PRODUCT_FROM_DATABASE))
                 val afterExpirationDate = cursor.getString(cursor.getColumnIndex(
                     AFTER_EXPIRATION_DATE))
+                val isSelected = cursor.getString(cursor.getColumnIndex(IS_SELECTED))
 
                 cursor.close()
                 db.close()
-                return Product(id, name, dateExpiration, datePurchase, quantity, productType, eanCodeDatabase, afterExpirationDate)
+                return Product(id, name, dateExpiration, datePurchase, quantity, productType, eanCodeDatabase, afterExpirationDate, isSelected)
             }
         }
         cursor.close()
