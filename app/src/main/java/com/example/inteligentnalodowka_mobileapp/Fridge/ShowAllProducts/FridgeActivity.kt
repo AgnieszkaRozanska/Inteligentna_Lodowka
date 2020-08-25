@@ -370,16 +370,82 @@ class FridgeActivity : AppCompatActivity() {
         dbHelper.writableDatabase
         val  productList = dbHelper.getAllProducts()
 
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Sortuj")
+        builder.setMessage("Sortuj według daty:")
 
-        //najdalsza data na górze
-        //productList.sortByDescending { it.expirationDate }
+        builder.setPositiveButton("ważności") { dialog: DialogInterface, which: Int ->
+            val builder2 = AlertDialog.Builder(this)
+            builder2.setTitle("Sortuj")
+            builder2.setMessage("Wybierz rodzaj sortowania:")
 
-        productList.sortBy{it.expirationDate}
+            builder2.setPositiveButton("Rosnąco") { dialog: DialogInterface, which: Int ->
+                productList.sortBy{it.expirationDate}
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
 
-        recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
-        recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
 
-        adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+            }
+            builder2.setNegativeButton("Malejąco"){dialog: DialogInterface, which: Int ->
+                productList.sortByDescending { it.expirationDate }
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+            }
+            builder2.setNeutralButton("Anuluj"){dialog: DialogInterface, which: Int ->
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+            }
+            builder2.show()
+
+        }
+        builder.setNegativeButton("zakupu"){dialog: DialogInterface, which: Int ->
+            val builder2 = AlertDialog.Builder(this)
+            builder2.setTitle("Sortuj")
+            builder2.setMessage("Wybierz rodzaj sortowania:")
+
+            builder2.setPositiveButton("Rosnąco") { dialog: DialogInterface, which: Int ->
+                productList.sortBy{it.purchaseDate}
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+            }
+            builder2.setNegativeButton("Malejąco"){dialog: DialogInterface, which: Int ->
+                productList.sortByDescending { it.purchaseDate }
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+            }
+            builder2.setNeutralButton("Anuluj"){dialog: DialogInterface, which: Int ->
+                recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+                recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+                adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+            }
+            builder2.show()
+        }
+        builder.setNeutralButton("Anuluj"){dialog: DialogInterface, which: Int ->
+            recyclerViewAllProducts.layoutManager = LinearLayoutManager(this)
+            recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
+
+            adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
+        }
+        builder.show()
+
+
+
+
+
 
 
     }
