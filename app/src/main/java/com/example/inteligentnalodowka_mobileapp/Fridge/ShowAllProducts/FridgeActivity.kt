@@ -343,7 +343,7 @@ class FridgeActivity : AppCompatActivity() {
 
     fun Filters() {
 
-        var items= arrayOf("Wszystko","Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Napoje", "Inne")
+        var items= arrayOf("Wszystko","Przeterminowane","Warzywa", "Owoce", "Nabiał", "Słodycze", "Przekąski", "Mięso", "Ryby", "Produkty zbożowe", "Napoje", "Inne")
 
 
         val selectedList = ArrayList<Int>()
@@ -408,6 +408,9 @@ class FridgeActivity : AppCompatActivity() {
                     productFilteredList.add(item)
                 }
                 if(selectedStrings.contains("Wszystko")){
+                    productFilteredList.add(item)
+                }
+                if (selectedStrings.contains("Przeterminowane") && item.afterExpirationDate!="false"){
                     productFilteredList.add(item)
                 }
 
