@@ -27,7 +27,14 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class MultiDeleteAdapter(context: FridgeActivity, var productsList: ArrayList<Product>): RecyclerView.Adapter<MyViewHolder>(){
+class MultiDeleteAdapter(context: FridgeActivity, var productsList: ArrayList<Product>): RecyclerView.Adapter<MyViewHolder>(),
+    Filterable {
+
+    internal var productsFilterList = ArrayList<Product>()
+
+    init{
+        this.productsFilterList = productsList
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): MyViewHolder {
 
@@ -37,7 +44,40 @@ class MultiDeleteAdapter(context: FridgeActivity, var productsList: ArrayList<Pr
     }
 
     override fun getItemCount(): Int {
-        return productsList.size
+        return productsFilterList.size
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(charString: CharSequence?): FilterResults {
+                val charSearch = charString.toString()
+                if(charSearch.isEmpty()){
+                    productsFilterList = productsList
+                }
+                else {
+                    val resultList = ArrayList<Product>()
+                    for(row in productsList){
+                        if(row.nameProduct!!.toLowerCase().contains(charSearch.toLowerCase())){
+                            resultList.add(row)
+                        }
+                    }
+
+                    productsFilterList = resultList
+
+                }
+
+                val filterResults = Filter.FilterResults()
+
+                filterResults.values = productsFilterList
+
+                return filterResults
+            }
+
+            override fun publishResults(charSequence: CharSequence?, results: FilterResults?) {
+                productsFilterList = results!!.values as ArrayList<Product>
+                notifyDataSetChanged()
+            }
+        }
     }
 
 
@@ -46,10 +86,10 @@ class MultiDeleteAdapter(context: FridgeActivity, var productsList: ArrayList<Pr
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val productName_cardView=productsList[holder.adapterPosition].nameProduct
-        val typeProduct_cardView = productsList[holder.adapterPosition].type
-        val countProduct_cardView = productsList[holder.adapterPosition].quantity
-        val ifExpiredProduct = productsList[holder.adapterPosition].afterExpirationDate
+        val productName_cardView=productsFilterList[holder.adapterPosition].nameProduct
+        val typeProduct_cardView = productsFilterList[holder.adapterPosition].type
+        val countProduct_cardView = productsFilterList[holder.adapterPosition].quantity
+        val ifExpiredProduct = productsFilterList[holder.adapterPosition].afterExpirationDate
         setImage(typeProduct_cardView, holder)
 
         holder.productName.text = productName_cardView

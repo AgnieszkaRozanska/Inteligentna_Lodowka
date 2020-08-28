@@ -30,11 +30,14 @@ import java.time.format.DateTimeFormatter
 class FridgeActivity : AppCompatActivity() {
 
     var editTextSearch: EditText? = null
+    var editTextSearchDelete: EditText? = null
     var adapter: ShowAllProductsAdapter? = null
     var adapterDelete: MultiDeleteAdapter? =null
     var textViewBrakProduktu: TextView? = null
+    var textViewBrakProduktuDelete: TextView? = null
     var productsAfterExpirationDate = ArrayList<Product>()
     var productList = ArrayList<Product>()
+    var isMultiDelete: String? = null
 
 
 
@@ -46,7 +49,7 @@ class FridgeActivity : AppCompatActivity() {
         val dbHelper = DataBaseHandler(this)
         dbHelper.writableDatabase
         productList = dbHelper.getAllProducts()
-
+        isMultiDelete = "false"
 
 
         toolbar.inflateMenu(R.menu.menu_fridge)
@@ -65,8 +68,36 @@ class FridgeActivity : AppCompatActivity() {
             }
             if(it.itemId==R.id.usun){
                 setContentView(R.layout.activity_multi_delete)
-               // val activity = Intent(applicationContext, MultiDeleteActivity::class.java)
-                //startActivity(activity)
+
+                isMultiDelete = "true"
+
+                editTextSearchDelete = findViewById(R.id.editTextSearchProducts2)
+                textViewBrakProduktuDelete = findViewById(R.id.textViewBrakProduktuDelete)
+
+                editTextSearchDelete!!.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        adapterDelete?.filter?.filter(s.toString())
+
+                        if (adapterDelete?.productsFilterList.isNullOrEmpty()) {
+                            textViewBrakProduktuDelete!!.visibility = TextView.VISIBLE
+
+                        }
+                        else textViewBrakProduktuDelete!!.visibility = TextView.INVISIBLE
+                    }
+
+                    override fun afterTextChanged(s: Editable?) {
+                        adapterDelete?.filter?.filter(s.toString())
+
+                        if (adapterDelete?.productsFilterList.isNullOrEmpty()) {
+                            textViewBrakProduktuDelete!!.visibility = TextView.VISIBLE
+
+                        }
+                        else textViewBrakProduktuDelete!!.visibility = TextView.INVISIBLE
+
+                    }
+                })
+
 
 
                 val dbHelper = DataBaseHandler(this)
@@ -90,6 +121,7 @@ class FridgeActivity : AppCompatActivity() {
                             val success = dbHelper.removeProduct(item.id)
                             if (success){
                                 listSuccess.add(success)
+                                isMultiDelete = "false"
                             }
                             else
                                 Toast.makeText(applicationContext,"Usunięcie produktu nie powiodło się", Toast.LENGTH_SHORT).show()
@@ -115,7 +147,7 @@ class FridgeActivity : AppCompatActivity() {
                     for (item in productList){
                         val success = dbHelper.updateIsSelected(item.id,"false")
                     }
-
+                    isMultiDelete = "false"
 
                     val activityGoToFridge = Intent(applicationContext, FridgeActivity::class.java)
                     startActivity(activityGoToFridge)
@@ -174,8 +206,18 @@ class FridgeActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        val intentOnBackPress = Intent(applicationContext, MainActivity::class.java)
-        startActivity(intentOnBackPress)
+
+        if (isMultiDelete=="true"){
+
+            val activityGoToFridge = Intent(applicationContext, FridgeActivity::class.java)
+            startActivity(activityGoToFridge)
+            
+        }
+        else{
+            val intentOnBackPress = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intentOnBackPress)
+        }
+
     }
 
     override fun onResume() {
@@ -239,6 +281,7 @@ class FridgeActivity : AppCompatActivity() {
         if(productsAfterExpirationDate.isNotEmpty())
             alertDialogExpirationDate()
     }
+
 
     private fun alertDialogExpirationDate() {
         val builder = AlertDialog.Builder(this)

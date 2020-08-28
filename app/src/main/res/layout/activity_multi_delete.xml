@@ -8,58 +8,79 @@
     tools:context=".Fridge.ShowAllProducts.FridgeActivity">
 
 
+    <EditText
+        android:id="@+id/editTextSearchProducts2"
+        android:layout_width="373dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="18dp"
+        android:background="@mipmap/search_panel"
+        android:hint="@string/hintFridgeSearchProducts"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="156dp"
         android:layout_height="112dp"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="32dp"
-        android:layout_marginBottom="19dp"
         android:src="@drawable/kitchen_icon"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewAllProductsDelete"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewBrakProduktuDelete"
+        android:layout_width="287dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="87dp"
+        android:text="Brak poszukiwanego produktu"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSearchProducts2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAllProductsDelete"
-        android:layout_width="404dp"
-        android:layout_height="555dp"
-        android:layout_marginTop="49dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="398dp"
+        android:layout_height="493dp"
+        android:layout_marginTop="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAnuluj" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextSearchProducts2" />
 
     <Button
         android:id="@+id/buttonUsun"
-        android:layout_width="93dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="54dp"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="32dp"
-        android:background="@color/colorGray"
-        android:text="Usuń"
+        android:background="@drawable/button_delete_products"
         android:textColor="@color/darkGray"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonAnuluj"
-        android:layout_width="93dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="81dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/colorGray"
-        android:text="Anuluj"
+        android:layout_width="127dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_cancel_products"
         android:textColor="@color/darkGray"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/buttonUsun" />
 
