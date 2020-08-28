@@ -8,10 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,6 +65,24 @@ class FridgeActivity : AppCompatActivity() {
             }
             if(it.itemId==R.id.usun){
                 setContentView(R.layout.activity_multi_delete)
+
+                val animationFridgeDelete = AnimationUtils.loadAnimation(this, R.anim.animationmovefridge)
+                val imageViewDelete = findViewById(R.id.imageView2) as ImageView
+
+                // set the animation
+                imageViewDelete.startAnimation(animationFridgeDelete)
+
+                val animDelete = AnimationUtils.loadAnimation(this, R.anim.animationapperance)
+                val buttonDelete = findViewById(R.id.buttonUsun) as Button
+
+                // set the animation
+                buttonDelete.startAnimation(animDelete)
+
+                val animAnuluj = AnimationUtils.loadAnimation(this, R.anim.animationapperance)
+                val buttonAnuluj = findViewById(R.id.buttonAnuluj) as Button
+
+                // set the animation
+                buttonAnuluj.startAnimation(animAnuluj)
 
                 isMultiDelete = "true"
 
@@ -211,7 +226,7 @@ class FridgeActivity : AppCompatActivity() {
 
             val activityGoToFridge = Intent(applicationContext, FridgeActivity::class.java)
             startActivity(activityGoToFridge)
-            
+
         }
         else{
             val intentOnBackPress = Intent(applicationContext, MainActivity::class.java)
