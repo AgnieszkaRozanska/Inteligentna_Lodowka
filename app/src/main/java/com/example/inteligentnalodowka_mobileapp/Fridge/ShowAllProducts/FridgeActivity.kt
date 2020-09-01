@@ -64,111 +64,7 @@ class FridgeActivity : AppCompatActivity() {
                 onResume()
             }
             if(it.itemId==R.id.usun){
-                setContentView(R.layout.activity_multi_delete)
-
-                val animationFridgeDelete = AnimationUtils.loadAnimation(this, R.anim.animationmovefridge)
-                val imageViewDelete = findViewById(R.id.imageView2) as ImageView
-
-                // set the animation
-                imageViewDelete.startAnimation(animationFridgeDelete)
-
-                val animDelete = AnimationUtils.loadAnimation(this, R.anim.animationapperance)
-                val buttonDelete = findViewById(R.id.buttonUsun) as Button
-
-                // set the animation
-                buttonDelete.startAnimation(animDelete)
-
-                val animAnuluj = AnimationUtils.loadAnimation(this, R.anim.animationapperance)
-                val buttonAnuluj = findViewById(R.id.buttonAnuluj) as Button
-
-                // set the animation
-                buttonAnuluj.startAnimation(animAnuluj)
-
-                isMultiDelete = "true"
-
-                editTextSearchDelete = findViewById(R.id.editTextSearchProducts2)
-                textViewBrakProduktuDelete = findViewById(R.id.textViewBrakProduktuDelete)
-
-                editTextSearchDelete!!.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                        adapterDelete?.filter?.filter(s.toString())
-
-                        if (adapterDelete?.productsFilterList.isNullOrEmpty()) {
-                            textViewBrakProduktuDelete!!.visibility = TextView.VISIBLE
-
-                        }
-                        else textViewBrakProduktuDelete!!.visibility = TextView.INVISIBLE
-                    }
-
-                    override fun afterTextChanged(s: Editable?) {
-                        adapterDelete?.filter?.filter(s.toString())
-
-                        if (adapterDelete?.productsFilterList.isNullOrEmpty()) {
-                            textViewBrakProduktuDelete!!.visibility = TextView.VISIBLE
-
-                        }
-                        else textViewBrakProduktuDelete!!.visibility = TextView.INVISIBLE
-
-                    }
-                })
-
-
-
-                val dbHelper = DataBaseHandler(this)
-                dbHelper.writableDatabase
-                val  productList = dbHelper.getAllProducts()
-
-                recyclerViewAllProductsDelete.layoutManager = LinearLayoutManager(this)
-                recyclerViewAllProductsDelete.adapter =  MultiDeleteAdapter(this, productList)
-
-                adapterDelete = recyclerViewAllProductsDelete.adapter as MultiDeleteAdapter
-
-                buttonUsun.setOnClickListener {
-                    val dbHelper = DataBaseHandler(this)
-                    dbHelper.writableDatabase
-                    val  productList = dbHelper.getAllProducts()
-                    val listSuccess = ArrayList<Boolean>()
-
-                    for (item in productList){
-
-                        if(item.isSelected=="true"){
-                            val success = dbHelper.removeProduct(item.id)
-                            if (success){
-                                listSuccess.add(success)
-                                isMultiDelete = "false"
-                            }
-                            else
-                                Toast.makeText(applicationContext,"Usunięcie produktu nie powiodło się", Toast.LENGTH_SHORT).show()
-
-                        }
-                    }
-                    if (!listSuccess.isEmpty() && listSuccess.size >1){
-                        Toast.makeText(applicationContext,"Produkty zostały usunięte", Toast.LENGTH_SHORT).show()
-                    }
-                    else if(!listSuccess.isEmpty() && listSuccess.size == 1){
-                        Toast.makeText(applicationContext,"Produkt został usunięty", Toast.LENGTH_SHORT).show()
-                    }
-
-
-                    val activityGoToFridge = Intent(applicationContext, FridgeActivity::class.java)
-                    startActivity(activityGoToFridge)
-
-                }
-                buttonAnuluj.setOnClickListener {
-                    val dbHelper = DataBaseHandler(this)
-                    dbHelper.writableDatabase
-                    val  productList = dbHelper.getAllProducts()
-                    for (item in productList){
-                        val success = dbHelper.updateIsSelected(item.id,"false")
-                    }
-                    isMultiDelete = "false"
-
-                    val activityGoToFridge = Intent(applicationContext, FridgeActivity::class.java)
-                    startActivity(activityGoToFridge)
-                }
-
-
+                Usun(productList)
 
             }
             true
@@ -648,7 +544,135 @@ class FridgeActivity : AppCompatActivity() {
 
 
     }
+    fun Usun(productList: ArrayList<Product>) {
+
+        setContentView(R.layout.activity_multi_delete)
+
+        val animationFridgeDelete = AnimationUtils.loadAnimation(this, R.anim.animationmovefridge)
+        val imageViewDelete = findViewById(R.id.imageView2) as ImageView
+
+        // set the animation
+        imageViewDelete.startAnimation(animationFridgeDelete)
+
+        val animDelete = AnimationUtils.loadAnimation(this, R.anim.animationapperance)
+        val buttonDelete = findViewById(R.id.buttonUsun) as Button
+
+        // set the animation
+        buttonDelete.startAnimation(animDelete)
+
+        val animAnuluj = AnimationUtils.loadAnimation(this, R.anim.animationapperance)
+        val buttonAnuluj = findViewById(R.id.buttonAnuluj) as Button
+
+        // set the animation
+        buttonAnuluj.startAnimation(animAnuluj)
+
+        isMultiDelete = "true"
+
+        recyclerViewAllProductsDelete.layoutManager = LinearLayoutManager(this)
+        recyclerViewAllProductsDelete.adapter =  MultiDeleteAdapter(this, productList)
+
+        adapterDelete = recyclerViewAllProductsDelete.adapter as MultiDeleteAdapter
+
+        editTextSearchDelete = findViewById(R.id.editTextSearchProducts2)
+        textViewBrakProduktuDelete = findViewById(R.id.textViewBrakProduktuDelete)
+
+        editTextSearchDelete!!.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                adapterDelete?.filter?.filter(s.toString())
+
+                if (adapterDelete?.productsFilterList.isNullOrEmpty()) {
+                    textViewBrakProduktuDelete!!.visibility = TextView.VISIBLE
+
+                }
+                else textViewBrakProduktuDelete!!.visibility = TextView.INVISIBLE
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                adapterDelete?.filter?.filter(s.toString())
+
+                if (adapterDelete?.productsFilterList.isNullOrEmpty()) {
+                    textViewBrakProduktuDelete!!.visibility = TextView.VISIBLE
+
+                }
+                else textViewBrakProduktuDelete!!.visibility = TextView.INVISIBLE
+
+            }
+        })
+
+
+
+
+
+
+
+        buttonUsun.setOnClickListener {
+            val dbHelper = DataBaseHandler(this)
+            dbHelper.writableDatabase
+            val  productList = dbHelper.getAllProducts()
+            val listSuccess = ArrayList<Boolean>()
+
+            for (item in productList){
+
+                if(item.isSelected=="true"){
+                    val success = dbHelper.removeProduct(item.id)
+                    if (success){
+                        listSuccess.add(success)
+                        isMultiDelete = "false"
+                    }
+                    else
+                        Toast.makeText(applicationContext,"Usunięcie produktu nie powiodło się", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+            if (!listSuccess.isEmpty() && listSuccess.size >1){
+                Toast.makeText(applicationContext,"Produkty zostały usunięte", Toast.LENGTH_SHORT).show()
+                val activityGoToFridge = Intent(applicationContext, FridgeActivity::class.java)
+                startActivity(activityGoToFridge)
+            }
+            else if(!listSuccess.isEmpty() && listSuccess.size == 1){
+                Toast.makeText(applicationContext,"Produkt został usunięty", Toast.LENGTH_SHORT).show()
+                val activityGoToFridge = Intent(applicationContext, FridgeActivity::class.java)
+                startActivity(activityGoToFridge)
+            }
+            else if(listSuccess.isEmpty()){
+                alertNonChoosenProductRemove()
+
+            }
+
+
+
+
+        }
+        buttonAnuluj.setOnClickListener {
+            val dbHelper = DataBaseHandler(this)
+            dbHelper.writableDatabase
+            val  productList = dbHelper.getAllProducts()
+            for (item in productList){
+                val success = dbHelper.updateIsSelected(item.id,"false")
+            }
+            isMultiDelete = "false"
+
+            val activityGoToFridge = Intent(applicationContext, FridgeActivity::class.java)
+            startActivity(activityGoToFridge)
+        }
+
+
+    }
+
+
+
+    private fun alertNonChoosenProductRemove() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Uwaga")
+        builder.setMessage("Nie wybrano żadnego produktu")
+        builder.setPositiveButton("Ok") { dialog: DialogInterface, which: Int ->
+
+        }
+        builder.show()
+    }
 
 
 }
+
 
