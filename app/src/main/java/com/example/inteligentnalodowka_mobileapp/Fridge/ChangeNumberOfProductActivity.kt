@@ -4,6 +4,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
@@ -36,6 +38,17 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
         buttonSave.setOnClickListener {
             updateQuantity(textViewAmount.text.toString())
         }
+
+        //declare the animation
+        val animation = AnimationUtils.loadAnimation(this, R.anim.animationapperance)
+        val button_plus = findViewById(R.id.buttonIncrease) as Button
+        val button_minus = findViewById(R.id.buttonDecrease) as Button
+        val button_sace = findViewById(R.id.buttonSave) as Button
+
+        // set the animation
+        button_plus.startAnimation(animation)
+        button_minus.startAnimation(animation)
+        button_sace.startAnimation(animation)
     }
 
     override fun onBackPressed() {
