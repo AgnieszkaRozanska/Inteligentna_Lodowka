@@ -4,6 +4,9 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.AnimationUtils
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
@@ -38,6 +41,21 @@ class ProductDetailsActivity : AppCompatActivity() {
         buttonDeleteProduct.setOnClickListener {
             alertDialogRemoveProduct()
         }
+
+        //declare the animation
+        val animation_button_ExpirationDate = AnimationUtils.loadAnimation(this, R.anim.animation_button_expiration_date)
+        val animation_button_AddProducts = AnimationUtils.loadAnimation(this, R.anim.animation_button_add_product)
+        val animation_button_DeleteProducts = AnimationUtils.loadAnimation(this, R.anim.animation_button_delete_product)
+
+        val button_change_expirationDate = findViewById(R.id.buttonChangeDate) as Button
+        val button_add_products = findViewById(R.id.buttonAddProducts) as Button
+        val button_delete_product = findViewById(R.id.buttonDeleteProduct) as Button
+
+        // set the animation
+        button_change_expirationDate.startAnimation(animation_button_ExpirationDate)
+        button_add_products.startAnimation(animation_button_AddProducts)
+        button_delete_product.startAnimation(animation_button_DeleteProducts)
+
 
     }
 
