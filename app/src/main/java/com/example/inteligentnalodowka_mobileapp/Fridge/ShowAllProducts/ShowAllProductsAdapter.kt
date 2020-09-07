@@ -119,7 +119,7 @@ Filterable {
 
         holder.productName.text = productName_cardView
         holder.productType.text = typeProduct_cardView
-        holder.productCount.text = "Liczba opakowań: "+countProduct_cardView
+        holder.productCount.text = "Liczba sztuk: "+countProduct_cardView
 
         if(ifExpiredProduct.equals("true") || ifExpiredProduct.equals("neutral")){
             holder.imageProduct.setBackgroundResource(R.drawable.alert)

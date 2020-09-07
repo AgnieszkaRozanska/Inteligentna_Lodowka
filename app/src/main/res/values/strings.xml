@@ -6,7 +6,7 @@
     <string name="nameOfProduct">Nazwa Produktu</string>
     <string name="amountOfProfuct">Ilość sztuk</string>
     <string name="expirationDate">Data ważności</string>
-    <string name="newNumberOfProduct">Nowa liczba opakowań</string>
+    <string name="newNumberOfProduct">Skorzystaj z plusa aby zwiększyć \nlub z minusa aby zmniejszyć liczbę posiadanych sztuk produktu</string>
     <string name="nameOfRecipe">Nazwa przepisu</string>
     <string name="scanfailed">Skanowanie produktu nie powiodło się</string>
     <string name="AlertDialogTitle">Brak produktu w bazie</string>
@@ -16,7 +16,7 @@
     <string name="AlertDialogTitleLackOfData">Brak  danych</string>
     <string name="AlertDialogMessageLackOfData">Proszę podać niezbędne dane: nazwę, typ oraz ilość</string>
     <string name="alertDialogRemoveProductTitle">Czy jesteś pewien?</string>
-    <string name="alertDialogRemoveProductMessage">Czy na pewno chcesz usunąć produkt z lodówki?</string>
+    <string name="alertDialogRemoveProductMessage">Czy na pewno chcesz usunąć produkt \nz lodówki?</string>
     <string name="AlertDialogYes">Tak</string>
     <string name="AlertDialogNo">Nie</string>
     <string name="successOfRemoveProduct">Produkt został usunięty</string>
