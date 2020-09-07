@@ -6,6 +6,9 @@ import android.content.Intent
 import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.AnimationUtils
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.inteligentnalodowka_mobileapp.DataBaseHandler
@@ -42,6 +45,15 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
         buttonSave.setOnClickListener {
             updateDate(textViewNewDate.text.toString())
         }
+
+        //declare the animation
+        val animation = AnimationUtils.loadAnimation(this, R.anim.animationapperance)
+        val button_OpenCalendar = findViewById(R.id.buttonCalendar) as Button
+        val button_Save = findViewById(R.id.buttonSave) as Button
+
+        // set the animation
+        button_OpenCalendar.startAnimation(animation)
+        button_Save.startAnimation(animation)
 
     }
 
