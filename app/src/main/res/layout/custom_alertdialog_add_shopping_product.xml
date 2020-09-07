@@ -28,9 +28,9 @@
         android:layout_marginTop="30dp"
         android:text="2. Ilość"
         android:textColor="@color/cardview_dark_background"
-        android:textSize="17dp"
+        android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NameShoppingProduct"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <TextView
@@ -40,14 +40,14 @@
         android:layout_marginTop="40dp"
         android:text="3. Rodzaj produktu"
         android:textColor="@color/cardview_dark_background"
-        android:textSize="17dp"
+        android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NameShoppingProduct"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/editText_Amount" />
 
     <Spinner
         android:id="@+id/editTextTyp"
-        android:layout_width="370dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="Wpisz nazwę produktu"
@@ -61,30 +61,31 @@
         android:layout_width="105dp"
         android:layout_height="102dp"
         android:layout_marginTop="35dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/check"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTyp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_TitleActivity"
         app:layout_constraintTop_toBottomOf="@+id/editTextTyp" />
 
     <Button
         android:id="@+id/Back"
         android:layout_width="105dp"
         android:layout_height="102dp"
-        android:layout_marginStart="45dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="35dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/back_icon"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/editTextTyp"
+        app:layout_constraintStart_toStartOf="@+id/textView_TitleActivity"
         app:layout_constraintTop_toBottomOf="@+id/editTextTyp" />
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="390dp"
-        android:layout_height="240dp"
+        android:layout_width="320dp"
+        android:layout_height="202dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background_shopping_list" />
@@ -104,10 +105,10 @@
         android:layout_height="wrap_content"
         android:text="@string/Custom_AlertDialog_AddShoppingItem_Title"
         android:textColor="@color/cardview_dark_background"
-        android:textSize="23dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
     <TextView
@@ -117,18 +118,19 @@
         android:layout_marginTop="20dp"
         android:text="1. Nazwa produktu"
         android:textColor="@color/cardview_dark_background"
-        android:textSize="17dp"
+        android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NameShoppingProduct"
+        app:layout_constraintStart_toStartOf="@+id/textView_TitleActivity"
         app:layout_constraintTop_toBottomOf="@+id/textView_TitleActivity" />
 
     <AutoCompleteTextView
         android:id="@+id/EditText_NameShoppingProduct"
-        android:layout_width="350dp"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="Wpisz nazwę produktu"
         android:textAlignment="center"
+        android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView8"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
         app:layout_constraintStart_toStartOf="@+id/imageView8"
@@ -136,7 +138,7 @@
 
     <Spinner
         android:id="@+id/spinner_kindAmount"
-        android:layout_width="370dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"

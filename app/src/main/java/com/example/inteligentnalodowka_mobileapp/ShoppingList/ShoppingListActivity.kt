@@ -129,7 +129,7 @@ class ShoppingListActivity : AppCompatActivity() {
                 }
             }
             catch (e: Exception) {
-                Toast.makeText(this, "Uzupełnij wszytskie dane", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Uzupełnij wszystkie dane", Toast.LENGTH_LONG).show()
             }
         }
 
