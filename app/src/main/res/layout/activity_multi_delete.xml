@@ -10,7 +10,7 @@
 
     <EditText
         android:id="@+id/editTextSearchProducts2"
-        android:layout_width="373dp"
+        android:layout_width="348dp"
         android:layout_height="49dp"
         android:layout_marginTop="26dp"
         android:background="@mipmap/search_panel"
