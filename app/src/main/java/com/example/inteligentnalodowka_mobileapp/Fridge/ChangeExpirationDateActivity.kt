@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_change_expiration_date.buttonSave
 import kotlinx.android.synthetic.main.activity_change_expiration_date.textViewNameOfProduct
 import kotlinx.android.synthetic.main.activity_change_number_of_product.*
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -31,6 +32,7 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
     private var quantity = ""
     private var expirationDate = ""
     private var purchaseDate = ""
+    private var afterExpDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,15 +60,23 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-
+        val sqlConector = DataBaseHandler(this)
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         val formatted = current.format(formatter)
 
         val newValue = textViewNewDate.text.toString()
+
         if(formatted.toString()!= newValue){
             alertDialogOnBackPress()
         }else{
+            checkExpirationDate(newValue)
+            if (afterExpDate=="true"){
+                val success = sqlConector.updateAfterExpirationDate(id, "true")
+            }
+            else if (afterExpDate=="false"){
+                val success = sqlConector.updateAfterExpirationDate(id, "false")
+            }
             val intentOnBackPress = Intent(applicationContext, ProductDetailsActivity::class.java)
             if (intent.hasExtra("id")) id = intent.getStringExtra("id")
             if (intent.hasExtra("name")) name = intent.getStringExtra("name")
@@ -81,6 +91,27 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
             intentOnBackPress.putExtra("purchaseDate", purchaseDate)
             startActivity(intentOnBackPress)
         }
+    }
+
+    private fun  checkExpirationDate(expirationDate: String){
+
+        val current = LocalDateTime.now()
+
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val formatted = current.format(formatter)
+
+        var expDate = LocalDate.parse(expirationDate,DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+
+                    var dateTime =
+                        LocalDate.parse(formatted, DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+
+                    if (expDate.compareTo(dateTime) <= 0) {
+                        afterExpDate = "true"
+                    }
+                    else{
+                        afterExpDate = "false"
+                    }
+
     }
 
     private fun alertDialogOnBackPress() {
@@ -158,6 +189,14 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
         if (intent.hasExtra("id")) id = intent.getStringExtra("id")
 
         val success = dbHelper.updateExpirationDate(id, expirationDate)
+
+        checkExpirationDate(expirationDate)
+        if (afterExpDate=="true"){
+            val success = dbHelper.updateAfterExpirationDate(id, "true")
+        }
+        else if (afterExpDate=="false"){
+            val success = dbHelper.updateAfterExpirationDate(id, "false")
+        }
 
         if (success) {
             if (intent.hasExtra("quantity"))   quantity = intent.getStringExtra("quantity")
