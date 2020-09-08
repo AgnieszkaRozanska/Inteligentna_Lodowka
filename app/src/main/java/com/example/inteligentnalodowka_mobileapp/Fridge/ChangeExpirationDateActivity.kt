@@ -166,6 +166,7 @@ class ChangeExpirationDateActivity : AppCompatActivity() {
             intentUpdate.putExtra("name", name)
             if (intent.hasExtra("purchaseDate"))   purchaseDate = intent.getStringExtra("purchaseDate")
             intentUpdate.putExtra("purchaseDate", purchaseDate)
+            intentUpdate.putExtra("id", id)
             startActivity(intentUpdate)
             Toast.makeText(applicationContext,getString(R.string.succesOfUpdateProduct), Toast.LENGTH_SHORT).show()
         }

@@ -140,6 +140,7 @@ class ChangeNumberOfProductActivity : AppCompatActivity() {
             intentUpdate.putExtra("purchaseDate", purchaseDate)
             if (intent.hasExtra("name"))   name = intent.getStringExtra("name")
             intentUpdate.putExtra("name", name)
+            intentUpdate.putExtra("id", id)
             startActivity(intentUpdate)
             Toast.makeText(applicationContext,getString(R.string.succesOfUpdateProduct), Toast.LENGTH_SHORT).show()
         }
