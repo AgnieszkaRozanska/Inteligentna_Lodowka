@@ -64,7 +64,10 @@ class FridgeActivity : AppCompatActivity() {
                 onResume()
             }
             if(it.itemId==R.id.usun){
-                Usun(productList)
+                val dbHelper = DataBaseHandler(this)
+                dbHelper.writableDatabase
+                val  productListDelete = dbHelper.getAllProducts()
+                Usun(productListDelete)
 
             }
             true
