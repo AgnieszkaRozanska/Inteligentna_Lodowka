@@ -54,11 +54,9 @@ class FridgeActivity : AppCompatActivity() {
 
 
             if (it.itemId==R.id.filtruj){
-            //    productList = dbHelper.getAllProducts()
                 Filters(productList)
             }
             if (it.itemId==R.id.sortuj){
-           //     productList = dbHelper.getAllProducts()
                 Sort(productList)
             }
             if (it.itemId==R.id.wyczysc){

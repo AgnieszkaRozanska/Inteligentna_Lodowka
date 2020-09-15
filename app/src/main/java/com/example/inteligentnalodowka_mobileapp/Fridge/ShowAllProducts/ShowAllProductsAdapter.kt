@@ -85,7 +85,7 @@ Filterable {
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         val formatted = current.format(formatter)
 
-        for(item in productsList)
+        for(item in productsFilterList)
         {
             if (item.expirationDate!="Brak") {
                 if(item.afterExpirationDate=="false") {
@@ -114,7 +114,7 @@ Filterable {
         val productName_cardView=productsFilterList[holder.adapterPosition].nameProduct
         val typeProduct_cardView = productsFilterList[holder.adapterPosition].type
         val countProduct_cardView = productsFilterList[holder.adapterPosition].quantity
-        val ifExpiredProduct = productsList[holder.adapterPosition].afterExpirationDate
+        val ifExpiredProduct = productsFilterList[holder.adapterPosition].afterExpirationDate
         setImage(typeProduct_cardView, holder)
 
         holder.productName.text = productName_cardView
