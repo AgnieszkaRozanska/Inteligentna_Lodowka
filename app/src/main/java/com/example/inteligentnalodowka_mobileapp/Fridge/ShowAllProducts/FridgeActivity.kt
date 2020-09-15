@@ -54,12 +54,16 @@ class FridgeActivity : AppCompatActivity() {
 
 
             if (it.itemId==R.id.filtruj){
+            //    productList = dbHelper.getAllProducts()
                 Filters(productList)
             }
             if (it.itemId==R.id.sortuj){
+           //     productList = dbHelper.getAllProducts()
                 Sort(productList)
             }
             if (it.itemId==R.id.wyczysc){
+                productList.clear()
+                productList = dbHelper.getAllProducts()
                 textViewBrakProduktu!!.visibility = TextView.INVISIBLE
                 onResume()
             }
@@ -536,6 +540,7 @@ class FridgeActivity : AppCompatActivity() {
             recyclerViewAllProducts.adapter =  ShowAllProductsAdapter(this, productList)
 
             adapter = recyclerViewAllProducts.adapter as ShowAllProductsAdapter
+
 
         }
         builder.show()
